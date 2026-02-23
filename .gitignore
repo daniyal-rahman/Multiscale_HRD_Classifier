@@ -1,6 +1,10 @@
 codebase.md
 scripts.md
 unconverted_scripts.md
+__pycache__/
+*.pyc
+v2/data_acquisition/raw/
+v2/data_acquisition/processed/
 
 # Ignore all files in the prelim_analysis/data directory
 prelim_analysis/data/*
