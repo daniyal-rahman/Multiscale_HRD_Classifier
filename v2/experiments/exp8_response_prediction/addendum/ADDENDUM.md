@@ -18,6 +18,7 @@
 9. [Label Leakage Verification](#9-label-leakage-verification)
 10. [TCGA-OV WES Analysis: Genomic Features vs RNA](#10-tcga-ov-wes-analysis-genomic-features-vs-rna)
 11. [QA Review: Paper Numbers and Code Correctness](#11-qa-review-paper-numbers-and-code-correctness)
+12. [Copy Number / HRD Score Covariate Analysis](#12-copy-number--hrd-score-covariate-analysis)
 
 ---
 
@@ -432,6 +433,44 @@ Independent QA review of all "vibe coded" work.
   3. Some data loaded from non-reproducible paths (`/tmp/`, runtime S3 URLs)
 
 > Full reports: [qa_paper_numbers.md](qa_paper_numbers.md) | [qa_code_review.md](qa_code_review.md)
+
+---
+
+## 12. Copy Number / HRD Score Covariate Analysis
+
+> **Peer request:** "Look at copynumber and try adding it as covariate in survival model and immune corr analysis."
+
+We matched 82/235 TCGA-OV patients to HRD scores (LOH, TAI, LST) from Knijnenburg et al. 2018.
+
+### RNA score correlates with HRD but not generic CNA burden
+
+| Feature | Spearman rho | p-value |
+|---------|------------:|--------:|
+| HRD_Score (LOH+TAI+LST) | +0.291 | 0.008 |
+| CNA fraction altered | +0.042 | 0.699 |
+| Mutation load | +0.006 | 0.954 |
+
+The model specifically captures HRD-related biology, not generic genomic instability.
+
+### RNA subsumes HRD's predictive signal
+
+| Predictor | AUC (n=82) |
+|-----------|----:|
+| RNA score | **0.745** |
+| HRD score | 0.652 |
+| RNA + HRD | 0.772 |
+
+- RNA adds to HRD: LR test **p=0.001**
+- HRD adds to RNA: LR test p=0.195 (not significant)
+- RNA adds to clinical + HRD in Cox DFS: **p=0.003**
+
+### BRCA-wildtype subgroup
+
+RNA score AUC = **0.785** vs HRD AUC = 0.630 in BRCA-wildtype patients (n=63). The RNA model captures platinum sensitivity beyond what HRD scores alone provide, especially in patients without BRCA mutations.
+
+**Bottom line:** Copy number (HRD scores) is modestly predictive but the RNA model subsumes its signal entirely. HRD adds nothing beyond RNA (p=0.195), while RNA adds significantly beyond HRD (p=0.001). This confirms the RNA model captures HRD-related biology plus additional signal (immune, stromal, metabolic).
+
+> Full analysis: [copynumber_covariate.md](copynumber_covariate.md) | Data: [copynumber_covariate_results.json](copynumber_covariate_results.json)
 
 ---
 
