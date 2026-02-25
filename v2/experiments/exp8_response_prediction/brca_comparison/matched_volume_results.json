@@ -1,0 +1,130 @@
+{
+  "experiment": "Matched-Volume Comparison: Response vs BRCA trained models",
+  "date": "2026-02-24",
+  "motivation": "Addresses the criticism that the response model uses 3x more training data than the BRCA model. Here we train BOTH models on the exact same datasets (TCGA-OV + GSE63885 = 310 samples) and compare on 7 held-out test datasets.",
+  "training_data": {
+    "datasets": [
+      "TCGA-OV",
+      "GSE63885"
+    ],
+    "n_samples_response": 310,
+    "n_responders": 206,
+    "n_non_responders": 104,
+    "n_samples_brca": 310,
+    "n_brca_mutated": 65,
+    "n_brca_wildtype": 245,
+    "note": "Both models trained on identical patient sets from TCGA-OV + GSE63885"
+  },
+  "test_datasets": [
+    "GSE156699",
+    "GSE173839",
+    "GSE18864",
+    "GSE194040",
+    "GSE28739",
+    "GSE30161",
+    "GSE32062"
+  ],
+  "model_config": {
+    "all_models": "L2 logistic regression, C=0.01, solver=lbfgs, class_weight=balanced, max_iter=5000",
+    "response_matched": "Trained on response labels from TCGA-OV + GSE63885 (310 samples)",
+    "brca_model": "Trained on BRCA mutation labels from TCGA-OV + GSE63885 (310 samples)",
+    "response_full": "Trained on all Model A datasets except held-out (LODO-CV, ~880 samples)",
+    "features": "11140 rank-transformed genes"
+  },
+  "per_dataset_results": {
+    "GSE156699": {
+      "n": 88,
+      "n_pos": 50,
+      "n_neg": 38,
+      "auc_response_matched": 0.7795,
+      "auc_brca": 0.5432,
+      "auc_response_full": 0.77,
+      "delta_matched_vs_brca": 0.2363,
+      "delta_full_vs_brca": 0.2268,
+      "winner_matched_vs_brca": "RESPONSE-MATCHED"
+    },
+    "GSE173839": {
+      "n": 71,
+      "n_pos": 29,
+      "n_neg": 42,
+      "auc_response_matched": 0.6708,
+      "auc_brca": 0.7135,
+      "auc_response_full": 0.8177,
+      "delta_matched_vs_brca": -0.0427,
+      "delta_full_vs_brca": 0.1043,
+      "winner_matched_vs_brca": "BRCA"
+    },
+    "GSE18864": {
+      "n": 24,
+      "n_pos": 8,
+      "n_neg": 16,
+      "auc_response_matched": 0.5078,
+      "auc_brca": 0.4922,
+      "auc_response_full": 0.5391,
+      "delta_matched_vs_brca": 0.0156,
+      "delta_full_vs_brca": 0.0469,
+      "winner_matched_vs_brca": "RESPONSE-MATCHED"
+    },
+    "GSE194040": {
+      "n": 71,
+      "n_pos": 27,
+      "n_neg": 44,
+      "auc_response_matched": 0.8569,
+      "auc_brca": 0.7551,
+      "auc_response_full": 0.8923,
+      "delta_matched_vs_brca": 0.1019,
+      "delta_full_vs_brca": 0.1372,
+      "winner_matched_vs_brca": "RESPONSE-MATCHED"
+    },
+    "GSE28739": {
+      "n": 25,
+      "n_pos": 10,
+      "n_neg": 15,
+      "auc_response_matched": 0.8,
+      "auc_brca": 0.5867,
+      "auc_response_full": 0.7467,
+      "delta_matched_vs_brca": 0.2133,
+      "delta_full_vs_brca": 0.16,
+      "winner_matched_vs_brca": "RESPONSE-MATCHED"
+    },
+    "GSE30161": {
+      "n": 55,
+      "n_pos": 32,
+      "n_neg": 23,
+      "auc_response_matched": 0.6712,
+      "auc_brca": 0.4171,
+      "auc_response_full": 0.731,
+      "delta_matched_vs_brca": 0.2541,
+      "delta_full_vs_brca": 0.3139,
+      "winner_matched_vs_brca": "RESPONSE-MATCHED"
+    },
+    "GSE32062": {
+      "n": 260,
+      "n_pos": 225,
+      "n_neg": 35,
+      "auc_response_matched": 0.5154,
+      "auc_brca": 0.5251,
+      "auc_response_full": 0.4894,
+      "delta_matched_vs_brca": -0.0097,
+      "delta_full_vs_brca": -0.0357,
+      "winner_matched_vs_brca": "BRCA"
+    }
+  },
+  "summary": {
+    "n_test_datasets": 7,
+    "mean_auc_response_matched": 0.6859,
+    "mean_auc_brca": 0.5761,
+    "mean_auc_response_full": 0.7123,
+    "mean_delta_matched_vs_brca": 0.1098,
+    "median_delta_matched_vs_brca": 0.1019,
+    "response_matched_wins": 5,
+    "brca_wins": 2,
+    "ties": 0,
+    "mean_delta_full_vs_brca": 0.1362
+  },
+  "training_sanity_checks": {
+    "brca_model_train_auc": 0.949,
+    "response_matched_train_auc": 0.9194
+  },
+  "conclusion": "Even with identical training volume (310 samples from TCGA-OV + GSE63885), the response-trained model outperforms the BRCA-trained model on drug response prediction. Response-matched wins on 5/7 test datasets (mean AUC 0.6859 vs 0.5761, delta=+0.1098). This eliminates training volume as a confound."
+}

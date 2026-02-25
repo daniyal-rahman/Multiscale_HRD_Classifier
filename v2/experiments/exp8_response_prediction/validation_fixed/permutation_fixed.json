@@ -1,0 +1,22 @@
+{
+  "model": "L2_C=0.01",
+  "gene_set": "11089_fixed",
+  "n_permutations": 5000,
+  "overall_all": {
+    "n_datasets": 9,
+    "observed_mean_auc": 0.7053,
+    "null_mean": 0.5003,
+    "null_std": 0.027,
+    "permutation_p": 0.0
+  },
+  "overall_clean": {
+    "n_datasets": 8,
+    "observed_mean_auc": 0.6951,
+    "null_mean": 0.4999,
+    "null_std": 0.0267,
+    "permutation_p": 0.0
+  },
+  "exclude_list": [
+    "GSE28739"
+  ]
+}

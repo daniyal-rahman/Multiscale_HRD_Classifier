@@ -1,0 +1,297 @@
+{
+  "characterization": {
+    "n_samples": 75,
+    "n_sensitive": 41,
+    "n_resistant": 34,
+    "nan_fraction": 0.0,
+    "platform": "Affymetrix_HGU133Plus2",
+    "gene_coverage": "11140/11140 (100%)",
+    "treatment_taxane_platinum": 41,
+    "treatment_platinum_cyclo": 34,
+    "brca1_mutated": 21,
+    "brca1_wildtype": 54,
+    "platinum_sensitivity_categories": {
+      "resistant": 34,
+      "moderately_sensitive": 28,
+      "highly_sensitive": 13
+    },
+    "dfs_cutoff_days": 180,
+    "dfs_cutoff_months": 6
+  },
+  "prediction_analysis": {
+    "auc_C1": 0.5753,
+    "auc_C001": 0.6047,
+    "pred_mean": 0.2978,
+    "pred_std": 0.2938,
+    "pred_range": 0.9783,
+    "pred_mean_sensitive": 0.3502,
+    "pred_mean_resistant": 0.2346
+  },
+  "response_definition": {
+    "definition": "DFS < 180 days = resistant (NOT PFS)",
+    "dfs_vs_pfs_note": "DFS counts from surgery, PFS from chemo start. DFS cutoff is effectively stricter.",
+    "cutoff_auc_sweep": {
+      "3": {
+        "auc": 0.5592,
+        "n_sensitive": 50,
+        "n_resistant": 25
+      },
+      "6": {
+        "auc": 0.5215,
+        "n_sensitive": 41,
+        "n_resistant": 34
+      },
+      "9": {
+        "auc": 0.5305,
+        "n_sensitive": 32,
+        "n_resistant": 43
+      },
+      "12": {
+        "auc": 0.5494,
+        "n_sensitive": 28,
+        "n_resistant": 47
+      },
+      "18": {
+        "auc": 0.5578,
+        "n_sensitive": 17,
+        "n_resistant": 58
+      },
+      "24": {
+        "auc": 0.5732,
+        "n_sensitive": 13,
+        "n_resistant": 62
+      }
+    }
+  },
+  "batch_effect": {
+    "pca_distances": {
+      "GSE156699": 11.75,
+      "GSE173839": 27.78,
+      "GSE18864": 7.57,
+      "GSE194040": 22.03,
+      "GSE28739": 28.16,
+      "GSE30161": 23.99,
+      "GSE32062": 28.15,
+      "TCGA-OV": 15.48
+    },
+    "top20_gene_shifts": [
+      {
+        "gene": "RPL36A",
+        "gse63885_mean": 0.045,
+        "tcga_mean": 0.2377,
+        "mean_diff": -0.1926,
+        "ks_stat": 1.0,
+        "ks_p": 1.2202273393475085e-73
+      },
+      {
+        "gene": "RPLP2",
+        "gse63885_mean": 0.205,
+        "tcga_mean": 0.9911,
+        "mean_diff": -0.7861,
+        "ks_stat": 1.0,
+        "ks_p": 1.2202273393475085e-73
+      },
+      {
+        "gene": "BAALC",
+        "gse63885_mean": 0.1969,
+        "tcga_mean": 0.2026,
+        "mean_diff": -0.0057,
+        "ks_stat": 0.1095,
+        "ks_p": 0.46481641913552657
+      },
+      {
+        "gene": "FUT6",
+        "gse63885_mean": 0.4891,
+        "tcga_mean": 0.0892,
+        "mean_diff": 0.3999,
+        "ks_stat": 0.9915,
+        "ks_p": 3.5703851949308124e-70
+      },
+      {
+        "gene": "FTHL17",
+        "gse63885_mean": 0.0052,
+        "tcga_mean": 0.0261,
+        "mean_diff": -0.0208,
+        "ks_stat": 0.9696,
+        "ks_p": 5.035888608740925e-64
+      },
+      {
+        "gene": "LBX1",
+        "gse63885_mean": 0.0143,
+        "tcga_mean": 0.0491,
+        "mean_diff": -0.0348,
+        "ks_stat": 0.5918,
+        "ks_p": 3.6581730431844144e-19
+      },
+      {
+        "gene": "RAX2",
+        "gse63885_mean": 0.3856,
+        "tcga_mean": 0.1016,
+        "mean_diff": 0.284,
+        "ks_stat": 0.9787,
+        "ks_p": 2.93553336831553e-66
+      },
+      {
+        "gene": "NPY",
+        "gse63885_mean": 0.2093,
+        "tcga_mean": 0.1406,
+        "mean_diff": 0.0687,
+        "ks_stat": 0.625,
+        "ks_p": 1.5809711876769298e-21
+      },
+      {
+        "gene": "UBOX5",
+        "gse63885_mean": 0.4429,
+        "tcga_mean": 0.4738,
+        "mean_diff": -0.0309,
+        "ks_stat": 0.242,
+        "ks_p": 0.0020298002245776694
+      },
+      {
+        "gene": "CILP",
+        "gse63885_mean": 0.5729,
+        "tcga_mean": 0.4321,
+        "mean_diff": 0.1407,
+        "ks_stat": 0.3949,
+        "ks_p": 1.830317113080679e-08
+      },
+      {
+        "gene": "MT1E",
+        "gse63885_mean": 0.9396,
+        "tcga_mean": 0.6964,
+        "mean_diff": 0.2432,
+        "ks_stat": 0.564,
+        "ks_p": 2.5600481897255802e-17
+      },
+      {
+        "gene": "CADPS2",
+        "gse63885_mean": 0.409,
+        "tcga_mean": 0.3766,
+        "mean_diff": 0.0324,
+        "ks_stat": 0.1441,
+        "ks_p": 0.16847154371443548
+      },
+      {
+        "gene": "NGEF",
+        "gse63885_mean": 0.4347,
+        "tcga_mean": 0.4554,
+        "mean_diff": -0.0206,
+        "ks_stat": 0.107,
+        "ks_p": 0.4945786162059119
+      },
+      {
+        "gene": "TTYH1",
+        "gse63885_mean": 0.1229,
+        "tcga_mean": 0.3737,
+        "mean_diff": -0.2508,
+        "ks_stat": 0.693,
+        "ks_p": 5.8055574279965945e-27
+      },
+      {
+        "gene": "ITIH5",
+        "gse63885_mean": 0.4613,
+        "tcga_mean": 0.5306,
+        "mean_diff": -0.0693,
+        "ks_stat": 0.1691,
+        "ks_p": 0.06765650838932544
+      },
+      {
+        "gene": "LPAR3",
+        "gse63885_mean": 0.7264,
+        "tcga_mean": 0.744,
+        "mean_diff": -0.0176,
+        "ks_stat": 0.1594,
+        "ks_p": 0.0979402634724206
+      },
+      {
+        "gene": "SFRP2",
+        "gse63885_mean": 0.4837,
+        "tcga_mean": 0.5028,
+        "mean_diff": -0.0191,
+        "ks_stat": 0.219,
+        "ks_p": 0.007026106259373058
+      },
+      {
+        "gene": "CELSR1",
+        "gse63885_mean": 0.6213,
+        "tcga_mean": 0.8657,
+        "mean_diff": -0.2444,
+        "ks_stat": 0.72,
+        "ks_p": 2.3444595361283777e-29
+      },
+      {
+        "gene": "SCEL",
+        "gse63885_mean": 0.1654,
+        "tcga_mean": 0.3059,
+        "mean_diff": -0.1405,
+        "ks_stat": 0.5762,
+        "ks_p": 4.157357384916832e-18
+      },
+      {
+        "gene": "SPG7",
+        "gse63885_mean": 0.0463,
+        "tcga_mean": 0.732,
+        "mean_diff": -0.6858,
+        "ks_stat": 1.0,
+        "ks_p": 1.2202273393475085e-73
+      }
+    ],
+    "n_significantly_shifted": 13
+  },
+  "treatment_confound": {
+    "treatment_response_OR": 1.136,
+    "treatment_response_p": 0.8192
+  },
+  "within_dataset": {
+    "cv_auc_C1_mean": 0.3813,
+    "cv_auc_C1_std": 0.0634,
+    "cv_auc_C001_mean": 0.4356,
+    "cv_auc_C001_std": 0.043,
+    "cv_aucs_C1": [
+      0.4643,
+      0.2857,
+      0.4286,
+      0.3393,
+      0.3889
+    ],
+    "cv_aucs_C001": [
+      0.4643,
+      0.375,
+      0.4643,
+      0.3929,
+      0.4815
+    ]
+  },
+  "univariate": {
+    "n_tested": 11140,
+    "n_sig_005": 467,
+    "n_sig_001": 90,
+    "n_sig_bonferroni": 0,
+    "expected_by_chance": 557
+  },
+  "cross_dataset": {
+    "gse63885_to_tcga": 0.5389,
+    "tcga_to_gse63885": 0.5739,
+    "gse156699_to_gse63885": 0.6435
+  },
+  "summary": {
+    "verdict": "Genuine failure \u2014 model signal does not transfer to this cohort",
+    "key_points": [
+      "GSE63885 has FULL gene coverage (11140/11140, zero NaN).",
+      "This is a GENUINE model failure, not a data pipeline bug.",
+      "AUC=0.5753 with C=1.0, AUC=0.6047 with C=0.01.",
+      "Prediction range is 0.978 \u2014 the model DOES discriminate (unlike GSE32062).",
+      "Within-dataset CV: 0.381 (C=1) / 0.436 (C=0.01).",
+      "Univariate predictors: 467 genes at p<0.05 (expected 557 by chance).",
+      "BRCA1 mutation rate: 28% \u2014 high for ovarian cohort.",
+      "Treatment mix: 41 taxane/plat + 34 plat/cyclo."
+    ],
+    "possible_explanations": [
+      "1. Treatment heterogeneity: 45% received platinum/cyclophosphamide (older regimen) vs taxane/platinum in most training data",
+      "2. High BRCA1 mutation rate (28%) may alter response biology differently than in WT-dominated training cohorts",
+      "3. Response endpoint is DFS-based (from surgery) not PFS-based (from chemo start) \u2014 subtle definition mismatch",
+      "4. Polish cohort may have population-specific biology or treatment protocols",
+      "5. Small sample size (n=75, 34 resistant) gives wide CIs: [0.444, 0.704] from bootstrap"
+    ]
+  }
+}

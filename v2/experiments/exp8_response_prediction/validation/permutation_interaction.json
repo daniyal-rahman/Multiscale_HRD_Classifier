@@ -1,0 +1,40 @@
+{
+  "interaction_permutation": {
+    "n_permutations": 5000,
+    "all_ispy2": {
+      "observed_coef": 2.3172,
+      "observed_pval_parametric": 0.327671,
+      "permutation_p_onesided": 0.26,
+      "permutation_p_twosided": 0.4812,
+      "n_valid_perms": 5000
+    },
+    "gse194040": {
+      "observed_coef": 16.9066,
+      "observed_pval_parametric": 0.011998,
+      "permutation_p_onesided": 0.034,
+      "permutation_p_twosided": 0.034,
+      "n_valid_perms": 5000
+    }
+  },
+  "lodo_cv_permutation": {
+    "n_permutations": 10000,
+    "method": "label_shuffle_on_cached_predictions",
+    "observed_mean_auc": 0.6707,
+    "null_mean_auc": 0.4997,
+    "null_std_auc": 0.0273,
+    "null_95th": 0.5443,
+    "null_99th": 0.5626,
+    "permutation_p": 0.0,
+    "per_dataset_obs_auc": {
+      "GSE156699": 0.7379,
+      "GSE173839": 0.7923,
+      "GSE18864": 0.4688,
+      "GSE194040": 0.8603,
+      "GSE28739": 0.7267,
+      "GSE30161": 0.6984,
+      "GSE32062": 0.5177,
+      "GSE63885": 0.5753,
+      "TCGA-OV": 0.6589
+    }
+  }
+}

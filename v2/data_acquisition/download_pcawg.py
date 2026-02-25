@@ -24,6 +24,7 @@ import pandas as pd
 import requests
 from tqdm import tqdm
 
+import sys; sys.path.insert(0, str(Path(__file__).parent))
 from _manifest import update_manifest
 
 logging.basicConfig(

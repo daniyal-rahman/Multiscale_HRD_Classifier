@@ -1,0 +1,310 @@
+{
+  "experiment": "Exp8b: Survival Analysis + Signature Overlap",
+  "date": "2026-02-23",
+  "survival_analysis": {
+    "TCGA-OV_OS": {
+      "n": 235,
+      "n_events": 142,
+      "logrank_p": 0.012015,
+      "cox_hr": 0.4326,
+      "cox_p": 0.002621,
+      "cox_ci_low": 0.2506,
+      "cox_ci_high": 0.7466,
+      "spearman_rho": 0.1394,
+      "spearman_p": 0.032656,
+      "km_median_high": 51.88,
+      "km_median_low": 41.36
+    },
+    "TCGA-OV_DFS": {
+      "n": 234,
+      "n_events": 200,
+      "logrank_p": 0.000138,
+      "cox_hr": 0.4136,
+      "cox_p": 0.000149,
+      "cox_ci_low": 0.2621,
+      "cox_ci_high": 0.6527,
+      "spearman_rho": 0.2784,
+      "spearman_p": 1.5e-05,
+      "km_median_high": 19.78,
+      "km_median_low": 12.98
+    },
+    "GSE32062_PFS": {
+      "n": 260,
+      "n_events": 193,
+      "logrank_p": 0.504015,
+      "cox_hr": 1439.7073,
+      "cox_p": 0.40451,
+      "cox_ci": [
+        0.0001,
+        38377547502.362
+      ],
+      "spearman_rho": -0.036,
+      "spearman_p": 0.562818,
+      "km_median_high": 19.0,
+      "km_median_low": 19.0
+    },
+    "GSE32062_OS": {
+      "n": 260,
+      "n_events": 121,
+      "logrank_p": 0.358415,
+      "cox_hr": 968.8912,
+      "cox_p": 0.552961,
+      "cox_ci": [
+        0.0,
+        7094895511398.876
+      ],
+      "spearman_rho": -0.0778,
+      "spearman_p": 0.211445,
+      "km_median_high": 42.0,
+      "km_median_low": 40.0
+    },
+    "GSE30161_OS": {
+      "n": 47,
+      "n_events": 33,
+      "logrank_p": 0.240126,
+      "cox_hr": 3.7496,
+      "cox_p": 0.10809,
+      "cox_ci": [
+        0.7479,
+        18.7984
+      ],
+      "spearman_rho": -0.0539,
+      "spearman_p": 0.719047,
+      "km_median_high": 34.1,
+      "km_median_low": 32.4
+    },
+    "GSE63885_DFS": {
+      "n": 50,
+      "n_events": 42,
+      "logrank_p": 0.058837,
+      "cox_hr": 0.3515,
+      "cox_p": 0.072315,
+      "cox_ci": [
+        0.1124,
+        1.0994
+      ],
+      "spearman_rho": 0.3033,
+      "spearman_p": 0.032237,
+      "km_median_high": 16.8,
+      "km_median_low": 10.1
+    },
+    "GSE63885_OS": {
+      "n": 75,
+      "n_events": 66,
+      "logrank_p": 0.607661,
+      "cox_hr": 0.5285,
+      "cox_p": 0.140086,
+      "cox_ci": [
+        0.2265,
+        1.2329
+      ],
+      "spearman_rho": 0.0761,
+      "spearman_p": 0.516218,
+      "km_median_high": 36.7,
+      "km_median_low": 35.9
+    }
+  },
+  "signature_overlap": {
+    "Beinse2022": {
+      "n_genes_in_common_set": 60,
+      "overlap_top100": 1,
+      "overlap_top200": 2,
+      "overlap_top500": 4,
+      "jaccard_top100": 0.0063
+    },
+    "CIN70": {
+      "n_genes_in_common_set": 56,
+      "overlap_top100": 0,
+      "overlap_top200": 0,
+      "overlap_top500": 1,
+      "jaccard_top100": 0.0
+    },
+    "Consensus-93": {
+      "n_genes_in_common_set": 76,
+      "overlap_top100": 0,
+      "overlap_top200": 1,
+      "overlap_top500": 2,
+      "jaccard_top100": 0.0
+    },
+    "DD-500": {
+      "n_genes_in_common_set": 324,
+      "overlap_top100": 5,
+      "overlap_top200": 5,
+      "overlap_top500": 19,
+      "jaccard_top100": 0.0119
+    },
+    "Konst.BRCAness": {
+      "n_genes_in_common_set": 50,
+      "overlap_top100": 1,
+      "overlap_top200": 1,
+      "overlap_top500": 2,
+      "jaccard_top100": 0.0067
+    },
+    "Multiscale": {
+      "n_genes_in_common_set": 89,
+      "overlap_top100": 0,
+      "overlap_top200": 2,
+      "overlap_top500": 4,
+      "jaccard_top100": 0.0
+    },
+    "PARPi7": {
+      "n_genes_in_common_set": 5,
+      "overlap_top100": 0,
+      "overlap_top200": 0,
+      "overlap_top500": 0,
+      "jaccard_top100": 0.0
+    },
+    "POLQ": {
+      "n_genes_in_common_set": 1,
+      "overlap_top100": 0,
+      "overlap_top200": 0,
+      "overlap_top500": 0,
+      "jaccard_top100": 0.0
+    },
+    "PanHRD200": {
+      "n_genes_in_common_set": 39,
+      "overlap_top100": 0,
+      "overlap_top200": 0,
+      "overlap_top500": 0,
+      "jaccard_top100": 0.0
+    },
+    "Peng2014": {
+      "n_genes_in_common_set": 155,
+      "overlap_top100": 0,
+      "overlap_top200": 2,
+      "overlap_top500": 6,
+      "jaccard_top100": 0.0
+    },
+    "ProHRDness": {
+      "n_genes_in_common_set": 9,
+      "overlap_top100": 0,
+      "overlap_top200": 0,
+      "overlap_top500": 0,
+      "jaccard_top100": 0.0
+    },
+    "Severson": {
+      "n_genes_in_common_set": 54,
+      "overlap_top100": 1,
+      "overlap_top200": 2,
+      "overlap_top500": 3,
+      "jaccard_top100": 0.0065
+    },
+    "expHRD": {
+      "n_genes_in_common_set": 56,
+      "overlap_top100": 0,
+      "overlap_top200": 0,
+      "overlap_top500": 1,
+      "jaccard_top100": 0.0
+    },
+    "softHRD": {
+      "n_genes_in_common_set": 90,
+      "overlap_top100": 0,
+      "overlap_top200": 2,
+      "overlap_top500": 4,
+      "jaccard_top100": 0.0
+    }
+  },
+  "top_100_genes": [
+    "ADAMTS1",
+    "AGR2",
+    "ALDH3B2",
+    "ANKRD10",
+    "ASPHD1",
+    "ATF7IP2",
+    "ATP11A",
+    "B3GNT3",
+    "BAALC",
+    "BARX1",
+    "BBOX1",
+    "BOK",
+    "CADPS2",
+    "CDH3",
+    "CELSR1",
+    "CILP",
+    "CLDN6",
+    "COL21A1",
+    "CRTC1",
+    "CXCL9",
+    "CYP1B1",
+    "DIO2",
+    "DMBT1",
+    "DNALI1",
+    "EIF4A2",
+    "EPB41L2",
+    "EPHB3",
+    "FAM126B",
+    "FAT1",
+    "FGFBP1",
+    "FOLR1",
+    "FOXJ1",
+    "FTHL17",
+    "FUT6",
+    "FXYD6",
+    "FZD5",
+    "GBP3",
+    "GBP5",
+    "GDPD5",
+    "GJB1",
+    "GPC4",
+    "GPRC5A",
+    "GSTM1",
+    "GULP1",
+    "HLA-DQA1",
+    "IGF2BP3",
+    "IMPA2",
+    "IRX3",
+    "ITIH5",
+    "KCTD15",
+    "KDELR3",
+    "KIF1A",
+    "KLC3",
+    "KLK13",
+    "LBX1",
+    "LMO3",
+    "LPAR3",
+    "MAGEA12",
+    "MLC1",
+    "MT1E",
+    "MT1F",
+    "MT1G",
+    "NGEF",
+    "NPY",
+    "OXTR",
+    "PALMD",
+    "PASD1",
+    "PAX8",
+    "PKP2",
+    "POSTN",
+    "PPP1R14A",
+    "PRKCA",
+    "PSPH",
+    "RASIP1",
+    "RAX2",
+    "RBMS3",
+    "RPL36A",
+    "RPLP2",
+    "RPS6KA2",
+    "SCEL",
+    "SFRP2",
+    "SLC15A3",
+    "SLC35F3",
+    "SLC38A5",
+    "SLC44A4",
+    "SLC4A11",
+    "SLC7A11",
+    "SPG7",
+    "SPOCK3",
+    "SST",
+    "TFPI2",
+    "TIAM1",
+    "TMEM132C",
+    "TMTC1",
+    "TOX2",
+    "TTYH1",
+    "UBOX5",
+    "VSTM2L",
+    "WNT10A",
+    "ZNF275"
+  ],
+  "ispy2_survival_note": "No EFS/DRFS data available in public I-SPY2 GEO deposits. Cannot test survival \u00d7 treatment arm interaction."
+}

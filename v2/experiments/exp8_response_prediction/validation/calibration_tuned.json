@@ -1,0 +1,80 @@
+{
+  "GSE156699": {
+    "brier_score": 0.2106,
+    "ece": 0.1731,
+    "pred_mean": 0.6158,
+    "pred_std": 0.1282,
+    "pred_range": 0.5429,
+    "n_test": 88
+  },
+  "GSE173839": {
+    "brier_score": 0.1818,
+    "ece": 0.1204,
+    "pred_mean": 0.4405,
+    "pred_std": 0.1677,
+    "pred_range": 0.6132,
+    "n_test": 71
+  },
+  "GSE18864": {
+    "brier_score": 0.3313,
+    "ece": 0.3372,
+    "pred_mean": 0.6706,
+    "pred_std": 0.0564,
+    "pred_range": 0.24,
+    "n_test": 24
+  },
+  "GSE194040": {
+    "brier_score": 0.1734,
+    "ece": 0.174,
+    "pred_mean": 0.483,
+    "pred_std": 0.1657,
+    "pred_range": 0.5804,
+    "n_test": 71
+  },
+  "GSE28739": {
+    "brier_score": 0.2381,
+    "ece": 0.28,
+    "pred_mean": 0.6283,
+    "pred_std": 0.2103,
+    "pred_range": 0.7502,
+    "n_test": 25
+  },
+  "GSE30161": {
+    "brier_score": 0.2403,
+    "ece": 0.1908,
+    "pred_mean": 0.4228,
+    "pred_std": 0.1054,
+    "pred_range": 0.4755,
+    "n_test": 55
+  },
+  "GSE32062": {
+    "brier_score": 0.332,
+    "ece": 0.4642,
+    "pred_mean": 0.4012,
+    "pred_std": 0.0008,
+    "pred_range": 0.0063,
+    "n_test": 260
+  },
+  "GSE63885": {
+    "brier_score": 0.3097,
+    "ece": 0.2667,
+    "pred_mean": 0.2824,
+    "pred_std": 0.0983,
+    "pred_range": 0.472,
+    "n_test": 75
+  },
+  "TCGA-OV": {
+    "brier_score": 0.2597,
+    "ece": 0.246,
+    "pred_mean": 0.4561,
+    "pred_std": 0.1345,
+    "pred_range": 0.5738,
+    "n_test": 235
+  },
+  "_summary": {
+    "model": "L2_C=0.01",
+    "mean_ece_all": 0.2503,
+    "mean_ece_clean": 0.2155,
+    "mean_brier_all": 0.253
+  }
+}

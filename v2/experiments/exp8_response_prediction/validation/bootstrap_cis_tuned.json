@@ -1,0 +1,120 @@
+{
+  "GSE156699": {
+    "point_auc": 0.7695,
+    "ci_lower": 0.6636,
+    "ci_upper": 0.8649,
+    "ci_width": 0.2013,
+    "includes_random": false,
+    "n_test": 88,
+    "n_pos": 50,
+    "n_neg": 38,
+    "model": "L2_C=0.01"
+  },
+  "GSE173839": {
+    "point_auc": 0.8177,
+    "ci_lower": 0.7101,
+    "ci_upper": 0.9113,
+    "ci_width": 0.2012,
+    "includes_random": false,
+    "n_test": 71,
+    "n_pos": 29,
+    "n_neg": 42,
+    "model": "L2_C=0.01"
+  },
+  "GSE18864": {
+    "point_auc": 0.5391,
+    "ci_lower": 0.2733,
+    "ci_upper": 0.7963,
+    "ci_width": 0.5229,
+    "includes_random": true,
+    "n_test": 24,
+    "n_pos": 8,
+    "n_neg": 16,
+    "model": "L2_C=0.01"
+  },
+  "GSE194040": {
+    "point_auc": 0.8923,
+    "ci_lower": 0.8113,
+    "ci_upper": 0.9577,
+    "ci_width": 0.1464,
+    "includes_random": false,
+    "n_test": 71,
+    "n_pos": 27,
+    "n_neg": 44,
+    "model": "L2_C=0.01"
+  },
+  "GSE28739": {
+    "point_auc": 0.7467,
+    "ci_lower": 0.5294,
+    "ci_upper": 0.9376,
+    "ci_width": 0.4082,
+    "includes_random": false,
+    "n_test": 25,
+    "n_pos": 10,
+    "n_neg": 15,
+    "model": "L2_C=0.01"
+  },
+  "GSE30161": {
+    "point_auc": 0.731,
+    "ci_lower": 0.5868,
+    "ci_upper": 0.8598,
+    "ci_width": 0.273,
+    "includes_random": false,
+    "n_test": 55,
+    "n_pos": 32,
+    "n_neg": 23,
+    "model": "L2_C=0.01"
+  },
+  "GSE32062": {
+    "point_auc": 0.4894,
+    "ci_lower": 0.3905,
+    "ci_upper": 0.5884,
+    "ci_width": 0.1979,
+    "includes_random": true,
+    "n_test": 260,
+    "n_pos": 225,
+    "n_neg": 35,
+    "model": "L2_C=0.01"
+  },
+  "GSE63885": {
+    "point_auc": 0.6047,
+    "ci_lower": 0.4743,
+    "ci_upper": 0.7348,
+    "ci_width": 0.2605,
+    "includes_random": true,
+    "n_test": 75,
+    "n_pos": 41,
+    "n_neg": 34,
+    "model": "L2_C=0.01"
+  },
+  "TCGA-OV": {
+    "point_auc": 0.6454,
+    "ci_lower": 0.5641,
+    "ci_upper": 0.718,
+    "ci_width": 0.1539,
+    "includes_random": false,
+    "n_test": 235,
+    "n_pos": 165,
+    "n_neg": 70,
+    "model": "L2_C=0.01"
+  },
+  "_summary": {
+    "model": "L2_C=0.01",
+    "n_bootstrap": 2000,
+    "cannot_reject_random": [
+      "GSE18864",
+      "GSE32062",
+      "GSE63885"
+    ],
+    "significantly_above_random": [
+      "GSE156699",
+      "GSE173839",
+      "GSE194040",
+      "GSE28739",
+      "GSE30161",
+      "TCGA-OV"
+    ],
+    "mean_auc_all_9": 0.6929,
+    "mean_auc_clean_7": 0.7142
+  }
+}

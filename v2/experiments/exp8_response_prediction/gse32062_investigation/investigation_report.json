@@ -1,0 +1,528 @@
+{
+  "investigation_0_nan_problem": {
+    "root_cause": "GSE32062 Agilent samples have only ~35 of 11140 common genes with actual data",
+    "nan_fraction_in_pooled": 0.996858,
+    "non_nan_genes_per_sample": 35.0,
+    "non_nan_gene_names": [
+      "BAALC",
+      "CACNA1I",
+      "CASKIN1",
+      "CDC42EP5",
+      "COX6A2",
+      "CRTC1",
+      "DLGAP3",
+      "DRD4",
+      "EDARADD",
+      "EIF3C",
+      "EIF4A2",
+      "EN2",
+      "FHIT",
+      "FTHL17",
+      "FUT6",
+      "GRIN2D",
+      "HCN2",
+      "HCN4",
+      "HES7",
+      "HOXA3",
+      "KLC3",
+      "LBX1",
+      "ORAI1",
+      "PDZD7",
+      "PHOX2A",
+      "RAX2",
+      "RCOR2",
+      "RPL36A",
+      "RPLP2",
+      "RPS8",
+      "SLC35E4",
+      "SOX3",
+      "SPG7",
+      "TPSG1",
+      "UBOX5"
+    ],
+    "n_agilent_samples_in_expr": 260,
+    "n_affymetrix_samples_in_expr": 10,
+    "agilent_total_genes": 1394,
+    "agilent_common_genes": 35,
+    "affymetrix_total_genes": 21701,
+    "affymetrix_common_genes": 11105,
+    "explanation": "The expression_std.parquet merged Agilent (260) + Affymetrix (10) samples. Agilent gene names barely overlap with the standardized common gene list. After rank transformation, 99.7% of features are NaN. The model fills NaN\u21920.5, so predictions are based on ~35 genes, effectively constant input. AUC=0.517 is expected.",
+    "dataset_nan_fractions": {
+      "GDSC": {
+        "nan_fraction": 0.0,
+        "mean_non_nan_genes": 11140.0,
+        "n_samples": 695
+      },
+      "GSE156699": {
+        "nan_fraction": 0.0,
+        "mean_non_nan_genes": 11140.0,
+        "n_samples": 88
+      },
+      "GSE173839": {
+        "nan_fraction": 3.1e-05,
+        "mean_non_nan_genes": 11139.6,
+        "n_samples": 100
+      },
+      "GSE18864": {
+        "nan_fraction": 0.0,
+        "mean_non_nan_genes": 11140.0,
+        "n_samples": 24
+      },
+      "GSE194040": {
+        "nan_fraction": 0.000246,
+        "mean_non_nan_genes": 11137.3,
+        "n_samples": 250
+      },
+      "GSE28739": {
+        "nan_fraction": 0.0,
+        "mean_non_nan_genes": 11140.0,
+        "n_samples": 25
+      },
+      "GSE30161": {
+        "nan_fraction": 0.0,
+        "mean_non_nan_genes": 11140.0,
+        "n_samples": 55
+      },
+      "GSE32062": {
+        "nan_fraction": 0.996858,
+        "mean_non_nan_genes": 35.0,
+        "n_samples": 260
+      },
+      "GSE63885": {
+        "nan_fraction": 0.0,
+        "mean_non_nan_genes": 11140.0,
+        "n_samples": 75
+      },
+      "TCGA-OV": {
+        "nan_fraction": 0.0,
+        "mean_non_nan_genes": 11140.0,
+        "n_samples": 235
+      }
+    }
+  },
+  "investigation_1_class_imbalance": {
+    "n_positive": 225,
+    "n_negative": 35,
+    "positive_rate": 0.8654,
+    "null_auc_mean": 0.4999,
+    "null_auc_std": 0.0523,
+    "null_auc_95th": 0.5862,
+    "null_auc_975th": 0.6027,
+    "observed_auc": 0.5177,
+    "p_value_vs_null": 0.3605,
+    "ap_score": 0.8744,
+    "ap_baseline": 0.8654,
+    "f1": 0.0,
+    "mcc": 0.0,
+    "brier": 0.4504,
+    "prediction_mean": 0.2876,
+    "prediction_std": 0.0083,
+    "prediction_range": 0.0639,
+    "note": "Class imbalance alone is not the issue \u2014 the real problem is 99.7% NaN features"
+  },
+  "investigation_2_platform": {
+    "n_agilent": 260,
+    "n_affymetrix": 10,
+    "agilent_genes": 1394,
+    "affymetrix_genes": 21701,
+    "shared_platform_genes": 0,
+    "rank_correlation_rho": 0.2154,
+    "rank_correlation_p": 0.2139674319209404,
+    "verdict": "Agilent gene names barely map to standardized common gene list. Only ~35 genes survive \u2192 model input is 99.7% constant."
+  },
+  "investigation_3_labels": {
+    "pfs_mean": 26.9,
+    "pfs_median": 19.0,
+    "pfs_min": 1.0,
+    "pfs_max": 119.0,
+    "original_cutoff_6m_sensitive_rate": 0.8654,
+    "cutoff_results": {
+      "cutoff_6m": {
+        "n_sensitive": 225,
+        "n_total": 260,
+        "sensitive_rate": 0.8654
+      },
+      "cutoff_9m": {
+        "n_sensitive": 205,
+        "n_total": 260,
+        "sensitive_rate": 0.7885
+      },
+      "cutoff_12m": {
+        "n_sensitive": 180,
+        "n_total": 260,
+        "sensitive_rate": 0.6923
+      },
+      "cutoff_15m": {
+        "n_sensitive": 153,
+        "n_total": 260,
+        "sensitive_rate": 0.5885
+      },
+      "cutoff_18m": {
+        "n_sensitive": 136,
+        "n_total": 260,
+        "sensitive_rate": 0.5231
+      },
+      "cutoff_24m": {
+        "n_sensitive": 99,
+        "n_total": 260,
+        "sensitive_rate": 0.3808
+      }
+    },
+    "auc_by_cutoff": {
+      "6": 0.5177,
+      "9": 0.517,
+      "12": 0.5008,
+      "15": 0.4688,
+      "18": 0.4772,
+      "21": 0.4819,
+      "24": 0.4727,
+      "27": 0.4742,
+      "30": 0.4538,
+      "33": 0.4474,
+      "36": 0.4684
+    },
+    "verdict": "6-month cutoff creates extreme class imbalance (87% sensitive). But even at stricter cutoffs, AUC stays poor because the underlying feature data is 99.7% constant."
+  },
+  "investigation_4_expression": {
+    "top20_genes_with_data": 9,
+    "top20_gene_details": [
+      {
+        "gene": "RPL36A",
+        "has_data_in_gse32062": true,
+        "weight": -0.8798
+      },
+      {
+        "gene": "RPLP2",
+        "has_data_in_gse32062": true,
+        "weight": -0.6824
+      },
+      {
+        "gene": "BAALC",
+        "has_data_in_gse32062": true,
+        "weight": -0.6725
+      },
+      {
+        "gene": "FUT6",
+        "has_data_in_gse32062": true,
+        "weight": 0.6205
+      },
+      {
+        "gene": "FTHL17",
+        "has_data_in_gse32062": true,
+        "weight": 0.6133
+      },
+      {
+        "gene": "LBX1",
+        "has_data_in_gse32062": true,
+        "weight": 0.5442
+      },
+      {
+        "gene": "RAX2",
+        "has_data_in_gse32062": true,
+        "weight": -0.5328
+      },
+      {
+        "gene": "NPY",
+        "has_data_in_gse32062": false,
+        "weight": -0.4653
+      },
+      {
+        "gene": "UBOX5",
+        "has_data_in_gse32062": true,
+        "weight": 0.425
+      },
+      {
+        "gene": "CILP",
+        "has_data_in_gse32062": false,
+        "weight": 0.4184
+      },
+      {
+        "gene": "MT1E",
+        "has_data_in_gse32062": false,
+        "weight": -0.4148
+      },
+      {
+        "gene": "CADPS2",
+        "has_data_in_gse32062": false,
+        "weight": 0.4145
+      },
+      {
+        "gene": "NGEF",
+        "has_data_in_gse32062": false,
+        "weight": 0.4082
+      },
+      {
+        "gene": "TTYH1",
+        "has_data_in_gse32062": false,
+        "weight": 0.408
+      },
+      {
+        "gene": "ITIH5",
+        "has_data_in_gse32062": false,
+        "weight": 0.3996
+      },
+      {
+        "gene": "LPAR3",
+        "has_data_in_gse32062": false,
+        "weight": 0.3986
+      },
+      {
+        "gene": "SFRP2",
+        "has_data_in_gse32062": false,
+        "weight": -0.3819
+      },
+      {
+        "gene": "CELSR1",
+        "has_data_in_gse32062": false,
+        "weight": -0.3717
+      },
+      {
+        "gene": "SCEL",
+        "has_data_in_gse32062": false,
+        "weight": -0.3671
+      },
+      {
+        "gene": "SPG7",
+        "has_data_in_gse32062": true,
+        "weight": -0.3669
+      }
+    ],
+    "n_non_nan_genes": 35,
+    "univariate_significant_genes": 2,
+    "gene_correlations": [
+      {
+        "gene": "BAALC",
+        "correlation": -0.2022,
+        "p_value": 0.0010404543061695865,
+        "weight_clinical": -0.6725
+      },
+      {
+        "gene": "CACNA1I",
+        "correlation": 0.0141,
+        "p_value": 0.821113838365057,
+        "weight_clinical": 0.2308
+      },
+      {
+        "gene": "CASKIN1",
+        "correlation": -0.0211,
+        "p_value": 0.7352117520449841,
+        "weight_clinical": -0.0919
+      },
+      {
+        "gene": "CDC42EP5",
+        "correlation": 0.0378,
+        "p_value": 0.5442613796958878,
+        "weight_clinical": 0.1269
+      },
+      {
+        "gene": "COX6A2",
+        "correlation": 0.0333,
+        "p_value": 0.5933455998028078,
+        "weight_clinical": 0.0302
+      },
+      {
+        "gene": "CRTC1",
+        "correlation": 0.1101,
+        "p_value": 0.07629377341393961,
+        "weight_clinical": 0.3077
+      },
+      {
+        "gene": "DLGAP3",
+        "correlation": 0.0094,
+        "p_value": 0.880631267312092,
+        "weight_clinical": 0.059
+      },
+      {
+        "gene": "DRD4",
+        "correlation": -0.0002,
+        "p_value": 0.9974154175584783,
+        "weight_clinical": -0.142
+      },
+      {
+        "gene": "EDARADD",
+        "correlation": -0.0131,
+        "p_value": 0.8334766724697207,
+        "weight_clinical": -0.0514
+      },
+      {
+        "gene": "EIF3C",
+        "correlation": -0.0254,
+        "p_value": 0.6838454704880227,
+        "weight_clinical": 0.0907
+      },
+      {
+        "gene": "EIF4A2",
+        "correlation": 0.0303,
+        "p_value": 0.6269510969987734,
+        "weight_clinical": 0.3434
+      },
+      {
+        "gene": "EN2",
+        "correlation": 0.0653,
+        "p_value": 0.29420019038840367,
+        "weight_clinical": 0.1839
+      },
+      {
+        "gene": "FHIT",
+        "correlation": 0.0257,
+        "p_value": 0.6804228758309023,
+        "weight_clinical": 0.0194
+      },
+      {
+        "gene": "FTHL17",
+        "correlation": 0.0884,
+        "p_value": 0.155397318806031,
+        "weight_clinical": 0.6133
+      },
+      {
+        "gene": "FUT6",
+        "correlation": 0.0866,
+        "p_value": 0.1638707676129895,
+        "weight_clinical": 0.6205
+      },
+      {
+        "gene": "GRIN2D",
+        "correlation": 0.0118,
+        "p_value": 0.8499675672759307,
+        "weight_clinical": 0.0167
+      },
+      {
+        "gene": "HCN2",
+        "correlation": 0.0376,
+        "p_value": 0.5457781287547345,
+        "weight_clinical": 0.0781
+      },
+      {
+        "gene": "HCN4",
+        "correlation": 0.0303,
+        "p_value": 0.6265449178467553,
+        "weight_clinical": 0.0988
+      },
+      {
+        "gene": "HES7",
+        "correlation": -0.0248,
+        "p_value": 0.6904917506913913,
+        "weight_clinical": -0.208
+      },
+      {
+        "gene": "HOXA3",
+        "correlation": 0.0317,
+        "p_value": 0.6103902454051053,
+        "weight_clinical": 0.0353
+      }
+    ],
+    "verdict": "0 of top 20 weighted genes have data in GSE32062. Only 35 genes are non-NaN. The model literally cannot use its learned features."
+  },
+  "investigation_5_within_dataset": {
+    "n_features_nonnan": 35,
+    "n_features_all": 11140,
+    "cv_auc_nonnan_genes": [
+      0.4571,
+      0.5873,
+      0.4508,
+      0.6667,
+      0.6349
+    ],
+    "cv_auc_nonnan_mean": 0.5594,
+    "cv_auc_all_genes": [
+      0.4635,
+      0.5905,
+      0.454,
+      0.6603,
+      0.6349
+    ],
+    "cv_auc_all_mean": 0.5606
+  },
+  "investigation_6_cross_population": {
+    "n_shared_genes": 35,
+    "gse32062_to_tcga_auc": 0.5056,
+    "tcga_to_gse32062_auc": 0.5251,
+    "tcga_to_gse63885_auc": 0.3967,
+    "note": "All analyses limited to ~35 non-NaN genes in GSE32062. Results are noisy."
+  },
+  "investigation_7_geo_metadata": {
+    "n_samples_geo": 270,
+    "platform_counts": {
+      "GPL6480": 260,
+      "GPL570": 10
+    },
+    "sample_characteristics_example": {
+      "GSM794865": [
+        "tissue: high-grade serous ovarian cancer tumor",
+        "grading: 3",
+        "Stage: IIIc",
+        "surgery status: optimal",
+        "taxane: 1",
+        "platinum: 1",
+        "pfs (m): 79",
+        "rec (1): 0",
+        "os (m): 79",
+        "death (1): 0"
+      ],
+      "GSM794866": [
+        "tissue: high-grade serous ovarian cancer tumor",
+        "grading: 2",
+        "Stage: IIIb",
+        "surgery status: optimal",
+        "taxane: 1",
+        "platinum: 1",
+        "pfs (m): 46",
+        "rec (1): 1",
+        "os (m): 76",
+        "death (1): 0"
+      ],
+      "GSM794867": [
+        "tissue: high-grade serous ovarian cancer tumor",
+        "grading: 3",
+        "Stage: IIIb",
+        "surgery status: suboptimal",
+        "taxane: 1",
+        "platinum: 1",
+        "pfs (m): 12",
+        "rec (1): 1",
+        "os (m): 69",
+        "death (1): 1"
+      ],
+      "GSM794868": [
+        "tissue: high-grade serous ovarian cancer tumor",
+        "grading: 2",
+        "Stage: IIIc",
+        "surgery status: suboptimal",
+        "taxane: 1",
+        "platinum: 1",
+        "pfs (m): 14",
+        "rec (1): 1",
+        "os (m): 51",
+        "death (1): 1"
+      ],
+      "GSM794869": [
+        "tissue: high-grade serous ovarian cancer tumor",
+        "grading: 3",
+        "Stage: IIIc",
+        "surgery status: optimal",
+        "taxane: 1",
+        "platinum: 1",
+        "pfs (m): 18",
+        "rec (1): 1",
+        "os (m): 38",
+        "death (1): 0"
+      ]
+    }
+  },
+  "summary": {
+    "primary_finding": "GSE32062 fails because of a CRITICAL data processing bug. The expression_std file merges Agilent (260 samples) and Affymetrix (10 samples) platforms. Agilent gene names do not map to the standardized common gene list \u2014 only 35 of 11,140 genes survive. After rank transformation and NaN\u21920.5 filling, 99.7% of features are constant (0.5). The model is predicting on effectively zero information. AUC=0.517 is expected for random.",
+    "secondary_findings": [
+      "Extreme class imbalance (87% sensitive) further degrades statistical power",
+      "The 6-month PFS cutoff may be too lenient (87% sensitivity rate)",
+      "Even at stricter cutoffs, AUC stays near 0.5 because the features are missing",
+      "0 of top 20 weighted genes have data in GSE32062",
+      "Within-dataset model also struggles due to only 35 usable genes"
+    ],
+    "recommendation": "GSE32062 should be EXCLUDED from LODO-CV or the data processing pipeline must be fixed to properly handle Agilent gene name standardization. The current AUC=0.517 is not a model failure \u2014 it is a data pipeline failure. Excluding GSE32062 would raise the mean LODO AUC from 0.67 to ~0.69.",
+    "actionable_fixes": [
+      "1. Fix gene name mapping for Agilent platform (GSE32062_expression_std.parquet)",
+      "2. Or exclude GSE32062 and acknowledge it as a platform compatibility limitation",
+      "3. Report LODO-CV with and without GSE32062 for transparency"
+    ]
+  }
+}

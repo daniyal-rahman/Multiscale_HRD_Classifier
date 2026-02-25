@@ -1,0 +1,115 @@
+{
+  "GSE156699": {
+    "point_auc": 0.7795,
+    "ci_lower": 0.6732,
+    "ci_upper": 0.8718,
+    "ci_width": 0.1987,
+    "includes_random": false,
+    "n_test": 88,
+    "n_pos": 50,
+    "n_neg": 38
+  },
+  "GSE173839": {
+    "point_auc": 0.8136,
+    "ci_lower": 0.7087,
+    "ci_upper": 0.9095,
+    "ci_width": 0.2007,
+    "includes_random": false,
+    "n_test": 71,
+    "n_pos": 29,
+    "n_neg": 42
+  },
+  "GSE18864": {
+    "point_auc": 0.5234,
+    "ci_lower": 0.2314,
+    "ci_upper": 0.8056,
+    "ci_width": 0.5741,
+    "includes_random": true,
+    "n_test": 24,
+    "n_pos": 8,
+    "n_neg": 16
+  },
+  "GSE194040": {
+    "point_auc": 0.8763,
+    "ci_lower": 0.7865,
+    "ci_upper": 0.947,
+    "ci_width": 0.1605,
+    "includes_random": false,
+    "n_test": 71,
+    "n_pos": 27,
+    "n_neg": 44
+  },
+  "GSE28739": {
+    "point_auc": 0.7867,
+    "ci_lower": 0.5961,
+    "ci_upper": 0.9423,
+    "ci_width": 0.3462,
+    "includes_random": false,
+    "n_test": 25,
+    "n_pos": 10,
+    "n_neg": 15
+  },
+  "GSE30161": {
+    "point_auc": 0.6332,
+    "ci_lower": 0.4786,
+    "ci_upper": 0.7725,
+    "ci_width": 0.2938,
+    "includes_random": true,
+    "n_test": 55,
+    "n_pos": 32,
+    "n_neg": 23
+  },
+  "GSE32062": {
+    "point_auc": 0.634,
+    "ci_lower": 0.5372,
+    "ci_upper": 0.7275,
+    "ci_width": 0.1904,
+    "includes_random": false,
+    "n_test": 260,
+    "n_pos": 225,
+    "n_neg": 35
+  },
+  "GSE63885": {
+    "point_auc": 0.6456,
+    "ci_lower": 0.5157,
+    "ci_upper": 0.7717,
+    "ci_width": 0.2561,
+    "includes_random": false,
+    "n_test": 75,
+    "n_pos": 41,
+    "n_neg": 34
+  },
+  "TCGA-OV": {
+    "point_auc": 0.6556,
+    "ci_lower": 0.5748,
+    "ci_upper": 0.7283,
+    "ci_width": 0.1535,
+    "includes_random": false,
+    "n_test": 235,
+    "n_pos": 165,
+    "n_neg": 70
+  },
+  "_summary": {
+    "model": "L2_C=0.01",
+    "n_bootstrap": 2000,
+    "gene_set": "11089_fixed",
+    "cannot_reject_random": [
+      "GSE18864",
+      "GSE30161"
+    ],
+    "significantly_above_random": [
+      "GSE156699",
+      "GSE173839",
+      "GSE194040",
+      "GSE28739",
+      "GSE32062",
+      "GSE63885",
+      "TCGA-OV"
+    ],
+    "mean_auc_all": 0.7053,
+    "mean_auc_clean": 0.6951,
+    "exclude_list": [
+      "GSE28739"
+    ]
+  }
+}

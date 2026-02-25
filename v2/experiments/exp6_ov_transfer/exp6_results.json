@@ -1,0 +1,126 @@
+{
+  "experiment": "Exp6: OV Zero-Shot Transfer with Confound Decomposition",
+  "date": "2026-02-23",
+  "data": {
+    "brca_vst_samples": 1095,
+    "ov_vst_samples": 426,
+    "brca_tiered": {
+      "tier1_HRD": 39,
+      "tier2_HRP": 437,
+      "tier3_ambiguous": 505
+    },
+    "ov_tiered": {
+      "tier1_HRD": 59,
+      "tier2_HRP": 14,
+      "tier3_ambiguous": 100
+    },
+    "ov_binary_hrd_prevalence": 0.5549132947976878,
+    "ov_brca_alterations": {
+      "BRCA1_total": 27,
+      "BRCA1_mutation": 8,
+      "BRCA1_deletion": 0,
+      "BRCA1_silencing": 19,
+      "BRCA2_total": 6,
+      "BRCA2_mutation": 4,
+      "BRCA2_deletion": 2
+    }
+  },
+  "confound_stats": {
+    "brca_purity": {
+      "mean": 0.5868443051201672,
+      "median": 0.59,
+      "n": 957
+    },
+    "ov_purity": {
+      "mean": 0.791849710982659,
+      "median": 0.81,
+      "n": 173
+    },
+    "brca_proliferation": {
+      "mean": 10.942184522611539,
+      "std": 1.0381885795789279
+    },
+    "ov_proliferation": {
+      "mean": 11.64882053533219,
+      "std": 0.6829913051883514
+    }
+  },
+  "transfer_results": {
+    "a_raw_DD500": {
+      "auc_binary": 0.6185064935064934,
+      "auc_tiered": 0.7312348668280872,
+      "n_train": 476,
+      "n_test": 173,
+      "n_features": 500,
+      "n_nonzero_coefs": 111
+    },
+    "a_raw_Common17K": {
+      "auc_binary": 0.6310876623376623,
+      "auc_tiered": 0.7554479418886199,
+      "n_train": 476,
+      "n_test": 173,
+      "n_features": 17026,
+      "n_nonzero_coefs": 4285
+    },
+    "b_purity_DD500": {
+      "auc_binary": 0.6191829004329004,
+      "auc_tiered": 0.7530266343825666,
+      "n_train": 475,
+      "n_test": 173,
+      "n_features": 500,
+      "n_nonzero_coefs": 114
+    },
+    "c_prolif_DD500": {
+      "auc_binary": 0.5405844155844156,
+      "auc_tiered": 0.6004842615012107,
+      "n_train": 476,
+      "n_test": 173,
+      "n_features": 500,
+      "n_nonzero_coefs": 153
+    },
+    "d_both_DD500": {
+      "auc_binary": 0.5342261904761905,
+      "auc_tiered": 0.585956416464891,
+      "n_train": 475,
+      "n_test": 173,
+      "n_features": 500,
+      "n_nonzero_coefs": 146
+    },
+    "a_raw_ranks_DD500": {
+      "auc_binary": 0.6049783549783551,
+      "auc_tiered": 0.7300242130750606,
+      "n_train": 476,
+      "n_test": 173,
+      "n_features": 500,
+      "n_nonzero_coefs": 112
+    }
+  },
+  "confound_analysis": {
+    "purity": {
+      "n_significant": 335,
+      "fraction_significant": 0.67,
+      "median_abs_rho_significant": 0.13974770732532787
+    },
+    "proliferation": {
+      "n_significant": 500,
+      "fraction_significant": 1.0,
+      "median_abs_rho_significant": 0.5241132979653472
+    },
+    "cd8": {
+      "n_significant": 478,
+      "fraction_significant": 0.956,
+      "median_abs_rho_significant": 0.204711521155951
+    },
+    "immune": {
+      "n_significant": 463,
+      "fraction_significant": 0.926,
+      "median_abs_rho_significant": 0.19543597041564628
+    }
+  },
+  "loco_cv": {
+    "train_brca_test_ov": 0.585956416464891,
+    "train_ov_test_brca": 0.7848368059737444,
+    "with_cancer_type_covariate": 0.585956416464891,
+    "note": "Using purity+proliferation-corrected DD500, tiered labels"
+  }
+}

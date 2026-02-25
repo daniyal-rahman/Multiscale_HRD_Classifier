@@ -1,0 +1,754 @@
+{
+  "pca": {
+    "variance_explained_10pc": [
+      0.2543,
+      0.1525,
+      0.1051,
+      0.0609,
+      0.0356,
+      0.0295,
+      0.0235,
+      0.0184,
+      0.0155,
+      0.0148
+    ],
+    "total_var_explained_5pc": 0.6084,
+    "silhouette_score_5pc": 0.7488,
+    "interpretation": "strong_batch_effect"
+  },
+  "umap": {
+    "silhouette_score": 0.5685,
+    "status": "completed"
+  },
+  "rank_distributions": {
+    "sample_genes": [
+      "NFE2L2",
+      "AP1S1",
+      "SEPHS2",
+      "TNKS",
+      "TAF6"
+    ],
+    "per_dataset_global_stats": {
+      "GDSC": {
+        "global_mean": 0.5,
+        "global_std": 0.2885
+      },
+      "GSE156699": {
+        "global_mean": 0.5,
+        "global_std": 0.2883
+      },
+      "GSE173839": {
+        "global_mean": 0.5,
+        "global_std": 0.2887
+      },
+      "GSE18864": {
+        "global_mean": 0.5,
+        "global_std": 0.2887
+      },
+      "GSE194040": {
+        "global_mean": 0.5,
+        "global_std": 0.2887
+      },
+      "GSE28739": {
+        "global_mean": 0.5,
+        "global_std": 0.2887
+      },
+      "GSE30161": {
+        "global_mean": 0.5,
+        "global_std": 0.2887
+      },
+      "GSE32062": {
+        "global_mean": 0.5143,
+        "global_std": 0.2886
+      },
+      "GSE63885": {
+        "global_mean": 0.5,
+        "global_std": 0.2887
+      },
+      "TCGA-OV": {
+        "global_mean": 0.5,
+        "global_std": 0.2887
+      }
+    },
+    "expected_uniform_mean": 0.5,
+    "expected_uniform_std": 0.2887
+  },
+  "outlier_detection": {
+    "method": "mean_pairwise_pearson_correlation_within_dataset",
+    "threshold": 0.5,
+    "n_genes_used": 2000,
+    "total_flagged": 50,
+    "per_dataset": {
+      "GDSC": {
+        "n_samples": 695,
+        "mean_within_corr": 0.8119,
+        "min_within_corr": 0.709,
+        "max_within_corr": 0.8541,
+        "n_flagged_below_0.5": 0,
+        "flagged_sample_ids": []
+      },
+      "GSE156699": {
+        "n_samples": 88,
+        "mean_within_corr": 0.8649,
+        "min_within_corr": 0.7931,
+        "max_within_corr": 0.898,
+        "n_flagged_below_0.5": 0,
+        "flagged_sample_ids": []
+      },
+      "GSE173839": {
+        "n_samples": 100,
+        "mean_within_corr": 0.8932,
+        "min_within_corr": 0.8025,
+        "max_within_corr": 0.9146,
+        "n_flagged_below_0.5": 0,
+        "flagged_sample_ids": []
+      },
+      "GSE18864": {
+        "n_samples": 24,
+        "mean_within_corr": 0.9172,
+        "min_within_corr": 0.8834,
+        "max_within_corr": 0.9378,
+        "n_flagged_below_0.5": 0,
+        "flagged_sample_ids": []
+      },
+      "GSE194040": {
+        "n_samples": 250,
+        "mean_within_corr": 0.8968,
+        "min_within_corr": 0.508,
+        "max_within_corr": 0.9216,
+        "n_flagged_below_0.5": 0,
+        "flagged_sample_ids": []
+      },
+      "GSE28739": {
+        "n_samples": 25,
+        "mean_within_corr": 0.2106,
+        "min_within_corr": -0.0115,
+        "max_within_corr": 0.3288,
+        "n_flagged_below_0.5": 25,
+        "flagged_sample_ids": [
+          "10R",
+          "10S",
+          "11R",
+          "12R",
+          "13R",
+          "14R",
+          "15R",
+          "1R",
+          "1S",
+          "2R",
+          "2S",
+          "3R",
+          "3S",
+          "4R",
+          "4S",
+          "5R",
+          "5S",
+          "6R",
+          "6S",
+          "7R"
+        ]
+      },
+      "GSE30161": {
+        "n_samples": 55,
+        "mean_within_corr": 0.7823,
+        "min_within_corr": 0.4511,
+        "max_within_corr": 0.8378,
+        "n_flagged_below_0.5": 1,
+        "flagged_sample_ids": [
+          "GSM746905"
+        ]
+      },
+      "GSE32062": {
+        "n_samples": 260,
+        "mean_within_corr": 0.7017,
+        "min_within_corr": -0.5468,
+        "max_within_corr": 0.8373,
+        "n_flagged_below_0.5": 24,
+        "flagged_sample_ids": [
+          "GSM794900",
+          "GSM794903",
+          "GSM794921",
+          "GSM794922",
+          "GSM794925",
+          "GSM794926",
+          "GSM794959",
+          "GSM794982",
+          "GSM794984",
+          "GSM794990",
+          "GSM795010",
+          "GSM795014",
+          "GSM795039",
+          "GSM795054",
+          "GSM795101",
+          "GSM795103",
+          "GSM795104",
+          "GSM795105",
+          "GSM795106",
+          "GSM795116"
+        ]
+      },
+      "GSE63885": {
+        "n_samples": 75,
+        "mean_within_corr": 0.8959,
+        "min_within_corr": 0.8614,
+        "max_within_corr": 0.9175,
+        "n_flagged_below_0.5": 0,
+        "flagged_sample_ids": []
+      },
+      "TCGA-OV": {
+        "n_samples": 235,
+        "mean_within_corr": 0.8734,
+        "min_within_corr": 0.8044,
+        "max_within_corr": 0.9035,
+        "n_flagged_below_0.5": 0,
+        "flagged_sample_ids": []
+      }
+    }
+  },
+  "gse32062_platform_check": {
+    "metadata_found": true,
+    "metadata_columns": [
+      "sample_id",
+      "platform",
+      "tissue",
+      "grading",
+      "Stage",
+      "surgery status",
+      "taxane",
+      "platinum",
+      "pfs (m)",
+      "rec (1)",
+      "os (m)",
+      "death (1)"
+    ],
+    "cluster_analysis": {
+      "cluster_sizes": [
+        156,
+        104
+      ],
+      "interpretation": "no_obvious_small_cluster"
+    }
+  },
+  "class_balance": {
+    "GDSC": {
+      "n": 695,
+      "n_positive": 347,
+      "n_negative": 348,
+      "prevalence": 0.4993,
+      "majority_class": "negative",
+      "majority_pct": 50.1,
+      "auc_null_se": 0.0219,
+      "auc_null_95ci": [
+        0.457,
+        0.543
+      ]
+    },
+    "GSE156699": {
+      "n": 88,
+      "n_positive": 50,
+      "n_negative": 38,
+      "prevalence": 0.5682,
+      "majority_class": "positive",
+      "majority_pct": 56.8,
+      "auc_null_se": 0.0625,
+      "auc_null_95ci": [
+        0.3775,
+        0.6225
+      ]
+    },
+    "GSE173839": {
+      "n": 100,
+      "n_positive": 36,
+      "n_negative": 64,
+      "prevalence": 0.36,
+      "majority_class": "negative",
+      "majority_pct": 64.0,
+      "auc_null_se": 0.0604,
+      "auc_null_95ci": [
+        0.3815,
+        0.6185
+      ]
+    },
+    "GSE18864": {
+      "n": 24,
+      "n_positive": 8,
+      "n_negative": 16,
+      "prevalence": 0.3333,
+      "majority_class": "negative",
+      "majority_pct": 66.7,
+      "auc_null_se": 0.1276,
+      "auc_null_95ci": [
+        0.25,
+        0.75
+      ]
+    },
+    "GSE194040": {
+      "n": 250,
+      "n_positive": 58,
+      "n_negative": 192,
+      "prevalence": 0.232,
+      "majority_class": "negative",
+      "majority_pct": 76.8,
+      "auc_null_se": 0.0433,
+      "auc_null_95ci": [
+        0.4151,
+        0.5849
+      ]
+    },
+    "GSE28739": {
+      "n": 25,
+      "n_positive": 10,
+      "n_negative": 15,
+      "prevalence": 0.4,
+      "majority_class": "negative",
+      "majority_pct": 60.0,
+      "auc_null_se": 0.1202,
+      "auc_null_95ci": [
+        0.2644,
+        0.7356
+      ]
+    },
+    "GSE30161": {
+      "n": 55,
+      "n_positive": 32,
+      "n_negative": 23,
+      "prevalence": 0.5818,
+      "majority_class": "positive",
+      "majority_pct": 58.2,
+      "auc_null_se": 0.0796,
+      "auc_null_95ci": [
+        0.3439,
+        0.6561
+      ]
+    },
+    "GSE32062": {
+      "n": 260,
+      "n_positive": 225,
+      "n_negative": 35,
+      "prevalence": 0.8654,
+      "majority_class": "positive",
+      "majority_pct": 86.5,
+      "auc_null_se": 0.0526,
+      "auc_null_95ci": [
+        0.397,
+        0.603
+      ]
+    },
+    "GSE63885": {
+      "n": 75,
+      "n_positive": 41,
+      "n_negative": 34,
+      "prevalence": 0.5467,
+      "majority_class": "positive",
+      "majority_pct": 54.7,
+      "auc_null_se": 0.0674,
+      "auc_null_95ci": [
+        0.3679,
+        0.6321
+      ]
+    },
+    "TCGA-OV": {
+      "n": 235,
+      "n_positive": 165,
+      "n_negative": 70,
+      "prevalence": 0.7021,
+      "majority_class": "positive",
+      "majority_pct": 70.2,
+      "auc_null_se": 0.0413,
+      "auc_null_95ci": [
+        0.4191,
+        0.5809
+      ]
+    }
+  },
+  "response_label_verification": {
+    "GDSC": {
+      "columns": [
+        "sample_id",
+        "response_binary",
+        "response_continuous",
+        "drug",
+        "cancer_type",
+        "dataset",
+        "platform"
+      ],
+      "n_samples": 2062,
+      "response_binary_dist": {
+        "0": 1032,
+        "1": 1030
+      },
+      "response_continuous_stats": {
+        "mean": 3.7236,
+        "median": 3.9835,
+        "min": -4.8241,
+        "max": 9.0319
+      },
+      "drugs": {
+        "olaparib": 695,
+        "talazoparib": 687,
+        "rucaparib": 680
+      },
+      "n_in_pooled": 695,
+      "pooled_response_dist": {
+        "0": 348,
+        "1": 347
+      }
+    },
+    "GSE156699": {
+      "columns": [
+        "sample_id",
+        "response_binary",
+        "response_continuous",
+        "drug",
+        "cancer_type",
+        "dataset",
+        "platform"
+      ],
+      "n_samples": 88,
+      "response_binary_dist": {
+        "1": 50,
+        "0": 38
+      },
+      "response_continuous_stats": {
+        "mean": NaN,
+        "median": NaN,
+        "min": NaN,
+        "max": NaN
+      },
+      "drugs": {
+        "platinum": 88
+      },
+      "n_in_pooled": 88,
+      "pooled_response_dist": {
+        "1": 50,
+        "0": 38
+      }
+    },
+    "GSE173839": {
+      "columns": [
+        "sample_id",
+        "response_binary",
+        "response_continuous",
+        "drug",
+        "cancer_type",
+        "dataset",
+        "platform"
+      ],
+      "n_samples": 100,
+      "response_binary_dist": {
+        "0": 64,
+        "1": 36
+      },
+      "response_continuous_stats": {
+        "mean": NaN,
+        "median": NaN,
+        "min": NaN,
+        "max": NaN
+      },
+      "drugs": {
+        "durvalumab+olaparib": 71,
+        "paclitaxel_control": 29
+      },
+      "n_in_pooled": 100,
+      "pooled_response_dist": {
+        "0": 64,
+        "1": 36
+      }
+    },
+    "GSE18864": {
+      "columns": [
+        "sample_id",
+        "response_binary",
+        "response_continuous",
+        "drug",
+        "cancer_type",
+        "dataset",
+        "platform"
+      ],
+      "n_samples": 24,
+      "response_binary_dist": {
+        "0": 16,
+        "1": 8
+      },
+      "response_continuous_stats": {
+        "mean": 2.5,
+        "median": 2.5,
+        "min": 0.0,
+        "max": 5.0
+      },
+      "drugs": {
+        "cisplatin": 24
+      },
+      "n_in_pooled": 24,
+      "pooled_response_dist": {
+        "0": 16,
+        "1": 8
+      }
+    },
+    "GSE194040": {
+      "columns": [
+        "sample_id",
+        "response_binary",
+        "response_continuous",
+        "drug",
+        "cancer_type",
+        "dataset",
+        "platform"
+      ],
+      "n_samples": 250,
+      "response_binary_dist": {
+        "0": 192,
+        "1": 58
+      },
+      "response_continuous_stats": {
+        "mean": NaN,
+        "median": NaN,
+        "min": NaN,
+        "max": NaN
+      },
+      "drugs": {
+        "paclitaxel_control": 179,
+        "veliparib+carboplatin": 71
+      },
+      "n_in_pooled": 250,
+      "pooled_response_dist": {
+        "0": 192,
+        "1": 58
+      }
+    },
+    "GSE28739": {
+      "columns": [
+        "sample_id",
+        "response_binary",
+        "response_continuous",
+        "drug",
+        "cancer_type",
+        "dataset",
+        "platform"
+      ],
+      "n_samples": 25,
+      "response_binary_dist": {
+        "0": 15,
+        "1": 10
+      },
+      "response_continuous_stats": {
+        "mean": NaN,
+        "median": NaN,
+        "min": NaN,
+        "max": NaN
+      },
+      "drugs": {
+        "platinum": 25
+      },
+      "n_in_pooled": 25,
+      "pooled_response_dist": {
+        "0": 15,
+        "1": 10
+      }
+    },
+    "GSE30161": {
+      "columns": [
+        "sample_id",
+        "response_binary",
+        "response_continuous",
+        "drug",
+        "cancer_type",
+        "dataset",
+        "platform"
+      ],
+      "n_samples": 55,
+      "response_binary_dist": {
+        "1": 32,
+        "0": 23
+      },
+      "response_continuous_stats": {
+        "mean": 24.0407,
+        "median": 12.6478,
+        "min": 0.3942,
+        "max": 138.2392
+      },
+      "drugs": {
+        "platinum": 55
+      },
+      "n_in_pooled": 55,
+      "pooled_response_dist": {
+        "1": 32,
+        "0": 23
+      }
+    },
+    "GSE32062": {
+      "columns": [
+        "sample_id",
+        "response_binary",
+        "response_continuous",
+        "drug",
+        "cancer_type",
+        "dataset",
+        "platform"
+      ],
+      "n_samples": 260,
+      "response_binary_dist": {
+        "1": 225,
+        "0": 35
+      },
+      "response_continuous_stats": {
+        "mean": 26.8731,
+        "median": 19.0,
+        "min": 1.0,
+        "max": 119.0
+      },
+      "drugs": {
+        "platinum": 260
+      },
+      "n_in_pooled": 260,
+      "pooled_response_dist": {
+        "1": 225,
+        "0": 35
+      }
+    },
+    "GSE63885": {
+      "columns": [
+        "sample_id",
+        "response_binary",
+        "response_continuous",
+        "drug",
+        "cancer_type",
+        "dataset",
+        "platform"
+      ],
+      "n_samples": 75,
+      "response_binary_dist": {
+        "1": 41,
+        "0": 34
+      },
+      "response_continuous_stats": {
+        "mean": 13.9253,
+        "median": 7.4,
+        "min": 0.0,
+        "max": 129.1667
+      },
+      "drugs": {
+        "platinum": 75
+      },
+      "n_in_pooled": 75,
+      "pooled_response_dist": {
+        "1": 41,
+        "0": 34
+      }
+    },
+    "TCGA-OV": {
+      "columns": [
+        "sample_id",
+        "response_binary",
+        "response_continuous",
+        "drug",
+        "cancer_type",
+        "dataset",
+        "platform"
+      ],
+      "n_samples": 235,
+      "response_binary_dist": {
+        "1": 165,
+        "0": 70
+      },
+      "response_continuous_stats": {
+        "mean": NaN,
+        "median": NaN,
+        "min": NaN,
+        "max": NaN
+      },
+      "drugs": {
+        "platinum": 235
+      },
+      "n_in_pooled": 235,
+      "pooled_response_dist": {
+        "1": 165,
+        "0": 70
+      },
+      "pfi_check": {
+        "sensitive_median_pfi": NaN,
+        "resistant_median_pfi": NaN,
+        "all_sens_above_6m": false,
+        "all_resist_below_6m": false
+      }
+    }
+  },
+  "follow_up_investigations": {
+    "gse32062_platform_resolution": {
+      "finding": "The 10 GPL570 (Affymetrix) samples are NOT in the pooled matrix. They were filtered during gene intersection (Agilent and Affymetrix have different probe sets). All 260 pooled samples are GPL6480 (Agilent).",
+      "flagged_outliers_overlap": "The 24 flagged outlier samples are ALL GPL6480 (Agilent), not Affymetrix. They are likely low-quality Agilent samples.",
+      "action_needed": "No platform mixing issue. The 24 outlier Agilent samples should be investigated but are not a platform artifact."
+    },
+    "gse28739_two_channel_issue": {
+      "finding": "GSE28739 is a two-channel dye-swap microarray (25 patients x 2 dye-swap replicates = 50 arrays). Values are log-ratios relative to a common reference pool, NOT absolute expression. Rank-transforming log-ratios produces fundamentally different results than rank-transforming absolute expression values.",
+      "within_dataset_correlation": 0.211,
+      "comparison_other_datasets": "0.7-0.9 for all other datasets",
+      "sample_count": 25,
+      "all_samples_flagged": true,
+      "recommendation": "EXCLUDE GSE28739 from pooled analysis. Two-channel log-ratio data is incompatible with single-channel expression data even after rank transform. The dataset has only 25 samples and all are flagged as outliers.",
+      "label_source": "chemoresistant (R, n=15) vs chemosensitive (S, n=10) from sample annotations"
+    },
+    "tcga_ov_label_verification": {
+      "finding": "TCGA-OV response_binary labels perfectly match TCGA PLATINUM_STATUS annotation (0 mismatches in 235 samples). Labels are NOT based on PFI > 6m threshold.",
+      "sensitive_dfs_median_months": 20.2,
+      "resistant_dfs_median_months": 9.1,
+      "sensitive_with_dfs_le_6m": "1/165 (0.6%)",
+      "resistant_with_dfs_gt_6m": "56/70 (80%)",
+      "explanation": "PLATINUM_STATUS in TCGA incorporates clinical assessment beyond just PFI (best response, drug tolerance, clinician judgment). 80% of Resistant patients have DFS > 6m because platinum-resistance classification is more nuanced than a simple time threshold.",
+      "verdict": "Labels are valid. Using TCGA PLATINUM_STATUS is standard practice."
+    }
+  },
+  "qc_summary": {
+    "critical_findings": [
+      {
+        "issue": "Strong batch effect persists after rank transform",
+        "evidence": "PCA silhouette score = 0.749 (>>0.3 threshold). First 3 PCs explain 51% of variance and are dominated by dataset identity.",
+        "impact": "Models may learn dataset identity rather than biology. LODO-CV results may be pessimistic if batch effect is confounded with response.",
+        "recommendation": "Include dataset covariate in all models. Consider Combat or other batch correction. Report per-dataset AUC with confidence intervals."
+      },
+      {
+        "issue": "GSE28739: Two-channel data incompatible with single-channel datasets",
+        "evidence": "All 25 samples flagged as outliers (mean corr=0.21). Two-channel dye-swap log-ratio design fundamentally different from single-channel expression.",
+        "impact": "Including GSE28739 adds noise and confounds batch effect analysis.",
+        "recommendation": "EXCLUDE from pooled analysis. Only 25 samples, minimal contribution."
+      },
+      {
+        "issue": "GSE32062: Severe class imbalance (87% sensitive)",
+        "evidence": "225 sensitive vs 35 resistant. AUC 95% CI under null is [0.40, 0.60].",
+        "impact": "LODO-CV AUC on GSE32062 will have wide CI. Cannot distinguish signal from noise for AUC < 0.60.",
+        "recommendation": "Report with CI. Consider down-weighting in training. The 24 outlier samples should be examined."
+      }
+    ],
+    "moderate_findings": [
+      {
+        "issue": "GSE32062 has 24 outlier samples (mean corr < 0.5)",
+        "evidence": "Some samples have correlation as low as -0.55 with dataset peers.",
+        "recommendation": "Consider excluding these 24 samples. They may be mislabeled or corrupted."
+      },
+      {
+        "issue": "GSE30161 has 1 outlier sample (GSM746905)",
+        "evidence": "Mean corr = 0.45 vs dataset mean of 0.78.",
+        "recommendation": "Flag but no immediate action needed (single sample)."
+      },
+      {
+        "issue": "TCGA-OV labels based on clinical annotation, not PFI threshold",
+        "evidence": "80% of Resistant patients have DFS > 6m.",
+        "recommendation": "Document this. Standard practice but worth noting for interpretation."
+      }
+    ],
+    "positive_findings": [
+      "Rank distributions are correctly Uniform[0,1] for all datasets (mean=0.500, std=0.289)",
+      "GDSC labels correctly map to olaparib IC50 (sensitive median=3.54, resistant median=5.07)",
+      "GSE32062 Affymetrix platform issue is moot (10 GPL570 samples not in pooled matrix)",
+      "Response labels verified against original metadata for all datasets with available continuous data",
+      "Most datasets show high within-dataset sample correlation (0.7-0.9), indicating good data quality"
+    ],
+    "total_samples_to_exclude": {
+      "GSE28739": 25,
+      "GSE32062_outliers": 24,
+      "GSE30161_outliers": 1,
+      "total": 50,
+      "remaining_after_exclusion": 1757
+    }
+  }
+}

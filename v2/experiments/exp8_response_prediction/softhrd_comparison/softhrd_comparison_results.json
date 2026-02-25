@@ -1,0 +1,594 @@
+{
+  "experiment": "softHRD Comparison: Multi-Method LODO-CV Head-to-Head",
+  "date": "2026-02-24",
+  "methods": {
+    "exp8_full": "L2 LogReg, C=0.01, class_weight=balanced, all 11140 genes",
+    "softhrd_features": "L2 LogReg, C=0.01, class_weight=balanced, 90 softHRD genes",
+    "irf1": "Single-gene predictor (IRF1 rank value)",
+    "brca_label": "L2 LogReg, C=0.01, trained on BRCA mutation labels (from brca_comparison)"
+  },
+  "softhrd_genes": {
+    "total_in_signature": 109,
+    "available_in_rank_matrix": 90,
+    "missing": [
+      "ALYREF",
+      "ASB7",
+      "DCAF7",
+      "FANCI",
+      "FRG1",
+      "RIC8A",
+      "RPTOR",
+      "BRCA1",
+      "BRCA2",
+      "CDK1",
+      "CCNA2",
+      "EXO1",
+      "AURKB",
+      "UBE2C",
+      "KIF14",
+      "KIF20A",
+      "KIFC1",
+      "CDC45",
+      "H2AX"
+    ],
+    "gene_list": [
+      "ACAT2",
+      "ALDH1B1",
+      "BET1L",
+      "CD109",
+      "DHX36",
+      "FOXK2",
+      "IPO5",
+      "LARP6",
+      "MFGE8",
+      "MLLT11",
+      "POLG",
+      "RCCD1",
+      "SYK",
+      "UNC45A",
+      "USP13",
+      "ZNF592",
+      "C1orf112",
+      "DPM1",
+      "SCYL3",
+      "FUCA2",
+      "NFYA",
+      "LAS1L",
+      "SEMA3F",
+      "BAD",
+      "LAP3",
+      "RAD51",
+      "CHEK1",
+      "CCNB1",
+      "TOP2A",
+      "AURKA",
+      "MKI67",
+      "PLK1",
+      "BUB1",
+      "PCNA",
+      "RRM2",
+      "FOXM1",
+      "TPX2",
+      "MELK",
+      "BIRC5",
+      "CDC20",
+      "CEP55",
+      "CENPA",
+      "CENPF",
+      "KIF11",
+      "KIF2C",
+      "ASPM",
+      "HMMR",
+      "SPAG5",
+      "NEK2",
+      "PBK",
+      "TTK",
+      "MAD2L1",
+      "ESPL1",
+      "PRC1",
+      "ANLN",
+      "ECT2",
+      "CDCA8",
+      "BLM",
+      "TYMS",
+      "EZH2",
+      "POLQ",
+      "MYBL2",
+      "E2F1",
+      "NCAPH",
+      "NCAPG2",
+      "RAD51AP1",
+      "FEN1",
+      "TK1",
+      "DEPDC1",
+      "DLGAP5",
+      "GRB7",
+      "ERBB2",
+      "DTL",
+      "KIF15",
+      "KIF4A",
+      "MCM2",
+      "MCM7",
+      "CDC6",
+      "CDC25C",
+      "HMGA1",
+      "UHRF1",
+      "DNMT1",
+      "DHCR7",
+      "SQLE",
+      "GADD45A",
+      "ZWINT",
+      "RFC4",
+      "NDC80",
+      "NUF2",
+      "SPC25"
+    ]
+  },
+  "lodo_cv": {
+    "per_dataset": {
+      "GSE156699": {
+        "n_test": 88,
+        "n_pos": 50,
+        "n_neg": 38,
+        "exp8_full": {
+          "auc": 0.77,
+          "ci_lo": 0.6637,
+          "ci_hi": 0.8654
+        },
+        "softhrd_features": {
+          "auc": 0.6005,
+          "ci_lo": 0.4744,
+          "ci_hi": 0.719
+        },
+        "irf1": {
+          "auc": 0.6547,
+          "ci_lo": 0.5342,
+          "ci_hi": 0.7639
+        },
+        "brca_label": {
+          "auc": 0.5432,
+          "ci_lo": null,
+          "ci_hi": null
+        }
+      },
+      "GSE173839": {
+        "n_test": 71,
+        "n_pos": 29,
+        "n_neg": 42,
+        "exp8_full": {
+          "auc": 0.8177,
+          "ci_lo": 0.7083,
+          "ci_hi": 0.9089
+        },
+        "softhrd_features": {
+          "auc": 0.5337,
+          "ci_lo": 0.3919,
+          "ci_hi": 0.6757
+        },
+        "irf1": {
+          "auc": 0.6749,
+          "ci_lo": 0.5382,
+          "ci_hi": 0.7943
+        },
+        "brca_label": {
+          "auc": 0.7135,
+          "ci_lo": null,
+          "ci_hi": null
+        }
+      },
+      "GSE18864": {
+        "n_test": 24,
+        "n_pos": 8,
+        "n_neg": 16,
+        "exp8_full": {
+          "auc": 0.5391,
+          "ci_lo": 0.25,
+          "ci_hi": 0.8056
+        },
+        "softhrd_features": {
+          "auc": 0.5156,
+          "ci_lo": 0.2841,
+          "ci_hi": 0.7686
+        },
+        "irf1": {
+          "auc": 0.5781,
+          "ci_lo": 0.2689,
+          "ci_hi": 0.874
+        },
+        "brca_label": {
+          "auc": 0.4922,
+          "ci_lo": null,
+          "ci_hi": null
+        }
+      },
+      "GSE194040": {
+        "n_test": 71,
+        "n_pos": 27,
+        "n_neg": 44,
+        "exp8_full": {
+          "auc": 0.8923,
+          "ci_lo": 0.8159,
+          "ci_hi": 0.9576
+        },
+        "softhrd_features": {
+          "auc": 0.6406,
+          "ci_lo": 0.4952,
+          "ci_hi": 0.7648
+        },
+        "irf1": {
+          "auc": 0.7222,
+          "ci_lo": 0.5881,
+          "ci_hi": 0.8436
+        },
+        "brca_label": {
+          "auc": 0.7551,
+          "ci_lo": null,
+          "ci_hi": null
+        }
+      },
+      "GSE28739": {
+        "n_test": 25,
+        "n_pos": 10,
+        "n_neg": 15,
+        "exp8_full": {
+          "auc": 0.7467,
+          "ci_lo": 0.5175,
+          "ci_hi": 0.9375
+        },
+        "softhrd_features": {
+          "auc": 0.6533,
+          "ci_lo": 0.4155,
+          "ci_hi": 0.8651
+        },
+        "irf1": {
+          "auc": 0.5533,
+          "ci_lo": 0.3182,
+          "ci_hi": 0.7792
+        },
+        "brca_label": {
+          "auc": 0.5867,
+          "ci_lo": null,
+          "ci_hi": null
+        }
+      },
+      "GSE30161": {
+        "n_test": 55,
+        "n_pos": 32,
+        "n_neg": 23,
+        "exp8_full": {
+          "auc": 0.731,
+          "ci_lo": 0.5853,
+          "ci_hi": 0.86
+        },
+        "softhrd_features": {
+          "auc": 0.5571,
+          "ci_lo": 0.4005,
+          "ci_hi": 0.7091
+        },
+        "irf1": {
+          "auc": 0.5557,
+          "ci_lo": 0.3947,
+          "ci_hi": 0.712
+        },
+        "brca_label": {
+          "auc": 0.4171,
+          "ci_lo": null,
+          "ci_hi": null
+        }
+      },
+      "GSE32062": {
+        "n_test": 260,
+        "n_pos": 225,
+        "n_neg": 35,
+        "exp8_full": {
+          "auc": 0.4894,
+          "ci_lo": 0.391,
+          "ci_hi": 0.5926
+        },
+        "softhrd_features": {
+          "auc": 0.5,
+          "ci_lo": 0.5,
+          "ci_hi": 0.5
+        },
+        "irf1": {
+          "auc": 0.5,
+          "ci_lo": 0.5,
+          "ci_hi": 0.5
+        },
+        "brca_label": {
+          "auc": 0.5251,
+          "ci_lo": null,
+          "ci_hi": null
+        }
+      },
+      "GSE63885": {
+        "n_test": 75,
+        "n_pos": 41,
+        "n_neg": 34,
+        "exp8_full": {
+          "auc": 0.6047,
+          "ci_lo": 0.4742,
+          "ci_hi": 0.7286
+        },
+        "softhrd_features": {
+          "auc": 0.5036,
+          "ci_lo": 0.3677,
+          "ci_hi": 0.6394
+        },
+        "irf1": {
+          "auc": 0.5667,
+          "ci_lo": 0.4259,
+          "ci_hi": 0.6984
+        },
+        "brca_label": {
+          "auc": 0.4699,
+          "ci_lo": null,
+          "ci_hi": null
+        }
+      },
+      "TCGA-OV": {
+        "n_test": 235,
+        "n_pos": 165,
+        "n_neg": 70,
+        "exp8_full": {
+          "auc": 0.6454,
+          "ci_lo": 0.569,
+          "ci_hi": 0.722
+        },
+        "softhrd_features": {
+          "auc": 0.4639,
+          "ci_lo": 0.3848,
+          "ci_hi": 0.5476
+        },
+        "irf1": {
+          "auc": 0.5319,
+          "ci_lo": 0.4514,
+          "ci_hi": 0.6105
+        },
+        "brca_label": {
+          "auc": 0.4928,
+          "ci_lo": null,
+          "ci_hi": null
+        }
+      }
+    },
+    "summary": {
+      "exp8_full": {
+        "mean_auc": 0.6929,
+        "median_auc": 0.731,
+        "std_auc": 0.125,
+        "n_datasets": 9,
+        "per_dataset_aucs": [
+          0.77,
+          0.8177,
+          0.5391,
+          0.8923,
+          0.7467,
+          0.731,
+          0.4894,
+          0.6047,
+          0.6454
+        ]
+      },
+      "softhrd_features": {
+        "mean_auc": 0.552,
+        "median_auc": 0.5337,
+        "std_auc": 0.0623,
+        "n_datasets": 9,
+        "per_dataset_aucs": [
+          0.6005,
+          0.5337,
+          0.5156,
+          0.6406,
+          0.6533,
+          0.5571,
+          0.5,
+          0.5036,
+          0.4639
+        ]
+      },
+      "irf1": {
+        "mean_auc": 0.5931,
+        "median_auc": 0.5667,
+        "std_auc": 0.0695,
+        "n_datasets": 9,
+        "per_dataset_aucs": [
+          0.6547,
+          0.6749,
+          0.5781,
+          0.7222,
+          0.5533,
+          0.5557,
+          0.5,
+          0.5667,
+          0.5319
+        ]
+      },
+      "brca_label": {
+        "mean_auc": 0.5551,
+        "median_auc": 0.5251,
+        "std_auc": 0.1061,
+        "n_datasets": 9,
+        "per_dataset_aucs": [
+          0.5432,
+          0.7135,
+          0.4922,
+          0.7551,
+          0.5867,
+          0.4171,
+          0.5251,
+          0.4699,
+          0.4928
+        ]
+      }
+    }
+  },
+  "permutation_test": {
+    "observed_delta_mean_auc": 0.1409,
+    "n_permutations": 10000,
+    "p_value_two_sided": 0.0001,
+    "n_paired_samples": 904,
+    "n_datasets_used": 9
+  },
+  "survival_tcga_ov": {
+    "DFS": {
+      "exp8_full": {
+        "cox_hr": 0.1502,
+        "cox_p": 0.000281,
+        "cox_ci_low": 0.054,
+        "cox_ci_high": 0.4177,
+        "concordance_index": 0.5967,
+        "logrank_p": 0.000542
+      },
+      "softhrd_features": {
+        "cox_hr": 0.043,
+        "cox_p": 0.406811,
+        "cox_ci_low": 0.0,
+        "cox_ci_high": 72.7698,
+        "concordance_index": 0.4953,
+        "logrank_p": 0.380202
+      },
+      "irf1": {
+        "cox_hr": 0.8646,
+        "cox_p": 0.742248,
+        "cox_ci_low": 0.3633,
+        "cox_ci_high": 2.0576,
+        "concordance_index": 0.5231,
+        "logrank_p": 0.219609
+      }
+    },
+    "OS": {
+      "exp8_full": {
+        "cox_hr": 0.2779,
+        "cox_p": 0.036538,
+        "cox_ci_low": 0.0837,
+        "cox_ci_high": 0.923,
+        "concordance_index": 0.5769,
+        "logrank_p": 0.179316
+      },
+      "softhrd_features": {
+        "cox_hr": 77.0688,
+        "cox_p": 0.324202,
+        "cox_ci_low": 0.0137,
+        "cox_ci_high": 434644.3127,
+        "concordance_index": 0.5351,
+        "logrank_p": 0.160216
+      },
+      "irf1": {
+        "cox_hr": 0.7596,
+        "cox_p": 0.590286,
+        "cox_ci_low": 0.2793,
+        "cox_ci_high": 2.0664,
+        "concordance_index": 0.5313,
+        "logrank_p": 0.266078
+      }
+    }
+  },
+  "weight_analysis": {
+    "weight_correlation_rho": 0.2797,
+    "weight_correlation_p": 0.00757722029045995,
+    "n_softhrd_genes_available": 90,
+    "top20_softhrd_by_weight": [
+      {
+        "gene": "PRC1",
+        "restricted_weight": -0.124225,
+        "full_model_weight": 0.0066
+      },
+      {
+        "gene": "CDC25C",
+        "restricted_weight": 0.113612,
+        "full_model_weight": 0.000953
+      },
+      {
+        "gene": "DEPDC1",
+        "restricted_weight": 0.112043,
+        "full_model_weight": 0.002926
+      },
+      {
+        "gene": "DPM1",
+        "restricted_weight": -0.111095,
+        "full_model_weight": -0.002634
+      },
+      {
+        "gene": "BUB1",
+        "restricted_weight": 0.105049,
+        "full_model_weight": 0.016406
+      },
+      {
+        "gene": "SQLE",
+        "restricted_weight": -0.094534,
+        "full_model_weight": 0.008097
+      },
+      {
+        "gene": "MKI67",
+        "restricted_weight": 0.091529,
+        "full_model_weight": 0.012708
+      },
+      {
+        "gene": "TTK",
+        "restricted_weight": 0.088124,
+        "full_model_weight": 0.00293
+      },
+      {
+        "gene": "DHX36",
+        "restricted_weight": -0.084651,
+        "full_model_weight": 0.008734
+      },
+      {
+        "gene": "SPC25",
+        "restricted_weight": 0.081197,
+        "full_model_weight": 0.017569
+      },
+      {
+        "gene": "MCM7",
+        "restricted_weight": -0.079148,
+        "full_model_weight": 0.00478
+      },
+      {
+        "gene": "CHEK1",
+        "restricted_weight": 0.078154,
+        "full_model_weight": 0.021732
+      },
+      {
+        "gene": "NCAPG2",
+        "restricted_weight": 0.077611,
+        "full_model_weight": 0.02305
+      },
+      {
+        "gene": "KIF4A",
+        "restricted_weight": 0.076908,
+        "full_model_weight": 0.011773
+      },
+      {
+        "gene": "LAS1L",
+        "restricted_weight": -0.072716,
+        "full_model_weight": 0.009885
+      },
+      {
+        "gene": "CDC6",
+        "restricted_weight": 0.071445,
+        "full_model_weight": 0.008568
+      },
+      {
+        "gene": "NDC80",
+        "restricted_weight": 0.07083,
+        "full_model_weight": 0.025774
+      },
+      {
+        "gene": "KIF15",
+        "restricted_weight": 0.068366,
+        "full_model_weight": 0.001085
+      },
+      {
+        "gene": "AURKA",
+        "restricted_weight": -0.068118,
+        "full_model_weight": -0.00203
+      },
+      {
+        "gene": "FOXM1",
+        "restricted_weight": 0.067736,
+        "full_model_weight": 0.020594
+      }
+    ]
+  }
+}

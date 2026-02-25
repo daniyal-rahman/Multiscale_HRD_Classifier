@@ -1,0 +1,589 @@
+{
+  "experiment": "Multivariate Cox PH Survival Analysis \u2014 TCGA-OV",
+  "date": "2026-02-24",
+  "n_patients": 235,
+  "covariates": {
+    "score": "LODO-CV predicted probability (continuous, 0-1)",
+    "age": "Age at diagnosis (continuous, years)",
+    "stage_advanced": "FIGO stage III/IV vs I/II (binary)",
+    "grade_high": "Grade G3/G4 vs G1/G2 (binary)",
+    "residual_optimal": "Optimal debulking (no macroscopic disease) vs suboptimal (binary)",
+    "brca_mutated": "Any BRCA1/2 mutation vs wild-type (binary)"
+  },
+  "confounding_checks": {
+    "score_vs_stage": {
+      "mean_group0": 0.4948,
+      "mean_group1": 0.4542,
+      "n_group0": 11,
+      "n_group1": 224,
+      "mannwhitney_p": 0.268662
+    },
+    "score_vs_grade": {
+      "mean_group0": 0.4176,
+      "mean_group1": 0.4636,
+      "n_group0": 32,
+      "n_group1": 199,
+      "mannwhitney_p": 0.072801
+    },
+    "score_vs_residual": {
+      "mean_group0": 0.4587,
+      "mean_group1": 0.4233,
+      "n_group0": 174,
+      "n_group1": 43,
+      "mannwhitney_p": 0.124398
+    },
+    "score_vs_brca": {
+      "mean_group0": 0.4526,
+      "mean_group1": 0.4716,
+      "n_group0": 191,
+      "n_group1": 44,
+      "mannwhitney_p": 0.366017
+    },
+    "score_vs_age": {
+      "spearman_rho": -0.3328,
+      "spearman_p": 0.0
+    }
+  },
+  "cox_models": {
+    "DFS": {
+      "model1_univariate_score": {
+        "model_name": "univariate_score",
+        "n": 234,
+        "n_events": 200,
+        "concordance_index": 0.5967,
+        "partial_AIC": 1865.04,
+        "log_likelihood": -931.5201,
+        "covariates": {
+          "score": {
+            "HR": 0.1502,
+            "HR_CI_low": 0.054,
+            "HR_CI_high": 0.4177,
+            "p_value": 0.000281,
+            "coef": -1.896
+          }
+        }
+      },
+      "model2_score_plus_clinical": {
+        "model_name": "score_plus_clinical",
+        "n": 213,
+        "n_events": 185,
+        "concordance_index": 0.6381,
+        "partial_AIC": 1680.21,
+        "log_likelihood": -835.107,
+        "covariates": {
+          "score": {
+            "HR": 0.0978,
+            "HR_CI_low": 0.0286,
+            "HR_CI_high": 0.335,
+            "p_value": 0.000214,
+            "coef": -2.3245
+          },
+          "stage_advanced": {
+            "HR": 0.9628,
+            "HR_CI_low": 0.4398,
+            "HR_CI_high": 2.108,
+            "p_value": 0.924545,
+            "coef": -0.0379
+          },
+          "grade_high": {
+            "HR": 1.6377,
+            "HR_CI_low": 1.0637,
+            "HR_CI_high": 2.5214,
+            "p_value": 0.025067,
+            "coef": 0.4933
+          },
+          "residual_optimal": {
+            "HR": 0.5005,
+            "HR_CI_low": 0.336,
+            "HR_CI_high": 0.7456,
+            "p_value": 0.000664,
+            "coef": -0.6921
+          },
+          "age": {
+            "HR": 0.9983,
+            "HR_CI_low": 0.9846,
+            "HR_CI_high": 1.0122,
+            "p_value": 0.809348,
+            "coef": -0.0017
+          }
+        }
+      },
+      "model3_score_plus_clinical_plus_brca": {
+        "model_name": "score_plus_clinical_plus_brca",
+        "n": 213,
+        "n_events": 185,
+        "concordance_index": 0.6526,
+        "partial_AIC": 1674.81,
+        "log_likelihood": -831.4029,
+        "covariates": {
+          "score": {
+            "HR": 0.111,
+            "HR_CI_low": 0.0322,
+            "HR_CI_high": 0.3825,
+            "p_value": 0.000498,
+            "coef": -2.1987
+          },
+          "stage_advanced": {
+            "HR": 1.0425,
+            "HR_CI_low": 0.4763,
+            "HR_CI_high": 2.2818,
+            "p_value": 0.917122,
+            "coef": 0.0416
+          },
+          "grade_high": {
+            "HR": 1.6906,
+            "HR_CI_low": 1.0964,
+            "HR_CI_high": 2.6068,
+            "p_value": 0.017477,
+            "coef": 0.5251
+          },
+          "residual_optimal": {
+            "HR": 0.4914,
+            "HR_CI_low": 0.3301,
+            "HR_CI_high": 0.7315,
+            "p_value": 0.000464,
+            "coef": -0.7105
+          },
+          "age": {
+            "HR": 0.9992,
+            "HR_CI_low": 0.9854,
+            "HR_CI_high": 1.0133,
+            "p_value": 0.914765,
+            "coef": -0.0008
+          },
+          "brca_mutated": {
+            "HR": 0.5959,
+            "HR_CI_low": 0.4024,
+            "HR_CI_high": 0.8825,
+            "p_value": 0.009771,
+            "coef": -0.5177
+          }
+        }
+      },
+      "model4_clinical_only": {
+        "model_name": "clinical_only",
+        "n": 213,
+        "n_events": 185,
+        "concordance_index": 0.6036,
+        "partial_AIC": 1691.95,
+        "log_likelihood": -841.9745,
+        "covariates": {
+          "stage_advanced": {
+            "HR": 1.218,
+            "HR_CI_low": 0.5605,
+            "HR_CI_high": 2.6468,
+            "p_value": 0.618509,
+            "coef": 0.1972
+          },
+          "grade_high": {
+            "HR": 1.3531,
+            "HR_CI_low": 0.8886,
+            "HR_CI_high": 2.0604,
+            "p_value": 0.158741,
+            "coef": 0.3024
+          },
+          "residual_optimal": {
+            "HR": 0.5947,
+            "HR_CI_low": 0.4033,
+            "HR_CI_high": 0.8768,
+            "p_value": 0.008705,
+            "coef": -0.5197
+          },
+          "age": {
+            "HR": 1.0086,
+            "HR_CI_low": 0.9955,
+            "HR_CI_high": 1.0219,
+            "p_value": 0.199601,
+            "coef": 0.0086
+          }
+        }
+      },
+      "lr_test_model2_vs_model4": {
+        "lr_statistic": 13.735,
+        "p_value": 0.00021,
+        "df": 1,
+        "n_common": 213,
+        "interpretation": "Adding the score significantly improves the model"
+      },
+      "model5_score_plus_brca": {
+        "model_name": "score_plus_brca",
+        "n": 234,
+        "n_events": 200,
+        "concordance_index": 0.6159,
+        "partial_AIC": 1860.6,
+        "log_likelihood": -928.299,
+        "covariates": {
+          "score": {
+            "HR": 0.1644,
+            "HR_CI_low": 0.0592,
+            "HR_CI_high": 0.4564,
+            "p_value": 0.000528,
+            "coef": -1.8052
+          },
+          "brca_mutated": {
+            "HR": 0.6345,
+            "HR_CI_low": 0.4392,
+            "HR_CI_high": 0.9167,
+            "p_value": 0.015373,
+            "coef": -0.4549
+          }
+        }
+      },
+      "model6_ordinal_clinical": {
+        "model_name": "score_plus_ordinal_clinical",
+        "n": 213,
+        "n_events": 185,
+        "concordance_index": 0.6066,
+        "partial_AIC": 1689.62,
+        "log_likelihood": -839.8079,
+        "covariates": {
+          "score": {
+            "HR": 0.1241,
+            "HR_CI_low": 0.0362,
+            "HR_CI_high": 0.4261,
+            "p_value": 0.000915,
+            "coef": -2.0865
+          },
+          "stage_ordinal": {
+            "HR": 1.0643,
+            "HR_CI_low": 0.8177,
+            "HR_CI_high": 1.3854,
+            "p_value": 0.642986,
+            "coef": 0.0623
+          },
+          "grade_high": {
+            "HR": 1.5637,
+            "HR_CI_low": 1.0129,
+            "HR_CI_high": 2.4138,
+            "p_value": 0.043601,
+            "coef": 0.447
+          },
+          "residual_ordinal": {
+            "HR": 1.141,
+            "HR_CI_low": 0.9896,
+            "HR_CI_high": 1.3157,
+            "p_value": 0.069355,
+            "coef": 0.1319
+          },
+          "age": {
+            "HR": 0.9976,
+            "HR_CI_low": 0.9839,
+            "HR_CI_high": 1.0114,
+            "p_value": 0.729122,
+            "coef": -0.0024
+          }
+        }
+      }
+    },
+    "OS": {
+      "model1_univariate_score": {
+        "model_name": "univariate_score",
+        "n": 235,
+        "n_events": 142,
+        "concordance_index": 0.5769,
+        "partial_AIC": 1286.52,
+        "log_likelihood": -642.2582,
+        "covariates": {
+          "score": {
+            "HR": 0.2779,
+            "HR_CI_low": 0.0837,
+            "HR_CI_high": 0.923,
+            "p_value": 0.036538,
+            "coef": -1.2804
+          }
+        }
+      },
+      "model2_score_plus_clinical": {
+        "model_name": "score_plus_clinical",
+        "n": 214,
+        "n_events": 136,
+        "concordance_index": 0.6081,
+        "partial_AIC": 1198.07,
+        "log_likelihood": -594.0346,
+        "covariates": {
+          "score": {
+            "HR": 0.385,
+            "HR_CI_low": 0.0993,
+            "HR_CI_high": 1.4923,
+            "p_value": 0.167336,
+            "coef": -0.9544
+          },
+          "stage_advanced": {
+            "HR": 1.4783,
+            "HR_CI_low": 0.4519,
+            "HR_CI_high": 4.8358,
+            "p_value": 0.51798,
+            "coef": 0.3909
+          },
+          "grade_high": {
+            "HR": 1.3158,
+            "HR_CI_low": 0.8059,
+            "HR_CI_high": 2.1484,
+            "p_value": 0.272492,
+            "coef": 0.2745
+          },
+          "residual_optimal": {
+            "HR": 0.5371,
+            "HR_CI_low": 0.3118,
+            "HR_CI_high": 0.9251,
+            "p_value": 0.025063,
+            "coef": -0.6216
+          },
+          "age": {
+            "HR": 1.0078,
+            "HR_CI_low": 0.9912,
+            "HR_CI_high": 1.0247,
+            "p_value": 0.356975,
+            "coef": 0.0078
+          }
+        }
+      },
+      "model3_score_plus_clinical_plus_brca": {
+        "model_name": "score_plus_clinical_plus_brca",
+        "n": 214,
+        "n_events": 136,
+        "concordance_index": 0.6412,
+        "partial_AIC": 1190.82,
+        "log_likelihood": -589.4078,
+        "covariates": {
+          "score": {
+            "HR": 0.4732,
+            "HR_CI_low": 0.119,
+            "HR_CI_high": 1.8825,
+            "p_value": 0.28822,
+            "coef": -0.7482
+          },
+          "stage_advanced": {
+            "HR": 1.6655,
+            "HR_CI_low": 0.5086,
+            "HR_CI_high": 5.4538,
+            "p_value": 0.399288,
+            "coef": 0.5101
+          },
+          "grade_high": {
+            "HR": 1.3818,
+            "HR_CI_low": 0.8431,
+            "HR_CI_high": 2.2646,
+            "p_value": 0.199474,
+            "coef": 0.3234
+          },
+          "residual_optimal": {
+            "HR": 0.5443,
+            "HR_CI_low": 0.3161,
+            "HR_CI_high": 0.9371,
+            "p_value": 0.028225,
+            "coef": -0.6083
+          },
+          "age": {
+            "HR": 1.0121,
+            "HR_CI_low": 0.9949,
+            "HR_CI_high": 1.0295,
+            "p_value": 0.168545,
+            "coef": 0.012
+          },
+          "brca_mutated": {
+            "HR": 0.5058,
+            "HR_CI_low": 0.3164,
+            "HR_CI_high": 0.8084,
+            "p_value": 0.004391,
+            "coef": -0.6816
+          }
+        }
+      },
+      "model4_clinical_only": {
+        "model_name": "clinical_only",
+        "n": 214,
+        "n_events": 136,
+        "concordance_index": 0.6051,
+        "partial_AIC": 1197.99,
+        "log_likelihood": -594.9958,
+        "covariates": {
+          "stage_advanced": {
+            "HR": 1.641,
+            "HR_CI_low": 0.5067,
+            "HR_CI_high": 5.3152,
+            "p_value": 0.40876,
+            "coef": 0.4953
+          },
+          "grade_high": {
+            "HR": 1.2292,
+            "HR_CI_low": 0.7601,
+            "HR_CI_high": 1.988,
+            "p_value": 0.40009,
+            "coef": 0.2064
+          },
+          "residual_optimal": {
+            "HR": 0.5671,
+            "HR_CI_low": 0.3309,
+            "HR_CI_high": 0.9717,
+            "p_value": 0.03896,
+            "coef": -0.5673
+          },
+          "age": {
+            "HR": 1.012,
+            "HR_CI_low": 0.9962,
+            "HR_CI_high": 1.0281,
+            "p_value": 0.137788,
+            "coef": 0.0119
+          }
+        }
+      },
+      "lr_test_model2_vs_model4": {
+        "lr_statistic": 1.9224,
+        "p_value": 0.16559,
+        "df": 1,
+        "n_common": 214,
+        "interpretation": "Adding the score does NOT significantly improve the model"
+      },
+      "model5_score_plus_brca": {
+        "model_name": "score_plus_brca",
+        "n": 235,
+        "n_events": 142,
+        "concordance_index": 0.6059,
+        "partial_AIC": 1281.07,
+        "log_likelihood": -638.5333,
+        "covariates": {
+          "score": {
+            "HR": 0.2978,
+            "HR_CI_low": 0.0893,
+            "HR_CI_high": 0.9929,
+            "p_value": 0.048662,
+            "coef": -1.2113
+          },
+          "brca_mutated": {
+            "HR": 0.5543,
+            "HR_CI_low": 0.3532,
+            "HR_CI_high": 0.8699,
+            "p_value": 0.010286,
+            "coef": -0.59
+          }
+        }
+      },
+      "model6_ordinal_clinical": {
+        "model_name": "score_plus_ordinal_clinical",
+        "n": 214,
+        "n_events": 136,
+        "concordance_index": 0.597,
+        "partial_AIC": 1202.78,
+        "log_likelihood": -596.3892,
+        "covariates": {
+          "score": {
+            "HR": 0.3558,
+            "HR_CI_low": 0.0894,
+            "HR_CI_high": 1.4162,
+            "p_value": 0.142568,
+            "coef": -1.0335
+          },
+          "stage_ordinal": {
+            "HR": 0.9742,
+            "HR_CI_low": 0.7162,
+            "HR_CI_high": 1.3252,
+            "p_value": 0.867941,
+            "coef": -0.0261
+          },
+          "grade_high": {
+            "HR": 1.383,
+            "HR_CI_low": 0.8482,
+            "HR_CI_high": 2.255,
+            "p_value": 0.193616,
+            "coef": 0.3243
+          },
+          "residual_ordinal": {
+            "HR": 1.1424,
+            "HR_CI_low": 0.9504,
+            "HR_CI_high": 1.3731,
+            "p_value": 0.156247,
+            "coef": 0.1331
+          },
+          "age": {
+            "HR": 1.0067,
+            "HR_CI_low": 0.9901,
+            "HR_CI_high": 1.0236,
+            "p_value": 0.429718,
+            "coef": 0.0067
+          }
+        }
+      }
+    }
+  },
+  "combined_score": {
+    "DFS": {
+      "c_index_molecular_only": 0.5889,
+      "c_index_combined": 0.6381,
+      "c_index_improvement": 0.0492,
+      "calibration_tertiles": [
+        {
+          "tertile": "Low risk",
+          "n": 71,
+          "n_events": 55,
+          "event_rate": 0.7746,
+          "median_time": 20.3,
+          "median_linear_predictor": 0.6603
+        },
+        {
+          "tertile": "Medium risk",
+          "n": 71,
+          "n_events": 60,
+          "event_rate": 0.8451,
+          "median_time": 16.4,
+          "median_linear_predictor": 1.024
+        },
+        {
+          "tertile": "High risk",
+          "n": 71,
+          "n_events": 70,
+          "event_rate": 0.9859,
+          "median_time": 11.1,
+          "median_linear_predictor": 1.5118
+        }
+      ],
+      "logrank_low_vs_high": 0.0,
+      "n": 213,
+      "n_events": 185
+    },
+    "OS": {
+      "c_index_molecular_only": 0.5609,
+      "c_index_combined": 0.6081,
+      "c_index_improvement": 0.0473,
+      "calibration_tertiles": [
+        {
+          "tertile": "Low risk",
+          "n": 72,
+          "n_events": 34,
+          "event_rate": 0.4722,
+          "median_time": 36.6,
+          "median_linear_predictor": 0.693
+        },
+        {
+          "tertile": "Medium risk",
+          "n": 70,
+          "n_events": 46,
+          "event_rate": 0.6571,
+          "median_time": 40.2,
+          "median_linear_predictor": 1.0493
+        },
+        {
+          "tertile": "High risk",
+          "n": 72,
+          "n_events": 56,
+          "event_rate": 0.7778,
+          "median_time": 35.5,
+          "median_linear_predictor": 1.3845
+        }
+      ],
+      "logrank_low_vs_high": 0.005357,
+      "n": 214,
+      "n_events": 136
+    }
+  },
+  "ph_assumption_tests": {
+    "DFS": {
+      "violations": false,
+      "note": "All covariates pass PH test at p<0.05"
+    },
+    "OS": {
+      "violations": false,
+      "note": "All covariates pass PH test at p<0.05"
+    }
+  }
+}

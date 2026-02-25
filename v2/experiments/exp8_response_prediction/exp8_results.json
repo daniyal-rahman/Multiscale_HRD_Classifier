@@ -1,0 +1,262 @@
+{
+  "experiment": "Exp8: Drug Response Prediction \u2014 Rank-Pooled Clinical Model",
+  "date": "2026-02-23",
+  "data": {
+    "n_total_pooled": 1807,
+    "n_clinical_model_a": 904,
+    "n_common_genes": 11140,
+    "n_ispy2_total": 350,
+    "n_ispy2_parpi": 142,
+    "n_ispy2_control": 208,
+    "n_gdsc_olaparib": 695
+  },
+  "phase2_lodo_cv": {
+    "lr_with_covariates": {
+      "GSE156699": {
+        "auc": 0.7358,
+        "n_train": 816,
+        "n_test": 88,
+        "n_pos_test": 50,
+        "n_neg_test": 38
+      },
+      "GSE173839": {
+        "auc": 0.7931,
+        "n_train": 833,
+        "n_test": 71,
+        "n_pos_test": 29,
+        "n_neg_test": 42
+      },
+      "GSE18864": {
+        "auc": 0.4609,
+        "n_train": 880,
+        "n_test": 24,
+        "n_pos_test": 8,
+        "n_neg_test": 16
+      },
+      "GSE194040": {
+        "auc": 0.8611,
+        "n_train": 833,
+        "n_test": 71,
+        "n_pos_test": 27,
+        "n_neg_test": 44
+      },
+      "GSE28739": {
+        "auc": 0.7267,
+        "n_train": 879,
+        "n_test": 25,
+        "n_pos_test": 10,
+        "n_neg_test": 15
+      },
+      "GSE30161": {
+        "auc": 0.6957,
+        "n_train": 849,
+        "n_test": 55,
+        "n_pos_test": 32,
+        "n_neg_test": 23
+      },
+      "GSE32062": {
+        "auc": 0.5172,
+        "n_train": 644,
+        "n_test": 260,
+        "n_pos_test": 225,
+        "n_neg_test": 35
+      },
+      "GSE63885": {
+        "auc": 0.5725,
+        "n_train": 829,
+        "n_test": 75,
+        "n_pos_test": 41,
+        "n_neg_test": 34
+      },
+      "TCGA-OV": {
+        "auc": 0.6587,
+        "n_train": 669,
+        "n_test": 235,
+        "n_pos_test": 165,
+        "n_neg_test": 70
+      },
+      "_mean_auc": 0.6691,
+      "_median_auc": 0.6957
+    },
+    "lr_no_covariates": {
+      "GSE156699": {
+        "auc": 0.7379,
+        "n_train": 816,
+        "n_test": 88,
+        "n_pos_test": 50,
+        "n_neg_test": 38
+      },
+      "GSE173839": {
+        "auc": 0.7923,
+        "n_train": 833,
+        "n_test": 71,
+        "n_pos_test": 29,
+        "n_neg_test": 42
+      },
+      "GSE18864": {
+        "auc": 0.4688,
+        "n_train": 880,
+        "n_test": 24,
+        "n_pos_test": 8,
+        "n_neg_test": 16
+      },
+      "GSE194040": {
+        "auc": 0.8603,
+        "n_train": 833,
+        "n_test": 71,
+        "n_pos_test": 27,
+        "n_neg_test": 44
+      },
+      "GSE28739": {
+        "auc": 0.7267,
+        "n_train": 879,
+        "n_test": 25,
+        "n_pos_test": 10,
+        "n_neg_test": 15
+      },
+      "GSE30161": {
+        "auc": 0.6984,
+        "n_train": 849,
+        "n_test": 55,
+        "n_pos_test": 32,
+        "n_neg_test": 23
+      },
+      "GSE32062": {
+        "auc": 0.5177,
+        "n_train": 644,
+        "n_test": 260,
+        "n_pos_test": 225,
+        "n_neg_test": 35
+      },
+      "GSE63885": {
+        "auc": 0.5753,
+        "n_train": 829,
+        "n_test": 75,
+        "n_pos_test": 41,
+        "n_neg_test": 34
+      },
+      "TCGA-OV": {
+        "auc": 0.6589,
+        "n_train": 669,
+        "n_test": 235,
+        "n_pos_test": 165,
+        "n_neg_test": 70
+      },
+      "_mean_auc": 0.6707,
+      "_median_auc": 0.6984
+    },
+    "lgb_with_covariates": {
+      "GSE156699": {
+        "auc": 0.6484,
+        "n_train": 816,
+        "n_test": 88,
+        "n_pos_test": 50,
+        "n_neg_test": 38
+      },
+      "GSE173839": {
+        "auc": 0.7332,
+        "n_train": 833,
+        "n_test": 71,
+        "n_pos_test": 29,
+        "n_neg_test": 42
+      },
+      "GSE18864": {
+        "auc": 0.5781,
+        "n_train": 880,
+        "n_test": 24,
+        "n_pos_test": 8,
+        "n_neg_test": 16
+      },
+      "GSE194040": {
+        "auc": 0.8796,
+        "n_train": 833,
+        "n_test": 71,
+        "n_pos_test": 27,
+        "n_neg_test": 44
+      },
+      "GSE28739": {
+        "auc": 0.7267,
+        "n_train": 879,
+        "n_test": 25,
+        "n_pos_test": 10,
+        "n_neg_test": 15
+      },
+      "GSE30161": {
+        "auc": 0.553,
+        "n_train": 849,
+        "n_test": 55,
+        "n_pos_test": 32,
+        "n_neg_test": 23
+      },
+      "GSE32062": {
+        "auc": 0.5,
+        "n_train": 644,
+        "n_test": 260,
+        "n_pos_test": 225,
+        "n_neg_test": 35
+      },
+      "GSE63885": {
+        "auc": 0.6528,
+        "n_train": 829,
+        "n_test": 75,
+        "n_pos_test": 41,
+        "n_neg_test": 34
+      },
+      "TCGA-OV": {
+        "auc": 0.6268,
+        "n_train": 669,
+        "n_test": 235,
+        "n_pos_test": 165,
+        "n_neg_test": 70
+      },
+      "_mean_auc": 0.6554,
+      "_median_auc": 0.6484
+    }
+  },
+  "phase3_ispy2_interaction": {
+    "auc_parpi": 0.7654,
+    "auc_control": 0.6149,
+    "auc_all_ispy2": 0.6826,
+    "interaction_coef": 2.3172,
+    "interaction_pval": 0.327671,
+    "score_coef": 3.304,
+    "score_pval": 0.029757,
+    "arm_coef": -1.0188,
+    "arm_pval": 0.639837,
+    "GSE173839_interaction_coef": -3.9383,
+    "GSE173839_interaction_pval": 0.428746,
+    "GSE173839_auc_parpi": 0.7291,
+    "GSE173839_auc_control": 0.7338,
+    "GSE194040_interaction_coef": 16.9066,
+    "GSE194040_interaction_pval": 0.011998,
+    "GSE194040_auc_parpi": 0.8283,
+    "GSE194040_auc_control": 0.6083,
+    "specificity_mw_U": 1253.0,
+    "specificity_mw_p": 0.07321,
+    "specificity": {
+      "mean_score_parpi_pcr": 0.9301,
+      "mean_score_parpi_nopcr": 0.8294,
+      "mean_score_ctrl_pcr": 0.9174,
+      "mean_score_ctrl_nopcr": 0.8498,
+      "n_parpi_pcr": 56,
+      "n_ctrl_pcr": 38
+    }
+  },
+  "phase4_model_b_gdsc": {
+    "gdsc_cv_aucs": [
+      0.7455,
+      0.8126,
+      0.8174,
+      0.7752,
+      0.7638
+    ],
+    "gdsc_cv_mean": 0.7829,
+    "gdsc_cv_std": 0.0279,
+    "weight_correlation_rho": 0.006,
+    "weight_correlation_p": 0.5255567055051603,
+    "top50_overlap": 1,
+    "shared_top_genes": [
+      "SLC38A5"
+    ]
+  }
+}

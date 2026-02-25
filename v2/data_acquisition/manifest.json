@@ -1,0 +1,96 @@
+{
+  "datasets": {
+    "ispy2": {
+      "downloaded_at": "2026-02-23T21:13:27.633320+00:00",
+      "data_available": {
+        "expression": "Pusztai et al. 2021 (pre-treatment gene expression)",
+        "biomarkers": "GSE173839 durvalumab/olaparib arm biomarkers",
+        "pCR_endpoint": "Pathological complete response (pCR)"
+      },
+      "existing_data_checked": [],
+      "geo_accession": "GSE173839",
+      "notes": "I-SPY2 is an adaptive platform trial. Primary HRD validation uses durvalumab/olaparib arm. PARPi7 signature score available as comparator. Additional arms and timepoints may be available through the I-SPY2 data sharing portal.",
+      "access": {
+        "public": "GSE173839 (GEO), selected supplementary tables",
+        "restricted": "Full trial data requires DUA with I-SPY2 consortium",
+        "portal": "https://www.ispytrials.org/results/data-access"
+      }
+    },
+    "geo": {
+      "downloaded_at": "2026-02-23T21:15:43.403911+00:00",
+      "accessions": [
+        "GSE9891",
+        "GSE26712",
+        "GSE51088",
+        "GSE63885",
+        "GSE30161",
+        "GSE32062"
+      ],
+      "descriptions": {
+        "GSE9891": "285 ovarian tumors (Tothill et al. 2008)",
+        "GSE26712": "185 serous OvCa (Bonome et al. 2008)",
+        "GSE51088": "172 HGSOC with platinum response (Ferriss et al.)",
+        "GSE63885": "101 OvCa with platinum response (Lisowska et al.)",
+        "GSE30161": "58 advanced serous OvCa (Ferriss et al. 2012)",
+        "GSE32062": "260 Japanese HGSOC (Yoshihara et al. 2012)"
+      },
+      "source": "NCBI GEO via GEOparse",
+      "results": {
+        "GSE9891": {
+          "n_samples": 285,
+          "n_probes": 54621,
+          "n_genes": 22868,
+          "n_response_labels": 0
+        },
+        "GSE26712": {
+          "n_samples": 195,
+          "n_probes": 22283,
+          "n_genes": 13237,
+          "n_response_labels": 0
+        },
+        "GSE51088": {
+          "n_samples": 172,
+          "n_probes": 20173,
+          "n_genes": 16746,
+          "n_response_labels": 0
+        },
+        "GSE63885": {
+          "n_samples": 101,
+          "n_probes": 54675,
+          "n_genes": 22880,
+          "n_response_labels": 0
+        },
+        "GSE30161": {
+          "n_samples": 58,
+          "n_probes": 54675,
+          "n_genes": 22880,
+          "n_response_labels": 55
+        },
+        "GSE32062": {
+          "n_samples": 270,
+          "n_probes": 95768,
+          "n_genes": 22880,
+          "n_response_labels": 0
+        }
+      }
+    },
+    "gdsc_exp7": {
+      "downloaded_at": "2026-02-24T00:12:18.778936+00:00",
+      "description": "Experiment 7: GDSC olaparib IC50 validation data",
+      "drugs": [
+        "Olaparib",
+        "Rucaparib",
+        "Talazoparib"
+      ],
+      "gdsc_source": "cancerrxgene.org GDSC2 release 8.5 (27 Oct 2023)",
+      "depmap_source": "DepMap 24Q4 (figshare article 27993248)",
+      "olaparib_cell_lines": 967,
+      "expression_shape": [
+        1673,
+        19193
+      ],
+      "brca_mutated_lines": 221
+    }
+  },
+  "last_updated": "2026-02-24T00:12:18.778943+00:00"
+}

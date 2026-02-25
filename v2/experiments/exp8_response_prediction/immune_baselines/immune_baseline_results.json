@@ -1,0 +1,572 @@
+{
+  "experiment": "Immune Baseline Benchmarks for Drug Response Prediction",
+  "description": "Tests whether simple immune scores predict platinum/PARPi response as well as the full 11140-gene L2 model",
+  "model_a_n_samples": 904,
+  "n_datasets": 9,
+  "datasets": [
+    "GSE156699",
+    "GSE173839",
+    "GSE18864",
+    "GSE194040",
+    "GSE28739",
+    "GSE30161",
+    "GSE32062",
+    "GSE63885",
+    "TCGA-OV"
+  ],
+  "exclude_from_clean7": [
+    "GSE28739",
+    "GSE32062"
+  ],
+  "gene_availability": {
+    "CXCL9": true,
+    "CD8A": true,
+    "IFNG": false,
+    "IFNG_substitute": "IRF1",
+    "immune5_genes": [
+      "CXCL9",
+      "GBP5",
+      "HLA-DQA1",
+      "SLC15A3",
+      "GBP3"
+    ],
+    "tis_available": [
+      "CCL5",
+      "CD27",
+      "CD274",
+      "CD276",
+      "CD8A",
+      "CMKLR1",
+      "CXCL9",
+      "HLA-DQA1",
+      "HLA-DRB1",
+      "HLA-E",
+      "IDO1",
+      "LAG3",
+      "PDCD1LG2",
+      "PSMB10",
+      "STAT1"
+    ],
+    "tis_missing": [
+      "CXCR6",
+      "KLRK1",
+      "TIGIT"
+    ]
+  },
+  "baselines": {
+    "1_CXCL9_raw": {
+      "GSE156699": {
+        "auc": 0.6347,
+        "n_test": 88,
+        "n_pos": 50,
+        "n_neg": 38
+      },
+      "GSE173839": {
+        "auc": 0.7184,
+        "n_test": 71,
+        "n_pos": 29,
+        "n_neg": 42
+      },
+      "GSE18864": {
+        "auc": 0.4219,
+        "n_test": 24,
+        "n_pos": 8,
+        "n_neg": 16
+      },
+      "GSE194040": {
+        "auc": 0.5825,
+        "n_test": 71,
+        "n_pos": 27,
+        "n_neg": 44
+      },
+      "GSE28739": {
+        "auc": 0.4,
+        "n_test": 25,
+        "n_pos": 10,
+        "n_neg": 15
+      },
+      "GSE30161": {
+        "auc": 0.5476,
+        "n_test": 55,
+        "n_pos": 32,
+        "n_neg": 23
+      },
+      "GSE32062": {
+        "auc": 0.5,
+        "n_test": 260,
+        "n_pos": 225,
+        "n_neg": 35
+      },
+      "GSE63885": {
+        "auc": 0.5323,
+        "n_test": 75,
+        "n_pos": 41,
+        "n_neg": 34
+      },
+      "TCGA-OV": {
+        "auc": 0.5578,
+        "n_test": 235,
+        "n_pos": 165,
+        "n_neg": 70
+      },
+      "_mean_auc_all9": 0.5439,
+      "_mean_auc_clean7": 0.5707,
+      "_n_datasets": 9,
+      "_n_clean7": 7
+    },
+    "2_CD8A_raw": {
+      "GSE156699": {
+        "auc": 0.6042,
+        "n_test": 88,
+        "n_pos": 50,
+        "n_neg": 38
+      },
+      "GSE173839": {
+        "auc": 0.5649,
+        "n_test": 71,
+        "n_pos": 29,
+        "n_neg": 42
+      },
+      "GSE18864": {
+        "auc": 0.5547,
+        "n_test": 24,
+        "n_pos": 8,
+        "n_neg": 16
+      },
+      "GSE194040": {
+        "auc": 0.6246,
+        "n_test": 71,
+        "n_pos": 27,
+        "n_neg": 44
+      },
+      "GSE28739": {
+        "auc": 0.34,
+        "n_test": 25,
+        "n_pos": 10,
+        "n_neg": 15
+      },
+      "GSE30161": {
+        "auc": 0.5014,
+        "n_test": 55,
+        "n_pos": 32,
+        "n_neg": 23
+      },
+      "GSE32062": {
+        "auc": 0.5,
+        "n_test": 260,
+        "n_pos": 225,
+        "n_neg": 35
+      },
+      "GSE63885": {
+        "auc": 0.4717,
+        "n_test": 75,
+        "n_pos": 41,
+        "n_neg": 34
+      },
+      "TCGA-OV": {
+        "auc": 0.4981,
+        "n_test": 235,
+        "n_pos": 165,
+        "n_neg": 70
+      },
+      "_mean_auc_all9": 0.5177,
+      "_mean_auc_clean7": 0.5457,
+      "_n_datasets": 9,
+      "_n_clean7": 7
+    },
+    "3_IRF1_raw": {
+      "GSE156699": {
+        "auc": 0.6547,
+        "n_test": 88,
+        "n_pos": 50,
+        "n_neg": 38
+      },
+      "GSE173839": {
+        "auc": 0.6749,
+        "n_test": 71,
+        "n_pos": 29,
+        "n_neg": 42
+      },
+      "GSE18864": {
+        "auc": 0.5781,
+        "n_test": 24,
+        "n_pos": 8,
+        "n_neg": 16
+      },
+      "GSE194040": {
+        "auc": 0.7222,
+        "n_test": 71,
+        "n_pos": 27,
+        "n_neg": 44
+      },
+      "GSE28739": {
+        "auc": 0.5533,
+        "n_test": 25,
+        "n_pos": 10,
+        "n_neg": 15
+      },
+      "GSE30161": {
+        "auc": 0.5557,
+        "n_test": 55,
+        "n_pos": 32,
+        "n_neg": 23
+      },
+      "GSE32062": {
+        "auc": 0.5,
+        "n_test": 260,
+        "n_pos": 225,
+        "n_neg": 35
+      },
+      "GSE63885": {
+        "auc": 0.5667,
+        "n_test": 75,
+        "n_pos": 41,
+        "n_neg": 34
+      },
+      "TCGA-OV": {
+        "auc": 0.5319,
+        "n_test": 235,
+        "n_pos": 165,
+        "n_neg": 70
+      },
+      "_mean_auc_all9": 0.5931,
+      "_mean_auc_clean7": 0.612,
+      "_n_datasets": 9,
+      "_n_clean7": 7
+    },
+    "4_immune5_avg": {
+      "GSE156699": {
+        "auc": 0.6442,
+        "n_test": 88,
+        "n_pos": 50,
+        "n_neg": 38
+      },
+      "GSE173839": {
+        "auc": 0.7028,
+        "n_test": 71,
+        "n_pos": 29,
+        "n_neg": 42
+      },
+      "GSE18864": {
+        "auc": 0.3828,
+        "n_test": 24,
+        "n_pos": 8,
+        "n_neg": 16
+      },
+      "GSE194040": {
+        "auc": 0.6136,
+        "n_test": 71,
+        "n_pos": 27,
+        "n_neg": 44
+      },
+      "GSE28739": {
+        "auc": 0.4333,
+        "n_test": 25,
+        "n_pos": 10,
+        "n_neg": 15
+      },
+      "GSE30161": {
+        "auc": 0.4293,
+        "n_test": 55,
+        "n_pos": 32,
+        "n_neg": 23
+      },
+      "GSE32062": {
+        "auc": 0.5,
+        "n_test": 260,
+        "n_pos": 225,
+        "n_neg": 35
+      },
+      "GSE63885": {
+        "auc": 0.5488,
+        "n_test": 75,
+        "n_pos": 41,
+        "n_neg": 34
+      },
+      "TCGA-OV": {
+        "auc": 0.5499,
+        "n_test": 235,
+        "n_pos": 165,
+        "n_neg": 70
+      },
+      "_mean_auc_all9": 0.5339,
+      "_mean_auc_clean7": 0.5531,
+      "_n_datasets": 9,
+      "_n_clean7": 7
+    },
+    "5_immune5_L2": {
+      "GSE156699": {
+        "auc": 0.3563,
+        "n_test": 88,
+        "n_pos": 50,
+        "n_neg": 38
+      },
+      "GSE173839": {
+        "auc": 0.4483,
+        "n_test": 71,
+        "n_pos": 29,
+        "n_neg": 42
+      },
+      "GSE18864": {
+        "auc": 0.7109,
+        "n_test": 24,
+        "n_pos": 8,
+        "n_neg": 16
+      },
+      "GSE194040": {
+        "auc": 0.5421,
+        "n_test": 71,
+        "n_pos": 27,
+        "n_neg": 44
+      },
+      "GSE28739": {
+        "auc": 0.5867,
+        "n_test": 25,
+        "n_pos": 10,
+        "n_neg": 15
+      },
+      "GSE30161": {
+        "auc": 0.4946,
+        "n_test": 55,
+        "n_pos": 32,
+        "n_neg": 23
+      },
+      "GSE32062": {
+        "auc": 0.5,
+        "n_test": 260,
+        "n_pos": 225,
+        "n_neg": 35
+      },
+      "GSE63885": {
+        "auc": 0.4168,
+        "n_test": 75,
+        "n_pos": 41,
+        "n_neg": 34
+      },
+      "TCGA-OV": {
+        "auc": 0.4657,
+        "n_test": 235,
+        "n_pos": 165,
+        "n_neg": 70
+      },
+      "_mean_auc_all9": 0.5024,
+      "_mean_auc_clean7": 0.4907,
+      "_n_datasets": 9,
+      "_n_clean7": 7
+    },
+    "6_TIS_avg": {
+      "GSE156699": {
+        "auc": 0.6563,
+        "n_test": 88,
+        "n_pos": 50,
+        "n_neg": 38
+      },
+      "GSE173839": {
+        "auc": 0.6946,
+        "n_test": 71,
+        "n_pos": 29,
+        "n_neg": 42
+      },
+      "GSE18864": {
+        "auc": 0.5078,
+        "n_test": 24,
+        "n_pos": 8,
+        "n_neg": 16
+      },
+      "GSE194040": {
+        "auc": 0.7054,
+        "n_test": 71,
+        "n_pos": 27,
+        "n_neg": 44
+      },
+      "GSE28739": {
+        "auc": 0.3533,
+        "n_test": 25,
+        "n_pos": 10,
+        "n_neg": 15
+      },
+      "GSE30161": {
+        "auc": 0.4783,
+        "n_test": 55,
+        "n_pos": 32,
+        "n_neg": 23
+      },
+      "GSE32062": {
+        "auc": 0.5,
+        "n_test": 260,
+        "n_pos": 225,
+        "n_neg": 35
+      },
+      "GSE63885": {
+        "auc": 0.5172,
+        "n_test": 75,
+        "n_pos": 41,
+        "n_neg": 34
+      },
+      "TCGA-OV": {
+        "auc": 0.5633,
+        "n_test": 235,
+        "n_pos": 165,
+        "n_neg": 70
+      },
+      "_mean_auc_all9": 0.5529,
+      "_mean_auc_clean7": 0.589,
+      "_n_datasets": 9,
+      "_n_clean7": 7
+    },
+    "7_TIS_L2": {
+      "GSE156699": {
+        "auc": 0.3679,
+        "n_test": 88,
+        "n_pos": 50,
+        "n_neg": 38
+      },
+      "GSE173839": {
+        "auc": 0.697,
+        "n_test": 71,
+        "n_pos": 29,
+        "n_neg": 42
+      },
+      "GSE18864": {
+        "auc": 0.2812,
+        "n_test": 24,
+        "n_pos": 8,
+        "n_neg": 16
+      },
+      "GSE194040": {
+        "auc": 0.6288,
+        "n_test": 71,
+        "n_pos": 27,
+        "n_neg": 44
+      },
+      "GSE28739": {
+        "auc": 0.56,
+        "n_test": 25,
+        "n_pos": 10,
+        "n_neg": 15
+      },
+      "GSE30161": {
+        "auc": 0.5476,
+        "n_test": 55,
+        "n_pos": 32,
+        "n_neg": 23
+      },
+      "GSE32062": {
+        "auc": 0.5,
+        "n_test": 260,
+        "n_pos": 225,
+        "n_neg": 35
+      },
+      "GSE63885": {
+        "auc": 0.4534,
+        "n_test": 75,
+        "n_pos": 41,
+        "n_neg": 34
+      },
+      "TCGA-OV": {
+        "auc": 0.5156,
+        "n_test": 235,
+        "n_pos": 165,
+        "n_neg": 70
+      },
+      "_mean_auc_all9": 0.5057,
+      "_mean_auc_clean7": 0.4988,
+      "_n_datasets": 9,
+      "_n_clean7": 7
+    },
+    "8_full_L2": {
+      "GSE156699": {
+        "auc": 0.77,
+        "n_test": 88,
+        "n_pos": 50,
+        "n_neg": 38
+      },
+      "GSE173839": {
+        "auc": 0.8177,
+        "n_test": 71,
+        "n_pos": 29,
+        "n_neg": 42
+      },
+      "GSE18864": {
+        "auc": 0.5391,
+        "n_test": 24,
+        "n_pos": 8,
+        "n_neg": 16
+      },
+      "GSE194040": {
+        "auc": 0.8923,
+        "n_test": 71,
+        "n_pos": 27,
+        "n_neg": 44
+      },
+      "GSE28739": {
+        "auc": 0.7467,
+        "n_test": 25,
+        "n_pos": 10,
+        "n_neg": 15
+      },
+      "GSE30161": {
+        "auc": 0.731,
+        "n_test": 55,
+        "n_pos": 32,
+        "n_neg": 23
+      },
+      "GSE32062": {
+        "auc": 0.4894,
+        "n_test": 260,
+        "n_pos": 225,
+        "n_neg": 35
+      },
+      "GSE63885": {
+        "auc": 0.6047,
+        "n_test": 75,
+        "n_pos": 41,
+        "n_neg": 34
+      },
+      "TCGA-OV": {
+        "auc": 0.6454,
+        "n_test": 235,
+        "n_pos": 165,
+        "n_neg": 70
+      },
+      "_mean_auc_all9": 0.6929,
+      "_mean_auc_clean7": 0.7143,
+      "_n_datasets": 9,
+      "_n_clean7": 7
+    }
+  },
+  "summary": {
+    "1_CXCL9_raw": {
+      "mean_auc_all9": 0.5439,
+      "mean_auc_clean7": 0.5707
+    },
+    "2_CD8A_raw": {
+      "mean_auc_all9": 0.5177,
+      "mean_auc_clean7": 0.5457
+    },
+    "3_IRF1_raw": {
+      "mean_auc_all9": 0.5931,
+      "mean_auc_clean7": 0.612
+    },
+    "4_immune5_avg": {
+      "mean_auc_all9": 0.5339,
+      "mean_auc_clean7": 0.5531
+    },
+    "5_immune5_L2": {
+      "mean_auc_all9": 0.5024,
+      "mean_auc_clean7": 0.4907
+    },
+    "6_TIS_avg": {
+      "mean_auc_all9": 0.5529,
+      "mean_auc_clean7": 0.589
+    },
+    "7_TIS_L2": {
+      "mean_auc_all9": 0.5057,
+      "mean_auc_clean7": 0.4988
+    },
+    "8_full_L2": {
+      "mean_auc_all9": 0.6929,
+      "mean_auc_clean7": 0.7143
+    }
+  }
+}

@@ -1,0 +1,1015 @@
+{
+  "experiment": "Immune Cell Deconvolution via Gene Signature Scoring",
+  "date": "2026-02-24",
+  "method": "Mean rank of marker genes from pooled rank matrix",
+  "model": "L2 LogReg C=0.01, LODO-CV predictions",
+  "immune_signatures": {
+    "CD8+ T cells": [
+      "CD8A",
+      "GZMA",
+      "GZMB",
+      "PRF1",
+      "GZMK",
+      "CD3D",
+      "CD3E"
+    ],
+    "M1 macrophages": [
+      "NOS2",
+      "IL1B",
+      "TNF",
+      "CXCL10",
+      "CXCL9",
+      "IRF1",
+      "STAT1"
+    ],
+    "NK cells": [
+      "NCAM1",
+      "NKG7",
+      "GNLY",
+      "GZMB",
+      "PRF1"
+    ],
+    "B cells": [
+      "CD19",
+      "MS4A1",
+      "CD79A",
+      "CD79B"
+    ],
+    "Tregs": [
+      "FOXP3"
+    ],
+    "Myeloid/MDSC": [
+      "CD33",
+      "ITGAM",
+      "CD14"
+    ],
+    "Stroma/fibroblasts": [
+      "FAP",
+      "ACTA2",
+      "COL1A1",
+      "COL3A1",
+      "FN1"
+    ],
+    "IFN-gamma signaling": [
+      "STAT1",
+      "IRF1",
+      "GBP1",
+      "GBP2",
+      "GBP3",
+      "GBP5",
+      "CXCL9",
+      "CXCL10",
+      "CXCL11",
+      "IDO1"
+    ],
+    "MHC class I": [
+      "HLA-A",
+      "HLA-B",
+      "HLA-C",
+      "B2M"
+    ],
+    "MHC class II": [
+      "HLA-DRA",
+      "HLA-DRB1",
+      "HLA-DQA1",
+      "HLA-DPA1",
+      "HLA-DPB1"
+    ],
+    "Immune checkpoint": [
+      "PDCD1",
+      "CD274",
+      "LAG3",
+      "IDO1"
+    ],
+    "Cytotoxic effector": [
+      "GZMA",
+      "GZMB",
+      "GZMK",
+      "PRF1",
+      "GNLY",
+      "NKG7",
+      "CCL5"
+    ],
+    "T cell inflammation (Ayers)": [
+      "CD8A",
+      "CXCL9",
+      "CXCL10",
+      "IDO1",
+      "STAT1",
+      "HLA-DRA",
+      "CCL5",
+      "LAG3",
+      "PDCD1",
+      "CD274",
+      "GZMA",
+      "GZMB",
+      "PRF1",
+      "HLA-DQA1",
+      "NKG7",
+      "CD3D",
+      "CD3E"
+    ],
+    "Exp8 top immune genes": [
+      "CXCL9",
+      "GBP3",
+      "GBP5",
+      "HLA-DQA1",
+      "SLC15A3"
+    ]
+  },
+  "n_signatures": 14,
+  "correlations_per_dataset": {
+    "GSE156699": {
+      "n": 88,
+      "CD8+ T cells": {
+        "rho_vs_pred_score": 0.1491,
+        "p_vs_pred_score": 0.165722,
+        "rho_vs_response": 0.2767,
+        "p_vs_response": 0.009051
+      },
+      "M1 macrophages": {
+        "rho_vs_pred_score": 0.3329,
+        "p_vs_pred_score": 0.001529,
+        "rho_vs_response": 0.2562,
+        "p_vs_response": 0.015966
+      },
+      "NK cells": {
+        "rho_vs_pred_score": -0.011,
+        "p_vs_pred_score": 0.919189,
+        "rho_vs_response": 0.1426,
+        "p_vs_response": 0.185189
+      },
+      "B cells": {
+        "rho_vs_pred_score": -0.0895,
+        "p_vs_pred_score": 0.407057,
+        "rho_vs_response": 0.1193,
+        "p_vs_response": 0.268432
+      },
+      "Tregs": {
+        "rho_vs_pred_score": 0.1948,
+        "p_vs_pred_score": 0.069008,
+        "rho_vs_response": 0.218,
+        "p_vs_response": 0.041352
+      },
+      "Myeloid/MDSC": {
+        "rho_vs_pred_score": 0.008,
+        "p_vs_pred_score": 0.940739,
+        "rho_vs_response": 0.1931,
+        "p_vs_response": 0.071489
+      },
+      "Stroma/fibroblasts": {
+        "rho_vs_pred_score": -0.1874,
+        "p_vs_pred_score": 0.080459,
+        "rho_vs_response": 0.0017,
+        "p_vs_response": 0.987617
+      },
+      "IFN-gamma signaling": {
+        "rho_vs_pred_score": 0.3747,
+        "p_vs_pred_score": 0.000323,
+        "rho_vs_response": 0.2501,
+        "p_vs_response": 0.018788
+      },
+      "MHC class I": {
+        "rho_vs_pred_score": 0.1867,
+        "p_vs_pred_score": 0.081622,
+        "rho_vs_response": 0.1519,
+        "p_vs_response": 0.15766
+      },
+      "MHC class II": {
+        "rho_vs_pred_score": 0.1504,
+        "p_vs_pred_score": 0.161911,
+        "rho_vs_response": 0.2051,
+        "p_vs_response": 0.055276
+      },
+      "Immune checkpoint": {
+        "rho_vs_pred_score": 0.307,
+        "p_vs_pred_score": 0.003624,
+        "rho_vs_response": 0.2764,
+        "p_vs_response": 0.009127
+      },
+      "Cytotoxic effector": {
+        "rho_vs_pred_score": 0.1306,
+        "p_vs_pred_score": 0.225118,
+        "rho_vs_response": 0.2626,
+        "p_vs_response": 0.013439
+      },
+      "T cell inflammation (Ayers)": {
+        "rho_vs_pred_score": 0.2683,
+        "p_vs_pred_score": 0.011494,
+        "rho_vs_response": 0.2836,
+        "p_vs_response": 0.007424
+      },
+      "Exp8 top immune genes": {
+        "rho_vs_pred_score": 0.2945,
+        "p_vs_pred_score": 0.005342,
+        "rho_vs_response": 0.265,
+        "p_vs_response": 0.012585
+      }
+    },
+    "GSE173839": {
+      "n": 71,
+      "CD8+ T cells": {
+        "rho_vs_pred_score": 0.4269,
+        "p_vs_pred_score": 0.000205,
+        "rho_vs_response": 0.2211,
+        "p_vs_response": 0.063927
+      },
+      "M1 macrophages": {
+        "rho_vs_pred_score": 0.6309,
+        "p_vs_pred_score": 0.0,
+        "rho_vs_response": 0.4307,
+        "p_vs_response": 0.000177
+      },
+      "NK cells": {
+        "rho_vs_pred_score": 0.611,
+        "p_vs_pred_score": 0.0,
+        "rho_vs_response": 0.361,
+        "p_vs_response": 0.001983
+      },
+      "B cells": {
+        "rho_vs_pred_score": 0.352,
+        "p_vs_pred_score": 0.002606,
+        "rho_vs_response": 0.2237,
+        "p_vs_response": 0.060725
+      },
+      "Tregs": {
+        "rho_vs_pred_score": 0.2189,
+        "p_vs_pred_score": 0.066586,
+        "rho_vs_response": 0.0386,
+        "p_vs_response": 0.749026
+      },
+      "Myeloid/MDSC": {
+        "rho_vs_pred_score": 0.31,
+        "p_vs_pred_score": 0.008525,
+        "rho_vs_response": 0.0495,
+        "p_vs_response": 0.681995
+      },
+      "Stroma/fibroblasts": {
+        "rho_vs_pred_score": -0.1304,
+        "p_vs_pred_score": 0.278349,
+        "rho_vs_response": -0.3246,
+        "p_vs_response": 0.005751
+      },
+      "IFN-gamma signaling": {
+        "rho_vs_pred_score": 0.5997,
+        "p_vs_pred_score": 0.0,
+        "rho_vs_response": 0.4295,
+        "p_vs_response": 0.000186
+      },
+      "MHC class I": {
+        "rho_vs_pred_score": 0.4581,
+        "p_vs_pred_score": 5.9e-05,
+        "rho_vs_response": 0.2777,
+        "p_vs_response": 0.019044
+      },
+      "MHC class II": {
+        "rho_vs_pred_score": 0.3032,
+        "p_vs_pred_score": 0.010157,
+        "rho_vs_response": 0.1556,
+        "p_vs_response": 0.194994
+      },
+      "Immune checkpoint": {
+        "rho_vs_pred_score": 0.6122,
+        "p_vs_pred_score": 0.0,
+        "rho_vs_response": 0.4345,
+        "p_vs_response": 0.000153
+      },
+      "Cytotoxic effector": {
+        "rho_vs_pred_score": 0.4699,
+        "p_vs_pred_score": 3.6e-05,
+        "rho_vs_response": 0.2601,
+        "p_vs_response": 0.02846
+      },
+      "T cell inflammation (Ayers)": {
+        "rho_vs_pred_score": 0.5225,
+        "p_vs_pred_score": 3e-06,
+        "rho_vs_response": 0.3406,
+        "p_vs_response": 0.003651
+      },
+      "Exp8 top immune genes": {
+        "rho_vs_pred_score": 0.4425,
+        "p_vs_pred_score": 0.000112,
+        "rho_vs_response": 0.3329,
+        "p_vs_response": 0.004558
+      }
+    },
+    "GSE18864": {
+      "n": 24,
+      "CD8+ T cells": {
+        "rho_vs_pred_score": -0.0913,
+        "p_vs_pred_score": 0.671341,
+        "rho_vs_response": 0.1079,
+        "p_vs_response": 0.615811
+      },
+      "M1 macrophages": {
+        "rho_vs_pred_score": -0.0487,
+        "p_vs_pred_score": 0.821234,
+        "rho_vs_response": -0.1665,
+        "p_vs_response": 0.436804
+      },
+      "NK cells": {
+        "rho_vs_pred_score": -0.053,
+        "p_vs_pred_score": 0.805559,
+        "rho_vs_response": 0.2316,
+        "p_vs_response": 0.276185
+      },
+      "B cells": {
+        "rho_vs_pred_score": 0.0035,
+        "p_vs_pred_score": 0.98713,
+        "rho_vs_response": 0.0526,
+        "p_vs_response": 0.807065
+      },
+      "Tregs": {
+        "rho_vs_pred_score": 0.0548,
+        "p_vs_pred_score": 0.799308,
+        "rho_vs_response": -0.0792,
+        "p_vs_response": 0.712836
+      },
+      "Myeloid/MDSC": {
+        "rho_vs_pred_score": -0.5504,
+        "p_vs_pred_score": 0.005319,
+        "rho_vs_response": -0.1795,
+        "p_vs_response": 0.401311
+      },
+      "Stroma/fibroblasts": {
+        "rho_vs_pred_score": -0.6087,
+        "p_vs_pred_score": 0.001597,
+        "rho_vs_response": -0.0767,
+        "p_vs_response": 0.721603
+      },
+      "IFN-gamma signaling": {
+        "rho_vs_pred_score": -0.0226,
+        "p_vs_pred_score": 0.916487,
+        "rho_vs_response": -0.0642,
+        "p_vs_response": 0.765827
+      },
+      "MHC class I": {
+        "rho_vs_pred_score": -0.1296,
+        "p_vs_pred_score": 0.546239,
+        "rho_vs_response": -0.1672,
+        "p_vs_response": 0.434736
+      },
+      "MHC class II": {
+        "rho_vs_pred_score": -0.127,
+        "p_vs_pred_score": 0.554416,
+        "rho_vs_response": -0.216,
+        "p_vs_response": 0.310807
+      },
+      "Immune checkpoint": {
+        "rho_vs_pred_score": -0.0217,
+        "p_vs_pred_score": 0.919689,
+        "rho_vs_response": -0.0369,
+        "p_vs_response": 0.864049
+      },
+      "Cytotoxic effector": {
+        "rho_vs_pred_score": -0.1157,
+        "p_vs_pred_score": 0.590478,
+        "rho_vs_response": 0.1269,
+        "p_vs_response": 0.554511
+      },
+      "T cell inflammation (Ayers)": {
+        "rho_vs_pred_score": -0.047,
+        "p_vs_pred_score": 0.827524,
+        "rho_vs_response": -0.0001,
+        "p_vs_response": 0.999595
+      },
+      "Exp8 top immune genes": {
+        "rho_vs_pred_score": -0.027,
+        "p_vs_pred_score": 0.900498,
+        "rho_vs_response": -0.1453,
+        "p_vs_response": 0.498113
+      }
+    },
+    "GSE194040": {
+      "n": 71,
+      "CD8+ T cells": {
+        "rho_vs_pred_score": 0.4386,
+        "p_vs_pred_score": 0.00013,
+        "rho_vs_response": 0.2619,
+        "p_vs_response": 0.027393
+      },
+      "M1 macrophages": {
+        "rho_vs_pred_score": 0.5717,
+        "p_vs_pred_score": 0.0,
+        "rho_vs_response": 0.313,
+        "p_vs_response": 0.007857
+      },
+      "NK cells": {
+        "rho_vs_pred_score": 0.528,
+        "p_vs_pred_score": 2e-06,
+        "rho_vs_response": 0.3286,
+        "p_vs_response": 0.005144
+      },
+      "B cells": {
+        "rho_vs_pred_score": 0.3723,
+        "p_vs_pred_score": 0.001386,
+        "rho_vs_response": 0.2183,
+        "p_vs_response": 0.067437
+      },
+      "Tregs": {
+        "rho_vs_pred_score": 0.3442,
+        "p_vs_pred_score": 0.003291,
+        "rho_vs_response": 0.1766,
+        "p_vs_response": 0.14073
+      },
+      "Myeloid/MDSC": {
+        "rho_vs_pred_score": 0.3025,
+        "p_vs_pred_score": 0.010351,
+        "rho_vs_response": 0.1738,
+        "p_vs_response": 0.147135
+      },
+      "Stroma/fibroblasts": {
+        "rho_vs_pred_score": -0.1696,
+        "p_vs_pred_score": 0.157325,
+        "rho_vs_response": 0.0244,
+        "p_vs_response": 0.840137
+      },
+      "IFN-gamma signaling": {
+        "rho_vs_pred_score": 0.5226,
+        "p_vs_pred_score": 3e-06,
+        "rho_vs_response": 0.2797,
+        "p_vs_response": 0.018159
+      },
+      "MHC class I": {
+        "rho_vs_pred_score": 0.5062,
+        "p_vs_pred_score": 7e-06,
+        "rho_vs_response": 0.2805,
+        "p_vs_response": 0.017826
+      },
+      "MHC class II": {
+        "rho_vs_pred_score": 0.2579,
+        "p_vs_pred_score": 0.029891,
+        "rho_vs_response": 0.2835,
+        "p_vs_response": 0.016584
+      },
+      "Immune checkpoint": {
+        "rho_vs_pred_score": 0.5788,
+        "p_vs_pred_score": 0.0,
+        "rho_vs_response": 0.3096,
+        "p_vs_response": 0.008609
+      },
+      "Cytotoxic effector": {
+        "rho_vs_pred_score": 0.4931,
+        "p_vs_pred_score": 1.2e-05,
+        "rho_vs_response": 0.2849,
+        "p_vs_response": 0.016047
+      },
+      "T cell inflammation (Ayers)": {
+        "rho_vs_pred_score": 0.5349,
+        "p_vs_pred_score": 2e-06,
+        "rho_vs_response": 0.3088,
+        "p_vs_response": 0.00878
+      },
+      "Exp8 top immune genes": {
+        "rho_vs_pred_score": 0.3227,
+        "p_vs_pred_score": 0.006056,
+        "rho_vs_response": 0.1782,
+        "p_vs_response": 0.136962
+      }
+    },
+    "GSE28739": {
+      "n": 25,
+      "CD8+ T cells": {
+        "rho_vs_pred_score": 0.0331,
+        "p_vs_pred_score": 0.875276,
+        "rho_vs_response": -0.1687,
+        "p_vs_response": 0.420266
+      },
+      "M1 macrophages": {
+        "rho_vs_pred_score": -0.0654,
+        "p_vs_pred_score": 0.756167,
+        "rho_vs_response": -0.1452,
+        "p_vs_response": 0.488612
+      },
+      "NK cells": {
+        "rho_vs_pred_score": 0.0808,
+        "p_vs_pred_score": 0.701128,
+        "rho_vs_response": -0.0464,
+        "p_vs_response": 0.825848
+      },
+      "B cells": {
+        "rho_vs_pred_score": 0.2808,
+        "p_vs_pred_score": 0.173986,
+        "rho_vs_response": -0.3655,
+        "p_vs_response": 0.072393
+      },
+      "Tregs": {
+        "rho_vs_pred_score": 0.5254,
+        "p_vs_pred_score": 0.006997,
+        "rho_vs_response": 0.1127,
+        "p_vs_response": 0.591575
+      },
+      "Myeloid/MDSC": {
+        "rho_vs_pred_score": -0.3769,
+        "p_vs_pred_score": 0.063267,
+        "rho_vs_response": -0.557,
+        "p_vs_response": 0.003827
+      },
+      "Stroma/fibroblasts": {
+        "rho_vs_pred_score": -0.4592,
+        "p_vs_pred_score": 0.020927,
+        "rho_vs_response": -0.0764,
+        "p_vs_response": 0.716712
+      },
+      "IFN-gamma signaling": {
+        "rho_vs_pred_score": -0.0485,
+        "p_vs_pred_score": 0.818063,
+        "rho_vs_response": -0.0924,
+        "p_vs_response": 0.660372
+      },
+      "MHC class I": {
+        "rho_vs_pred_score": -0.2615,
+        "p_vs_pred_score": 0.206638,
+        "rho_vs_response": -0.2134,
+        "p_vs_response": 0.305692
+      },
+      "MHC class II": {
+        "rho_vs_pred_score": -0.1885,
+        "p_vs_pred_score": 0.366957,
+        "rho_vs_response": -0.3022,
+        "p_vs_response": 0.142044
+      },
+      "Immune checkpoint": {
+        "rho_vs_pred_score": 0.5346,
+        "p_vs_pred_score": 0.005901,
+        "rho_vs_response": -0.0885,
+        "p_vs_response": 0.674116
+      },
+      "Cytotoxic effector": {
+        "rho_vs_pred_score": 0.0385,
+        "p_vs_pred_score": 0.855167,
+        "rho_vs_response": -0.1741,
+        "p_vs_response": 0.405195
+      },
+      "T cell inflammation (Ayers)": {
+        "rho_vs_pred_score": 0.1838,
+        "p_vs_pred_score": 0.379021,
+        "rho_vs_response": -0.1672,
+        "p_vs_response": 0.424269
+      },
+      "Exp8 top immune genes": {
+        "rho_vs_pred_score": 0.0846,
+        "p_vs_pred_score": 0.687581,
+        "rho_vs_response": -0.0467,
+        "p_vs_response": 0.824498
+      }
+    },
+    "GSE30161": {
+      "n": 55,
+      "CD8+ T cells": {
+        "rho_vs_pred_score": 0.4048,
+        "p_vs_pred_score": 0.002175,
+        "rho_vs_response": 0.1715,
+        "p_vs_response": 0.210609
+      },
+      "M1 macrophages": {
+        "rho_vs_pred_score": 0.26,
+        "p_vs_pred_score": 0.055276,
+        "rho_vs_response": 0.1766,
+        "p_vs_response": 0.197175
+      },
+      "NK cells": {
+        "rho_vs_pred_score": 0.4074,
+        "p_vs_pred_score": 0.002019,
+        "rho_vs_response": 0.1978,
+        "p_vs_response": 0.147719
+      },
+      "B cells": {
+        "rho_vs_pred_score": 0.5854,
+        "p_vs_pred_score": 3e-06,
+        "rho_vs_response": 0.1917,
+        "p_vs_response": 0.160828
+      },
+      "Tregs": {
+        "rho_vs_pred_score": 0.4602,
+        "p_vs_pred_score": 0.000408,
+        "rho_vs_response": 0.1031,
+        "p_vs_response": 0.453663
+      },
+      "Myeloid/MDSC": {
+        "rho_vs_pred_score": 0.413,
+        "p_vs_pred_score": 0.001727,
+        "rho_vs_response": 0.1652,
+        "p_vs_response": 0.2281
+      },
+      "Stroma/fibroblasts": {
+        "rho_vs_pred_score": -0.2949,
+        "p_vs_pred_score": 0.028812,
+        "rho_vs_response": -0.3312,
+        "p_vs_response": 0.013526
+      },
+      "IFN-gamma signaling": {
+        "rho_vs_pred_score": -0.0426,
+        "p_vs_pred_score": 0.757637,
+        "rho_vs_response": -0.0105,
+        "p_vs_response": 0.939345
+      },
+      "MHC class I": {
+        "rho_vs_pred_score": -0.1447,
+        "p_vs_pred_score": 0.291999,
+        "rho_vs_response": -0.2189,
+        "p_vs_response": 0.108417
+      },
+      "MHC class II": {
+        "rho_vs_pred_score": -0.1911,
+        "p_vs_pred_score": 0.162176,
+        "rho_vs_response": -0.1214,
+        "p_vs_response": 0.377113
+      },
+      "Immune checkpoint": {
+        "rho_vs_pred_score": 0.3745,
+        "p_vs_pred_score": 0.004846,
+        "rho_vs_response": 0.1278,
+        "p_vs_response": 0.352609
+      },
+      "Cytotoxic effector": {
+        "rho_vs_pred_score": 0.3462,
+        "p_vs_pred_score": 0.009611,
+        "rho_vs_response": 0.1756,
+        "p_vs_response": 0.199653
+      },
+      "T cell inflammation (Ayers)": {
+        "rho_vs_pred_score": 0.2516,
+        "p_vs_pred_score": 0.063898,
+        "rho_vs_response": 0.1106,
+        "p_vs_response": 0.421671
+      },
+      "Exp8 top immune genes": {
+        "rho_vs_pred_score": 0.053,
+        "p_vs_pred_score": 0.700981,
+        "rho_vs_response": -0.0758,
+        "p_vs_response": 0.582139
+      }
+    },
+    "GSE32062": {
+      "n": 260
+    },
+    "GSE63885": {
+      "n": 75,
+      "CD8+ T cells": {
+        "rho_vs_pred_score": -0.1378,
+        "p_vs_pred_score": 0.238572,
+        "rho_vs_response": -0.0839,
+        "p_vs_response": 0.474108
+      },
+      "M1 macrophages": {
+        "rho_vs_pred_score": 0.1907,
+        "p_vs_pred_score": 0.101302,
+        "rho_vs_response": -0.0257,
+        "p_vs_response": 0.82704
+      },
+      "NK cells": {
+        "rho_vs_pred_score": -0.1274,
+        "p_vs_pred_score": 0.276064,
+        "rho_vs_response": -0.1568,
+        "p_vs_response": 0.179142
+      },
+      "B cells": {
+        "rho_vs_pred_score": -0.2079,
+        "p_vs_pred_score": 0.073443,
+        "rho_vs_response": -0.1146,
+        "p_vs_response": 0.327585
+      },
+      "Tregs": {
+        "rho_vs_pred_score": -0.0121,
+        "p_vs_pred_score": 0.917899,
+        "rho_vs_response": 0.1109,
+        "p_vs_response": 0.343741
+      },
+      "Myeloid/MDSC": {
+        "rho_vs_pred_score": -0.117,
+        "p_vs_pred_score": 0.317654,
+        "rho_vs_response": -0.0648,
+        "p_vs_response": 0.580449
+      },
+      "Stroma/fibroblasts": {
+        "rho_vs_pred_score": -0.1864,
+        "p_vs_pred_score": 0.10938,
+        "rho_vs_response": -0.1822,
+        "p_vs_response": 0.117711
+      },
+      "IFN-gamma signaling": {
+        "rho_vs_pred_score": 0.278,
+        "p_vs_pred_score": 0.015746,
+        "rho_vs_response": 0.0119,
+        "p_vs_response": 0.918967
+      },
+      "MHC class I": {
+        "rho_vs_pred_score": 0.297,
+        "p_vs_pred_score": 0.009661,
+        "rho_vs_response": 0.0623,
+        "p_vs_response": 0.595361
+      },
+      "MHC class II": {
+        "rho_vs_pred_score": -0.2379,
+        "p_vs_pred_score": 0.039892,
+        "rho_vs_response": 0.1377,
+        "p_vs_response": 0.238658
+      },
+      "Immune checkpoint": {
+        "rho_vs_pred_score": 0.2982,
+        "p_vs_pred_score": 0.009375,
+        "rho_vs_response": 0.0141,
+        "p_vs_response": 0.904542
+      },
+      "Cytotoxic effector": {
+        "rho_vs_pred_score": -0.1205,
+        "p_vs_pred_score": 0.302944,
+        "rho_vs_response": -0.1371,
+        "p_vs_response": 0.24076
+      },
+      "T cell inflammation (Ayers)": {
+        "rho_vs_pred_score": -0.0095,
+        "p_vs_pred_score": 0.935513,
+        "rho_vs_response": -0.0258,
+        "p_vs_response": 0.826041
+      },
+      "Exp8 top immune genes": {
+        "rho_vs_pred_score": 0.0197,
+        "p_vs_pred_score": 0.86667,
+        "rho_vs_response": 0.0762,
+        "p_vs_response": 0.515729
+      }
+    },
+    "TCGA-OV": {
+      "n": 235,
+      "CD8+ T cells": {
+        "rho_vs_pred_score": 0.1677,
+        "p_vs_pred_score": 0.010012,
+        "rho_vs_response": 0.0289,
+        "p_vs_response": 0.659816
+      },
+      "M1 macrophages": {
+        "rho_vs_pred_score": 0.3213,
+        "p_vs_pred_score": 0.0,
+        "rho_vs_response": 0.0929,
+        "p_vs_response": 0.155655
+      },
+      "NK cells": {
+        "rho_vs_pred_score": 0.1288,
+        "p_vs_pred_score": 0.048566,
+        "rho_vs_response": 0.0272,
+        "p_vs_response": 0.678691
+      },
+      "B cells": {
+        "rho_vs_pred_score": 0.0381,
+        "p_vs_pred_score": 0.561457,
+        "rho_vs_response": 0.1491,
+        "p_vs_response": 0.022284
+      },
+      "Tregs": {
+        "rho_vs_pred_score": 0.1473,
+        "p_vs_pred_score": 0.023967,
+        "rho_vs_response": 0.0583,
+        "p_vs_response": 0.373692
+      },
+      "Myeloid/MDSC": {
+        "rho_vs_pred_score": 0.0633,
+        "p_vs_pred_score": 0.333993,
+        "rho_vs_response": -0.0382,
+        "p_vs_response": 0.559865
+      },
+      "Stroma/fibroblasts": {
+        "rho_vs_pred_score": -0.3204,
+        "p_vs_pred_score": 1e-06,
+        "rho_vs_response": -0.0092,
+        "p_vs_response": 0.889003
+      },
+      "IFN-gamma signaling": {
+        "rho_vs_pred_score": 0.4087,
+        "p_vs_pred_score": 0.0,
+        "rho_vs_response": 0.1297,
+        "p_vs_response": 0.047092
+      },
+      "MHC class I": {
+        "rho_vs_pred_score": 0.3019,
+        "p_vs_pred_score": 2e-06,
+        "rho_vs_response": -0.0175,
+        "p_vs_response": 0.789221
+      },
+      "MHC class II": {
+        "rho_vs_pred_score": 0.2161,
+        "p_vs_pred_score": 0.000854,
+        "rho_vs_response": 0.0056,
+        "p_vs_response": 0.931752
+      },
+      "Immune checkpoint": {
+        "rho_vs_pred_score": 0.442,
+        "p_vs_pred_score": 0.0,
+        "rho_vs_response": 0.1416,
+        "p_vs_response": 0.030058
+      },
+      "Cytotoxic effector": {
+        "rho_vs_pred_score": 0.1856,
+        "p_vs_pred_score": 0.004306,
+        "rho_vs_response": 0.0141,
+        "p_vs_response": 0.829308
+      },
+      "T cell inflammation (Ayers)": {
+        "rho_vs_pred_score": 0.2683,
+        "p_vs_pred_score": 3.1e-05,
+        "rho_vs_response": 0.0765,
+        "p_vs_response": 0.242995
+      },
+      "Exp8 top immune genes": {
+        "rho_vs_pred_score": 0.2895,
+        "p_vs_pred_score": 6e-06,
+        "rho_vs_response": 0.0646,
+        "p_vs_response": 0.324201
+      }
+    }
+  },
+  "correlations_pooled": {
+    "n": 904,
+    "CD8+ T cells": {
+      "rho_vs_pred_score": 0.0422,
+      "p_vs_pred_score": 0.285447,
+      "rho_vs_response": -0.1249,
+      "p_vs_response": 0.001493,
+      "n_valid": 644
+    },
+    "M1 macrophages": {
+      "rho_vs_pred_score": 0.2367,
+      "p_vs_pred_score": 0.0,
+      "rho_vs_response": 0.0767,
+      "p_vs_response": 0.051672,
+      "n_valid": 644
+    },
+    "NK cells": {
+      "rho_vs_pred_score": 0.1248,
+      "p_vs_pred_score": 0.001506,
+      "rho_vs_response": -0.0297,
+      "p_vs_response": 0.452493,
+      "n_valid": 644
+    },
+    "B cells": {
+      "rho_vs_pred_score": 0.033,
+      "p_vs_pred_score": 0.403263,
+      "rho_vs_response": -0.1296,
+      "p_vs_response": 0.000982,
+      "n_valid": 644
+    },
+    "Tregs": {
+      "rho_vs_pred_score": -0.0729,
+      "p_vs_pred_score": 0.064372,
+      "rho_vs_response": -0.0137,
+      "p_vs_response": 0.728021,
+      "n_valid": 644
+    },
+    "Myeloid/MDSC": {
+      "rho_vs_pred_score": 0.0351,
+      "p_vs_pred_score": 0.374062,
+      "rho_vs_response": -0.1219,
+      "p_vs_response": 0.001938,
+      "n_valid": 644
+    },
+    "Stroma/fibroblasts": {
+      "rho_vs_pred_score": -0.1933,
+      "p_vs_pred_score": 1e-06,
+      "rho_vs_response": -0.0882,
+      "p_vs_response": 0.025185,
+      "n_valid": 644
+    },
+    "IFN-gamma signaling": {
+      "rho_vs_pred_score": 0.2703,
+      "p_vs_pred_score": 0.0,
+      "rho_vs_response": 0.1159,
+      "p_vs_response": 0.003213,
+      "n_valid": 644
+    },
+    "MHC class I": {
+      "rho_vs_pred_score": 0.0001,
+      "p_vs_pred_score": 0.997979,
+      "rho_vs_response": 0.017,
+      "p_vs_response": 0.667284,
+      "n_valid": 644
+    },
+    "MHC class II": {
+      "rho_vs_pred_score": 0.0241,
+      "p_vs_pred_score": 0.541762,
+      "rho_vs_response": 0.0241,
+      "p_vs_response": 0.540812,
+      "n_valid": 644
+    },
+    "Immune checkpoint": {
+      "rho_vs_pred_score": 0.2652,
+      "p_vs_pred_score": 0.0,
+      "rho_vs_response": 0.008,
+      "p_vs_response": 0.839871,
+      "n_valid": 644
+    },
+    "Cytotoxic effector": {
+      "rho_vs_pred_score": 0.0611,
+      "p_vs_pred_score": 0.121452,
+      "rho_vs_response": -0.1178,
+      "p_vs_response": 0.00276,
+      "n_valid": 644
+    },
+    "T cell inflammation (Ayers)": {
+      "rho_vs_pred_score": 0.1251,
+      "p_vs_pred_score": 0.001464,
+      "rho_vs_response": -0.0284,
+      "p_vs_response": 0.471947,
+      "n_valid": 644
+    },
+    "Exp8 top immune genes": {
+      "rho_vs_pred_score": 0.1844,
+      "p_vs_pred_score": 2e-06,
+      "rho_vs_response": 0.0134,
+      "p_vs_response": 0.734741,
+      "n_valid": 644
+    }
+  },
+  "tcga_ov_median_split": {
+    "n": 235,
+    "CD8+ T cells": {
+      "mean_high_group": 0.2323,
+      "mean_low_group": 0.2121,
+      "diff": 0.0201,
+      "mannwhitney_p": 0.142332
+    },
+    "M1 macrophages": {
+      "mean_high_group": 0.5141,
+      "mean_low_group": 0.4693,
+      "diff": 0.0448,
+      "mannwhitney_p": 0.000987
+    },
+    "NK cells": {
+      "mean_high_group": 0.306,
+      "mean_low_group": 0.2943,
+      "diff": 0.0117,
+      "mannwhitney_p": 0.242122
+    },
+    "B cells": {
+      "mean_high_group": 0.157,
+      "mean_low_group": 0.1594,
+      "diff": -0.0024,
+      "mannwhitney_p": 0.913655
+    },
+    "Tregs": {
+      "mean_high_group": 0.2304,
+      "mean_low_group": 0.2191,
+      "diff": 0.0113,
+      "mannwhitney_p": 0.115341
+    },
+    "Myeloid/MDSC": {
+      "mean_high_group": 0.4407,
+      "mean_low_group": 0.4442,
+      "diff": -0.0035,
+      "mannwhitney_p": 0.989282
+    },
+    "Stroma/fibroblasts": {
+      "mean_high_group": 0.7642,
+      "mean_low_group": 0.8124,
+      "diff": -0.0482,
+      "mannwhitney_p": 3e-05
+    },
+    "IFN-gamma signaling": {
+      "mean_high_group": 0.6376,
+      "mean_low_group": 0.5485,
+      "diff": 0.0892,
+      "mannwhitney_p": 1e-06
+    },
+    "MHC class I": {
+      "mean_high_group": 0.9869,
+      "mean_low_group": 0.9791,
+      "diff": 0.0077,
+      "mannwhitney_p": 0.00039
+    },
+    "MHC class II": {
+      "mean_high_group": 0.8831,
+      "mean_low_group": 0.8666,
+      "diff": 0.0166,
+      "mannwhitney_p": 0.085693
+    },
+    "Immune checkpoint": {
+      "mean_high_group": 0.3119,
+      "mean_low_group": 0.2526,
+      "diff": 0.0592,
+      "mannwhitney_p": 0.0
+    },
+    "Cytotoxic effector": {
+      "mean_high_group": 0.278,
+      "mean_low_group": 0.2503,
+      "diff": 0.0278,
+      "mannwhitney_p": 0.094803
+    },
+    "T cell inflammation (Ayers)": {
+      "mean_high_group": 0.4371,
+      "mean_low_group": 0.3961,
+      "diff": 0.041,
+      "mannwhitney_p": 0.005343
+    },
+    "Exp8 top immune genes": {
+      "mean_high_group": 0.5929,
+      "mean_low_group": 0.5308,
+      "diff": 0.0621,
+      "mannwhitney_p": 0.003353
+    }
+  },
+  "summary": {
+    "n_sig_pred_score_pooled": 7,
+    "n_sig_response_pooled": 6,
+    "n_total_signatures": 14
+  }
+}

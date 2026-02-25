@@ -1,0 +1,24 @@
+{
+  "model": "L2_C=0.01",
+  "gene_set": "11089_fixed",
+  "n_total_samples": 904,
+  "per_dataset_auc": {
+    "GSE156699": 0.7795,
+    "GSE173839": 0.8136,
+    "GSE18864": 0.5234,
+    "GSE194040": 0.8763,
+    "GSE28739": 0.7867,
+    "GSE30161": 0.6332,
+    "GSE32062": 0.634,
+    "GSE63885": 0.6456,
+    "TCGA-OV": 0.6556
+  },
+  "mean_auc_all": 0.7053,
+  "mean_auc_clean": 0.6951,
+  "exclude_list": [
+    "GSE28739"
+  ],
+  "gse32062_auc_old": 0.4894,
+  "gse32062_auc_fixed": 0.634,
+  "gse32062_improvement": 0.1446
+}

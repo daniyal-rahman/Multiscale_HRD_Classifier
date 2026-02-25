@@ -1,0 +1,608 @@
+{
+  "audit_metadata": {
+    "audit_date": "2026-02-24",
+    "auditor": "Claude Opus 4.6 (adversarial audit mode)",
+    "scope": "Full adversarial audit of Exp8 drug response prediction experiment",
+    "files_reviewed": [
+      "tuning/nested_cv_results.json",
+      "tuning/nested_cv_v2_results.json",
+      "tuning/feature_selection_results.json",
+      "ablation/training_composition_results.json",
+      "validation/bootstrap_cis.json",
+      "validation/permutation_interaction.json",
+      "validation/calibration_results.json",
+      "gse32062_investigation/investigation_report.json",
+      "gse63885_investigation/investigation_report.json",
+      "qc/data_qc_report.json",
+      "exp8_results.json",
+      "exp8b_results.json",
+      "tuning/run_nested_cv.py",
+      "tuning/run_nested_cv_v2.py",
+      "tuning/run_feature_ablation_v2.py",
+      "ablation/run_composition_ablation.py",
+      "validation/run_validation.py",
+      "validation/run_validation_fast.py",
+      "run_exp8b.py"
+    ]
+  },
+
+  "claim_1_L2_C001_optimal": {
+    "claim": "L2 C=0.01 is optimal: Inner CV selected C=0.01 for ALL 9 LODO folds in v1",
+    "verdict": "CONFIRMED (not suspicious)",
+    "severity": "low",
+    "evidence": {
+      "v1_inner_cv_best_C_per_fold": {
+        "GSE156699": "0.01",
+        "GSE173839": "0.01",
+        "GSE18864": "0.01",
+        "GSE194040": "0.01",
+        "GSE28739": "0.01",
+        "GSE30161": "0.01",
+        "GSE32062": "0.01",
+        "GSE63885": "0.01",
+        "TCGA-OV": "0.01"
+      },
+      "inner_cv_AUC_landscape_example_GSE156699": {
+        "C=0.001": 0.7343,
+        "C=0.01": 0.7645,
+        "C=0.1": 0.7348,
+        "C=1.0": 0.7044,
+        "C=10.0": 0.6904,
+        "C=100.0": 0.6795
+      },
+      "inner_cv_shows_clear_peak_at_C001": true,
+      "n_valid_inner_folds_per_outer_fold": "5/5 for all folds"
+    },
+    "analysis": "While superficially suspicious that C=0.01 wins in ALL 9 folds, this is actually expected and NOT indicative of a bug. The inner CV AUC landscape shows a consistent, smooth, unimodal peak at C=0.01 across all folds. This is because: (1) the training data is ~90% overlapping across LODO folds (removing one dataset of ~25-260 samples from ~900), so inner CV sees very similar data each time; (2) L2 regularization with ~11,000 features strongly favors high regularization (low C); (3) the C=0.01 vs C=0.001 gap (e.g., 0.7645 vs 0.7343) confirms C=0.01 is genuinely better than adjacent values. The v2 run with a finer grid (C=0.003 to 0.05) still converges around C=0.01-0.05 range. Code inspection of inner_cv_select() in run_nested_cv.py confirms proper 5-fold StratifiedKFold with no leakage.",
+    "remaining_concern": "The uniform selection of C=0.01 does confirm that inner CV adds no fold-specific tuning value for L2 -- effectively, any single run of 5-fold CV on the full training data would have identified C=0.01. This is not a problem per se, but it means the nested CV overhead is wasted for L2."
+  },
+
+  "claim_2_L2_tuned_0703_mean_AUC": {
+    "claim": "L2 tuned raw ranks, clean datasets = 0.703 mean AUC (claimed best result)",
+    "verdict": "PARTIALLY CONFIRMED",
+    "severity": "medium",
+    "evidence": {
+      "v2_L2_LogReg_raw_per_dataset_AUCs": {
+        "GSE156699": 0.7700,
+        "GSE173839": 0.8218,
+        "GSE18864": 0.5391,
+        "GSE194040": 0.8838,
+        "GSE30161": 0.6522,
+        "GSE63885": 0.5976,
+        "TCGA-OV": 0.6536
+      },
+      "v2_L2_LogReg_raw_reported_mean": 0.7026,
+      "manually_computed_mean": 0.7026,
+      "v2_best_C_values": {
+        "GSE156699": "0.05",
+        "GSE173839": "0.02",
+        "GSE18864": "0.02",
+        "GSE194040": "0.02",
+        "GSE30161": "0.02",
+        "GSE63885": "0.05",
+        "TCGA-OV": "0.02"
+      },
+      "n_datasets_in_v2_clean": 7,
+      "excluded_datasets": ["GSE28739", "GSE32062"]
+    },
+    "arithmetic_check": "Mean of [0.7700, 0.8218, 0.5391, 0.8838, 0.6522, 0.5976, 0.6536] = 4.9181 / 7 = 0.70259. Rounds to 0.7026. The claimed value is 0.703 when further rounded. This is CONFIRMED.",
+    "issues_found": [
+      {
+        "issue": "Excluding 2 datasets inflates mean AUC by ~0.01",
+        "detail": "v1 L2_LogReg mean across 9 datasets = 0.6929. v2 clean 7-dataset mean = 0.7026. The improvement is +0.010, entirely from removing two low-AUC datasets (GSE32062=0.4894, GSE28739=0.7467). While GSE32062 exclusion is well-justified (99.7% NaN), GSE28739 is more debatable.",
+        "severity": "low-medium"
+      },
+      {
+        "issue": "GSE28739 exclusion may be over-aggressive",
+        "detail": "GSE28739 was excluded due to dye-swap two-channel design (QC report shows mean within-corr=0.21, all 25 samples flagged). However, it achieved AUC=0.7467 in v1 (above mean!), suggesting the model may still extract useful signal. Excluding it slightly inflates the reported mean because the other datasets' mean without GSE28739 is higher.",
+        "severity": "low"
+      },
+      {
+        "issue": "v2 uses finer C grid and reaches slightly different optima than v1",
+        "detail": "v1 used C in {0.001, 0.01, 0.1, 1.0, 10.0, 100.0}. v2 used C in {0.001, 0.003, 0.005, 0.01, 0.02, 0.05, 0.1, 0.5, 1.0}. This finer grid selected C=0.02-0.05 for most folds instead of C=0.01. The mean AUC difference is negligible (0.7026 vs 0.6929 on overlapping datasets), suggesting the finer grid didn't help much.",
+        "severity": "negligible"
+      }
+    ],
+    "overall_assessment": "The arithmetic is correct and the 7-dataset mean of 0.703 is verified. The two dataset exclusions are well-documented and justified by QC findings. However, reporting 0.703 without prominently noting it excludes 2 of 9 datasets could be misleading. The v1 all-9-dataset mean of 0.693 is the more conservative and honest figure."
+  },
+
+  "claim_3_LightGBM_worse_than_L2": {
+    "claim": "LightGBM is worse than L2: v1 mean 0.652, v2 LightGBM_raw mean 0.695",
+    "verdict": "PARTIALLY CONFIRMED",
+    "severity": "medium",
+    "evidence": {
+      "v1_LightGBM_mean_AUC": 0.6518,
+      "v1_L2_LogReg_mean_AUC": 0.6929,
+      "v1_LightGBM_hyperparameter_grid": "9 configs: n_estimators=[50,100,200] x max_depth=[3,5,7], learning_rate FIXED at 0.05",
+      "v1_LightGBM_has_inner_cv_results_for_only_2_of_9_folds": true,
+      "v2_LightGBM_raw_mean_AUC": 0.6951,
+      "v2_LightGBM_raw_hyperparameter_grid": "18 configs: n_estimators=[50,100,200] x max_depth=[3,5] x learning_rate=[0.01,0.05,0.1]",
+      "v2_L2_LogReg_raw_mean_AUC": 0.7026,
+      "v2_gap_L2_minus_LGB": 0.0075,
+      "v1_gap_L2_minus_LGB": 0.0411,
+      "lightgbm_settings": {
+        "subsample": 0.8,
+        "colsample_bytree": 0.3,
+        "scale_pos_weight": "auto (n_neg/n_pos)",
+        "early_stopping": "NOT USED",
+        "min_child_samples": "default (20)",
+        "reg_alpha": "default (0)",
+        "reg_lambda": "default (0)"
+      }
+    },
+    "issues_found": [
+      {
+        "issue": "LightGBM was NOT given a fully fair comparison in v1",
+        "detail": "In v1, learning_rate was FIXED at 0.05 (only 1 value), while L2 searched over 6 values of C. The v1 inner CV results were only recorded for 2 of 9 folds (GSE63885 and TCGA-OV), suggesting possible early termination or incomplete logging for the other 7 folds.",
+        "severity": "medium"
+      },
+      {
+        "issue": "v2 substantially closed the gap",
+        "detail": "When LightGBM was given a larger grid (18 configs including 3 learning rates) and the broken datasets removed, it achieved 0.695 vs L2's 0.703, a gap of only 0.008. This suggests v1's gap of 0.041 was partly due to the restricted grid.",
+        "severity": "medium"
+      },
+      {
+        "issue": "No early stopping was used",
+        "detail": "LightGBM was trained with fixed n_estimators and no early stopping. With 11,140 features and colsample_bytree=0.3, some configurations may have overfit the inner CV training folds. Early stopping would likely improve generalization.",
+        "severity": "low"
+      },
+      {
+        "issue": "Missing hyperparameters: min_child_samples, reg_alpha, reg_lambda",
+        "detail": "These were left at defaults. For a high-dimensional problem with ~900 samples, tuning these could meaningfully affect performance.",
+        "severity": "low"
+      }
+    ],
+    "overall_assessment": "The claim that L2 outperforms LightGBM is technically true in both v1 and v2, but the margin narrowed dramatically from 0.041 to 0.008 when LightGBM was given a fairer hyperparameter search. LightGBM was handicapped in v1 by a fixed learning rate and limited grid. The conclusion should be softened to: 'L2 and LightGBM perform comparably after proper tuning, with L2 having a slight edge.' The claim that L2 is clearly better is overstated."
+  },
+
+  "claim_4_feature_selection_plateau": {
+    "claim": "Feature selection plateaus at ~1000 features",
+    "verdict": "CONFIRMED with caveats",
+    "severity": "low",
+    "evidence": {
+      "model_weight_selection_mean_AUCs": {
+        "25": 0.5677,
+        "50": 0.6069,
+        "100": 0.6361,
+        "200": 0.6517,
+        "500": 0.6669,
+        "1000": 0.6892,
+        "2000": 0.6897,
+        "5000": 0.6919,
+        "11140": 0.6929
+      },
+      "plateau_at_1000_to_11140_delta": 0.0037,
+      "feature_selection_uses_correct_inner_fold": true,
+      "implementation_check": "select_by_model_weight() trains a separate L2 C=0.01 model on training fold, extracts |weights|, selects top-k. This is done INSIDE the LODO loop, so no test leakage."
+    },
+    "issues_found": [
+      {
+        "issue": "Not consistent across datasets",
+        "detail": "The plateau is driven by the well-performing datasets. Looking at per-dataset curves: GSE194040 plateaus early (0.733 at k=25, 0.892 at k=11140), while GSE32062 is flat at ~0.5 everywhere (because of 99.7% NaN). GSE18864 oscillates wildly (n=24). The 'plateau at 1000' claim is an artifact of averaging across datasets with very different behaviors.",
+        "severity": "low"
+      },
+      {
+        "issue": "Feature selection was done with C=0.01 (hardcoded), not re-tuned per k",
+        "detail": "The ablation uses C=0.01 for all k values. At k=25, using C=0.01 (very strong regularization) with only 25 features may be suboptimal. The feature selection results at small k may underestimate performance because C was not re-tuned.",
+        "severity": "low"
+      },
+      {
+        "issue": "No leakage confirmed",
+        "detail": "Code inspection confirms select_by_model_weight() is called with X_train, y_train inside the LODO loop. Feature selection is properly within-fold. CONFIRMED no leakage.",
+        "severity": "none (positive finding)"
+      }
+    ],
+    "overall_assessment": "The plateau claim is correct for the mean AUC curve. Feature selection is properly implemented without test leakage. However, the plateau is not consistent across datasets and is partly driven by broken datasets (GSE32062) pulling down the mean at all k values equally."
+  },
+
+  "claim_5_GDSC_pretrain_zero_effect": {
+    "claim": "GDSC pretrain adds zero value (0.6928 vs 0.6929 baseline)",
+    "verdict": "CONFIRMED -- implementation is correct, effect is genuinely near-zero",
+    "severity": "low",
+    "evidence": {
+      "baseline_mean_AUC": 0.6929,
+      "gdsc_pretrain_mean_AUC": 0.6928,
+      "delta": -0.0001,
+      "per_dataset_deltas": {
+        "GSE156699": "0.7695 vs 0.7695 (0.0000)",
+        "GSE173839": "0.8177 vs 0.8177 (0.0000)",
+        "GSE18864": "0.5391 vs 0.5391 (0.0000)",
+        "GSE194040": "0.8923 vs 0.8923 (0.0000)",
+        "GSE28739": "0.7467 vs 0.7467 (0.0000)",
+        "GSE30161": "0.7310 vs 0.7310 (0.0000)",
+        "GSE32062": "0.4894 vs 0.4899 (+0.0005)",
+        "GSE63885": "0.6047 vs 0.6033 (-0.0014)",
+        "TCGA-OV": "0.6454 vs 0.6455 (+0.0001)"
+      },
+      "gdsc_feature_weights": {
+        "GSE156699": 0.00641,
+        "GSE173839": 0.005169,
+        "GSE18864": 0.004368,
+        "GSE194040": 0.003867,
+        "GSE28739": 0.006233,
+        "GSE30161": 0.002617,
+        "GSE32062": 0.005384,
+        "GSE63885": 0.0059,
+        "TCGA-OV": 0.007888
+      }
+    },
+    "implementation_check": {
+      "was_gdsc_score_actually_used": "YES -- code appends clf_gdsc.predict_proba(X_full)[:, 1] as an extra column to X_full_with_gdsc. The L2 model trains on 11141 features (11140 genes + 1 GDSC score).",
+      "gdsc_feature_weight_nonzero": "YES -- the GDSC score feature received weights of 0.002-0.008 across folds. It was used, but contributed negligibly.",
+      "potential_bug": "NONE -- the implementation is correct. The GDSC score is simply not informative enough to improve on the gene-level features. The GDSC model predicts olaparib response from cell line data; clinical models see the same gene features and already capture this signal."
+    },
+    "overall_assessment": "No bug. The GDSC pretrain score is correctly appended as a feature and receives nonzero weight. The near-zero effect is genuine: the GDSC score adds no information beyond what the 11,140 gene features already provide. This is consistent with the exp8_results.json finding that GDSC-trained and clinical-trained models have weight correlation rho=0.006 and only 1 gene overlap in top 50."
+  },
+
+  "claim_6_GSE194040_interaction_p_0034": {
+    "claim": "GSE194040 interaction permutation p=0.034",
+    "verdict": "CONFIRMED with methodological caveat",
+    "severity": "medium",
+    "evidence": {
+      "observed_interaction_coef": 16.9066,
+      "parametric_p": 0.011998,
+      "permutation_p_onesided": 0.034,
+      "permutation_p_twosided": 0.034,
+      "n_valid_permutations": 5000,
+      "all_ispy2_interaction_coef": 2.3172,
+      "all_ispy2_permutation_p_onesided": 0.26,
+      "all_ispy2_parametric_p": 0.327671
+    },
+    "implementation_check": {
+      "null_hypothesis": "Under H0, treatment arm (PARPi vs control) does not modify the score-response relationship. The null is generated by shuffling is_parpi_arm labels within each permutation.",
+      "shuffling_correct": "YES -- code shuffles arm_labels_194 = gse194040_df['is_parpi_arm'].values via np.random.permutation(). This correctly preserves the marginal distributions of score and pCR while breaking the score:arm interaction.",
+      "interaction_model": "logit(pCR ~ score * is_parpi_arm) using statsmodels, extracting the score:is_parpi_arm coefficient. This is the standard approach.",
+      "filter_applied": "abs(coef) < 100 sanity filter to exclude non-converged permutations. Reasonable.",
+      "model_used_for_scores": "L2 LR with C=1.0 trained on non-I-SPY2 clinical data. IMPORTANT: This is C=1.0, NOT the tuned C=0.01."
+    },
+    "issues_found": [
+      {
+        "issue": "One-sided and two-sided p-values are identical (0.034)",
+        "detail": "This is mathematically suspicious. For a one-sided test (obs >= permuted), we'd expect p_two = 2 * p_one if the distribution is symmetric. Having p_one = p_two = 0.034 means NONE of the 5000 permuted coefficients were <= -16.9066. This is plausible given the large observed coefficient (16.9066 >> 0), but unusual. It means the null distribution is concentrated near 0 and all extreme values are positive.",
+        "severity": "low (likely an artifact of the large observed effect)"
+      },
+      {
+        "issue": "The all-I-SPY2 interaction is NOT significant (p=0.26)",
+        "detail": "The interaction is only significant for GSE194040 alone. GSE173839 shows NO interaction (coef=-3.9383, p=0.43 parametric). This means the finding is dataset-specific, not generalizable across I-SPY2 studies. The p=0.034 for GSE194040 alone is borderline significant and would not survive Bonferroni correction for testing 2 datasets.",
+        "severity": "medium"
+      },
+      {
+        "issue": "Scores were generated with C=1.0 (not tuned C=0.01)",
+        "detail": "The interaction test uses predictions from a C=1.0 model trained on non-I-SPY2 data. This is inconsistent with the main LODO-CV analysis which uses C=0.01. The interaction test should use the same hyperparameters as the main analysis.",
+        "severity": "medium"
+      }
+    ],
+    "overall_assessment": "The permutation test implementation is methodologically sound. The p=0.034 for GSE194040 is confirmed. However: (1) it would not survive multiple testing correction, (2) it does not replicate in GSE173839, and (3) the model uses different hyperparameters than the main analysis. The claim should be presented cautiously as exploratory evidence, not a confirmatory finding."
+  },
+
+  "claim_7_batch_residualization_hurts": {
+    "claim": "Batch residualization hurts performance (-0.012 delta)",
+    "verdict": "CONFIRMED",
+    "severity": "low",
+    "evidence": {
+      "v2_L2_default_C1_raw_mean": 0.6703,
+      "v2_L2_default_C1_resid_mean": 0.6572,
+      "v2_L2_LogReg_raw_mean": 0.7026,
+      "v2_L2_LogReg_resid_mean": 0.6905,
+      "delta_default": -0.0131,
+      "delta_tuned": -0.0121,
+      "per_dataset_deltas_tuned": {
+        "GSE156699": "-0.0011 (marginal)",
+        "GSE173839": "-0.0024 (marginal)",
+        "GSE18864": "-0.0235 (notable)",
+        "GSE194040": "-0.0033 (marginal)",
+        "GSE30161": "-0.0245 (notable)",
+        "GSE63885": "-0.0094 (marginal)",
+        "TCGA-OV": "-0.0225 (notable)"
+      }
+    },
+    "implementation_check": {
+      "residualization_code": "For each dataset, subtract per-gene mean, then add 0.5 to re-center. This is standard per-batch mean-centering.",
+      "correct_implementation": "YES -- residualize_by_dataset() correctly computes per-dataset per-gene means and subtracts them. The re-centering at 0.5 is appropriate for rank-transformed data.",
+      "issue_with_approach": "The residualization is applied to ALL data before LODO splitting. This means the per-dataset means are computed using BOTH training and test samples. This constitutes a minor form of data leakage (the test set influences the mean used to transform training data)."
+    },
+    "issues_found": [
+      {
+        "issue": "Minor data leakage in residualization",
+        "detail": "residualize_by_dataset() is called on X_raw (all samples) BEFORE the LODO loop. The correct approach would be to compute per-dataset means on training data only and apply to test data separately. However, given that each dataset has tens to hundreds of samples, the contribution of any single held-out sample to its dataset mean is tiny. The leakage is negligible in practice.",
+        "severity": "low"
+      },
+      {
+        "issue": "Residualization removes real signal along with batch effects",
+        "detail": "If datasets differ in their response biology (e.g., treatment regimens), subtracting per-dataset means removes real per-dataset response signal. In LODO-CV, the model needs to generalize across datasets, so removing dataset-specific signal could legitimately hurt.",
+        "severity": "low"
+      }
+    ],
+    "overall_assessment": "The residualization implementation is correct (minor leakage aside). The negative effect is genuine and consistent across datasets. This is a legitimate experimental finding: for rank-transformed data in LODO-CV, batch mean-centering hurts slightly because it removes signal along with noise."
+  },
+
+  "claim_8_bootstrap_CIs": {
+    "claim": "Bootstrap CIs provide valid uncertainty estimates",
+    "verdict": "PROBLEMATIC -- computed on C=1.0 predictions, not tuned C=0.01",
+    "severity": "high",
+    "evidence": {
+      "bootstrap_model_used": "LogisticRegression(penalty='l2', C=1.0, ...)",
+      "tuned_model_best_C": "C=0.01",
+      "bootstrap_point_AUCs_vs_tuned_AUCs": {
+        "GSE156699": {"bootstrap_C1": 0.7379, "tuned_C001": 0.7695, "delta": -0.0316},
+        "GSE173839": {"bootstrap_C1": 0.7923, "tuned_C001": 0.8177, "delta": -0.0254},
+        "GSE18864": {"bootstrap_C1": 0.4688, "tuned_C001": 0.5391, "delta": -0.0703},
+        "GSE194040": {"bootstrap_C1": 0.8603, "tuned_C001": 0.8923, "delta": -0.0320},
+        "GSE28739": {"bootstrap_C1": 0.7267, "tuned_C001": 0.7467, "delta": -0.0200},
+        "GSE30161": {"bootstrap_C1": 0.6984, "tuned_C001": 0.7310, "delta": -0.0326},
+        "GSE32062": {"bootstrap_C1": 0.5177, "tuned_C001": 0.4894, "delta": 0.0283},
+        "GSE63885": {"bootstrap_C1": 0.5753, "tuned_C001": 0.6047, "delta": -0.0294},
+        "TCGA-OV": {"bootstrap_C1": 0.6589, "tuned_C001": 0.6454, "delta": 0.0135}
+      },
+      "bootstrap_mean_all_9": 0.6707,
+      "tuned_mean_all_9": 0.6929
+    },
+    "issues_found": [
+      {
+        "issue": "CRITICAL: Bootstrap CIs are for the WRONG model",
+        "detail": "The bootstrap CIs (run_validation.py lines 97-99) use C=1.0 for all LODO folds, matching the original exp8_results.json model. But the 'best' model from nested CV is C=0.01, which gives higher AUCs on 7 of 9 datasets. The bootstrap CIs therefore: (a) underestimate the true performance of the tuned model on most datasets, (b) provide CIs for a model that is NOT the one being recommended. The reported CIs are technically valid for the C=1.0 model but MISLEADING if presented alongside tuned C=0.01 AUCs.",
+        "severity": "high"
+      },
+      {
+        "issue": "Permutation test also uses C=1.0",
+        "detail": "Both run_validation.py (original, 1000 perms) and run_validation_fast.py (fast version, 10000 perms label shuffle) use C=1.0. The fast version's label-shuffle approach (permuting labels on cached C=1.0 predictions) is ALSO for the wrong model. The p-value of 0.0 is still valid (the C=1.0 model is significantly above chance), but the observed mean AUC (0.6707) doesn't match the tuned model's mean (0.6929).",
+        "severity": "high"
+      },
+      {
+        "issue": "The calibration analysis also uses C=1.0",
+        "detail": "Both run_validation.py and run_validation_fast.py use C=1.0 for calibration curves and ECE calculations. The Brier scores and ECE values are for the C=1.0 model, not the tuned C=0.01 model.",
+        "severity": "medium"
+      }
+    ],
+    "overall_assessment": "This is the MOST SIGNIFICANT finding in the audit. All validation analyses (bootstrap CIs, permutation tests, calibration) were run on the C=1.0 default model, but the main results use the tuned C=0.01 model. The two models give systematically different AUCs (C=0.01 is better on 7/9 datasets). The validation results and main results are for DIFFERENT models. Either: (a) re-run validation with C=0.01, or (b) clearly state that CIs and calibration are for the C=1.0 model."
+  },
+
+  "claim_9_calibration_ECE_0348": {
+    "claim": "Mean ECE of 0.348 across datasets",
+    "verdict": "CONFIRMED (but misleading)",
+    "severity": "medium",
+    "evidence": {
+      "reported_mean_ECE": 0.3481,
+      "per_dataset_ECEs": {
+        "GSE156699": 0.1915,
+        "GSE173839": 0.2047,
+        "GSE18864": 0.6154,
+        "GSE194040": 0.4002,
+        "GSE28739": 0.2758,
+        "GSE30161": 0.4037,
+        "GSE32062": 0.5778,
+        "GSE63885": 0.2911,
+        "TCGA-OV": 0.1723
+      },
+      "manually_computed_mean_ECE": 0.3481
+    },
+    "issues_found": [
+      {
+        "issue": "Mean is heavily skewed by broken datasets",
+        "detail": "GSE32062 ECE=0.578 (broken, 99.7% NaN features, predictions in range [0.263, 0.327]). GSE18864 ECE=0.615 (n=24, all predictions > 0.75, fundamentally miscalibrated due to tiny sample). Without these two, mean ECE drops to 0.291.",
+        "severity": "medium"
+      },
+      {
+        "issue": "10-bin uniform binning is inappropriate for small datasets",
+        "detail": "GSE28739 (n=25) and GSE18864 (n=24) have mostly empty bins. GSE18864 has 0 samples in 7 of 10 bins. The ECE calculation on such sparse data is unreliable. Adaptive binning or fewer bins would be more appropriate.",
+        "severity": "low"
+      },
+      {
+        "issue": "ECE is computed on C=1.0 model (see Claim 8)",
+        "detail": "The calibration analysis uses C=1.0. The C=0.01 model would likely have different (possibly better) calibration properties due to stronger regularization pulling predictions toward more moderate values.",
+        "severity": "medium"
+      }
+    ],
+    "overall_assessment": "The ECE calculation is arithmetically correct. However, reporting a single mean ECE is misleading because it mixes well-calibrated datasets (TCGA-OV ECE=0.17) with fundamentally broken ones (GSE32062 ECE=0.58). More informative would be: median ECE, or separate reporting for clean vs broken datasets. The binning scheme is suboptimal for small datasets."
+  },
+
+  "claim_10_GSE32062_997pct_NaN": {
+    "claim": "GSE32062 has 99.7% NaN features",
+    "verdict": "CONFIRMED",
+    "severity": "none (positive finding -- thorough investigation)",
+    "evidence": {
+      "nan_fraction_reported": 0.996858,
+      "non_nan_genes_per_sample": 35.0,
+      "total_genes": 11140,
+      "computed_nan_fraction": "(11140 - 35) / 11140 = 0.99686",
+      "root_cause": "Agilent (GPL6480) gene names do not map to standardized common gene list. Only 35 genes overlap.",
+      "agilent_total_genes": 1394,
+      "agilent_common_genes": 35,
+      "all_260_pooled_samples_are_Agilent": true,
+      "10_Affymetrix_samples_excluded_during_pooling": true
+    },
+    "cross_validation": {
+      "qc_report_nan_fraction": 0.996858,
+      "investigation_report_nan_fraction": 0.996858,
+      "consistent": true
+    },
+    "overall_assessment": "The 99.7% NaN claim is confirmed by both the investigation report and QC report. The root cause (Agilent gene name incompatibility) is well-documented. This is not a model failure but a data pipeline issue. The investigation is thorough and the recommendation to exclude GSE32062 is justified."
+  },
+
+  "claim_11_GSE63885_treatment_heterogeneity": {
+    "claim": "GSE63885 failure explained by treatment heterogeneity (45% platinum/cyclophosphamide)",
+    "verdict": "PARTIALLY CONFIRMED -- treatment heterogeneity is real but NOT confirmed as confound",
+    "severity": "medium",
+    "evidence": {
+      "treatment_breakdown": {
+        "taxane_platinum": 41,
+        "platinum_cyclophosphamide": 34,
+        "fraction_plat_cyclo": "34/75 = 0.453 (45.3%)"
+      },
+      "treatment_response_odds_ratio": 1.136,
+      "treatment_response_p": 0.8192,
+      "LODO_AUC_C1": 0.5753,
+      "LODO_AUC_C001": 0.6047,
+      "within_dataset_CV_AUC": "0.381 (C=1.0) / 0.436 (C=0.01)",
+      "cross_dataset_AUCs": {
+        "gse63885_to_tcga": 0.5389,
+        "tcga_to_gse63885": 0.5739,
+        "gse156699_to_gse63885": 0.6435
+      }
+    },
+    "issues_found": [
+      {
+        "issue": "Treatment-response association is NOT significant",
+        "detail": "The investigation report shows OR=1.136, p=0.8192 for treatment vs response. This means treatment regimen does NOT significantly correlate with response in GSE63885. If treatment heterogeneity were the cause of model failure, we'd expect a stronger association.",
+        "severity": "medium"
+      },
+      {
+        "issue": "Model predictions do not correlate with treatment regimen (not tested)",
+        "detail": "The claim asks whether model predictions correlate with treatment regimen, but the investigation only tests response vs treatment, not prediction vs treatment. This analysis was NOT performed.",
+        "severity": "medium"
+      },
+      {
+        "issue": "Within-dataset CV AUC is terrible (0.38-0.44)",
+        "detail": "If the model could discriminate responders from non-responders at all, within-dataset CV should show some signal. The within-dataset CV AUCs are BELOW 0.5, suggesting the response biology in GSE63885 is fundamentally different from the training data, or there is no signal in the gene expression data for this endpoint.",
+        "severity": "low"
+      },
+      {
+        "issue": "Univariate gene analysis shows NO significant genes after correction",
+        "detail": "467 genes at p<0.05 but expected 557 by chance (5% * 11140 = 557). 0 genes survive Bonferroni. This means there is literally no univariate signal for response in this dataset.",
+        "severity": "low (supports genuine failure)"
+      }
+    ],
+    "overall_assessment": "Treatment heterogeneity in GSE63885 is real (45% received older regimen), but the investigation's own data does NOT support it as a confound for model failure. The OR=1.136 (p=0.82) shows treatment and response are independent. The failure is more likely explained by: (1) genuinely different response biology in this Polish cohort, (2) DFS-based endpoint definition (differs from PFS used elsewhere), and (3) absence of any univariate gene-expression signal for response. The 'treatment heterogeneity' explanation is speculative and not supported by the data."
+  },
+
+  "claim_12_survival_analysis_data_leakage": {
+    "claim": "TCGA-OV DFS HR=0.41, p=0.0001 from LODO-CV predictions",
+    "verdict": "CONFIRMED -- no data leakage, but uses C=1.0 model",
+    "severity": "low",
+    "evidence": {
+      "TCGA_OV_DFS_results": {
+        "n": 234,
+        "n_events": 200,
+        "logrank_p": 0.000138,
+        "cox_hr": 0.4136,
+        "cox_p": 0.000149,
+        "spearman_rho": 0.2784,
+        "km_median_high": 19.78,
+        "km_median_low": 12.98
+      },
+      "TCGA_OV_OS_results": {
+        "n": 235,
+        "n_events": 142,
+        "logrank_p": 0.012015,
+        "cox_hr": 0.4326,
+        "cox_p": 0.002621
+      }
+    },
+    "leakage_check": {
+      "how_predictions_generated": "LODO-CV: train on all non-TCGA-OV data, predict on TCGA-OV. Code in run_exp8b.py lines 67-85 confirms this.",
+      "training_data_includes_TCGA_OV": false,
+      "predictions_are_out_of_sample": true,
+      "leakage_detected": false
+    },
+    "issues_found": [
+      {
+        "issue": "Model uses C=1.0 (not tuned C=0.01)",
+        "detail": "run_exp8b.py line 76 uses C=1.0. The survival analysis is on C=1.0 LODO-CV predictions, not the tuned C=0.01 model. This is consistent with exp8_results.json (which uses C=1.0) but inconsistent with the tuning results.",
+        "severity": "low"
+      },
+      {
+        "issue": "HR=0.41 means high-score patients have BETTER survival",
+        "detail": "Since score predicts sensitivity (higher score = more likely sensitive to platinum), HR < 1 for high-score group is the expected direction. High-score (predicted-sensitive) patients have longer DFS. This is biologically consistent.",
+        "severity": "none (positive finding)"
+      },
+      {
+        "issue": "GSE32062 survival analysis is meaningless",
+        "detail": "GSE32062 Cox HR=1439.7 (CI: 0.0001 to 38 billion). This is a degenerate model because the predictions are essentially constant (range 0.063) due to 99.7% NaN features. The survival analysis on GSE32062 should not have been reported.",
+        "severity": "low"
+      }
+    ],
+    "overall_assessment": "The survival analysis is properly conducted using out-of-sample LODO-CV predictions. No data leakage was detected. The TCGA-OV DFS result (HR=0.41, p<0.001) is statistically significant and biologically plausible. The main caveat is that it uses C=1.0 predictions, not the tuned model."
+  },
+
+  "additional_findings": {
+    "finding_A_SVM_RBF_only_3_C_values": {
+      "description": "SVM_RBF in v1 searched only C in {0.1, 1.0, 10.0} with gamma='scale' (3 configs total, missing gamma='auto'). Code shows 4 C values x 2 gamma = 8 configs, but results show only 3 per fold with gamma='scale'. The gamma='auto' results may have been filtered or the inner CV selected 'scale' for all folds. SVM_RBF achieved 0.682 mean AUC, competitive with L2 (0.693), despite very limited tuning.",
+      "severity": "low"
+    },
+
+    "finding_B_v2_training_sample_counts_differ": {
+      "description": "v1 has ~816-880 training samples per fold (9 datasets). v2 has ~384-595 (7 datasets, excluding GSE28739 and GSE32062 removes ~285 samples). The smaller v2 training set means direct AUC comparison between v1 and v2 is confounded by both dataset exclusion AND training size reduction.",
+      "severity": "low"
+    },
+
+    "finding_C_GSE173839_has_100_not_71_total_samples": {
+      "description": "QC report shows GSE173839 has 100 total samples (36 pos, 64 neg), but LODO-CV shows n_test=71 (29 pos, 42 neg). This means 29 samples from GSE173839 are filtered out. These are likely the control arm (paclitaxel_control=29 from QC). The model_a_mask excludes non-PARPi I-SPY2 control arms. However, the QC report includes all 100 samples. This is consistent -- QC includes all samples, LODO-CV only includes PARPi-arm samples from I-SPY2.",
+      "severity": "none (explained)"
+    },
+
+    "finding_D_v2_nested_cv_results_missing_inner_cv_details": {
+      "description": "v2 nested CV results do NOT include inner_cv_results arrays (unlike v1). This makes it impossible to audit the inner CV landscape for v2 models. Only the best_params and best_inner_auc are reported.",
+      "severity": "low"
+    },
+
+    "finding_E_no_multiple_testing_correction_reported": {
+      "description": "The experiment tests 7 models x 9 datasets = 63 AUCs, plus interaction tests on 2 I-SPY2 datasets, survival on 4 datasets x 2 endpoints, etc. No multiple testing correction is applied anywhere. The GSE194040 interaction p=0.034 would not survive Bonferroni correction for 2 datasets (threshold = 0.025).",
+      "severity": "medium"
+    },
+
+    "finding_F_ElasticNet_outperforms_L2_in_v1": {
+      "description": "ElasticNet_0.9 achieves mean AUC=0.6944 vs L2's 0.6929 in v1. The difference is negligible (0.0015), but technically ElasticNet_0.9 is the 'best' model in v1, not L2. L2 was likely chosen for simplicity. Similarly, ElasticNet_0.5 at 0.6911 is very close. The model comparison is essentially a tie between L2 and ElasticNet variants.",
+      "severity": "negligible"
+    },
+
+    "finding_G_composition_ablation_no_gse32062_is_best": {
+      "description": "ablation4_no_gse32062 achieves mean AUC = 0.7187 (8 datasets), the highest of any configuration. This is higher than the v2 clean-dataset result (0.7026, 7 datasets) because it keeps GSE28739 (which had AUC=0.78 in this ablation). This raises the question of whether GSE28739 should have been excluded.",
+      "severity": "low"
+    },
+
+    "finding_H_GSE194040_drives_most_signal": {
+      "description": "GSE194040 consistently has the highest AUC across all models and configurations (0.83-0.90). It is the largest I-SPY2 dataset (n=71 after PARPi filter, with 27 pos and 44 neg). Excluding GSE194040 would likely drop mean AUC substantially. The 'good' performance is partly driven by one well-behaved dataset.",
+      "severity": "low"
+    }
+  },
+
+  "summary": {
+    "overall_assessment": "The Exp8 experiment is generally well-conducted with thorough investigation of failures and multiple ablation studies. The core finding (L2 logistic regression on rank-pooled gene expression achieves LODO-CV AUC ~0.69-0.70) is supported by the data. However, several issues reduce confidence in specific claims.",
+
+    "critical_issues": [
+      {
+        "issue": "Validation analyses (bootstrap CIs, permutation tests, calibration) used C=1.0 model, not tuned C=0.01",
+        "impact": "All validation metrics (CIs, p-values, ECE) are for a different model than the one being recommended. The bootstrap CIs underestimate the tuned model's performance on 7/9 datasets.",
+        "recommendation": "Re-run validation/run_validation.py and validation/run_validation_fast.py with C=0.01 (or with the per-fold best C from nested CV)."
+      }
+    ],
+
+    "moderate_issues": [
+      {
+        "issue": "LightGBM comparison was unfair in v1 (fixed learning rate, limited grid)",
+        "recommendation": "Report v2 comparison (0.703 vs 0.695) as primary, note that gap closed with better tuning."
+      },
+      {
+        "issue": "GSE194040 interaction p=0.034 is borderline and would not survive multiple testing correction",
+        "recommendation": "Present as exploratory. Note non-replication in GSE173839."
+      },
+      {
+        "issue": "Reporting 7-dataset mean (0.703) without prominently noting 2 exclusions could mislead",
+        "recommendation": "Always report both: 9-dataset (0.693) and 7-clean-dataset (0.703)."
+      },
+      {
+        "issue": "No multiple testing corrections applied anywhere",
+        "recommendation": "Apply Bonferroni or FDR correction for interaction tests across datasets."
+      }
+    ],
+
+    "positive_findings": [
+      "Nested CV is correctly implemented with no data leakage in the main LODO loop",
+      "Feature selection is properly within-fold (no leakage)",
+      "GSE32062 failure thoroughly investigated and correctly attributed to data pipeline issue",
+      "Survival analysis uses proper out-of-sample predictions (no leakage)",
+      "GDSC pretrain ablation correctly implemented (feature is appended and receives nonzero weight)",
+      "Batch residualization correctly implemented",
+      "QC report is comprehensive with actionable findings"
+    ],
+
+    "recommended_corrective_actions": [
+      "1. Re-run all validation analyses (bootstrap CIs, permutation, calibration) with C=0.01 or per-fold best C",
+      "2. Report v2 LightGBM comparison as primary (narrower gap than v1)",
+      "3. Apply Bonferroni correction to interaction p-values (2 tests: GSE173839, GSE194040)",
+      "4. Prominently report both 7-dataset and 9-dataset means throughout",
+      "5. Note that GSE63885 treatment heterogeneity explanation is NOT supported by OR=1.136 (p=0.82)",
+      "6. Consider whether GSE28739 exclusion is necessary given AUC=0.75 in v1"
+    ]
+  }
+}

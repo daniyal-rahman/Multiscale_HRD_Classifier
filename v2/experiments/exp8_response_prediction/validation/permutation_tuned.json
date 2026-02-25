@@ -1,0 +1,17 @@
+{
+  "model": "L2_C=0.01",
+  "n_permutations": 5000,
+  "overall_all_9": {
+    "observed_mean_auc": 0.6929,
+    "null_mean": 0.5003,
+    "null_std": 0.027,
+    "permutation_p": 0.0
+  },
+  "overall_clean_7": {
+    "observed_mean_auc": 0.7142,
+    "null_mean": 0.4999,
+    "null_std": 0.0297,
+    "permutation_p": 0.0
+  },
+  "interaction": {}
+}

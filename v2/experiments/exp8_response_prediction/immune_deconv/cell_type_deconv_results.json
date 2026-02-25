@@ -1,0 +1,484 @@
+{
+  "experiment": "Cell Type Deconvolution: CIBERSORT LM22 + LODO-CV Drug Response Model",
+  "date": "2026-02-24",
+  "method": {
+    "deconvolution": "CIBERSORT LM22 relative fractions from Thorsson et al. 2018 (Immunity)",
+    "source_url": "https://gdc.cancer.gov/about-data/publications/panimmune",
+    "source_file": "TCGA.Kallisto.fullIDs.cibersort.relative.tsv",
+    "model": "L2 Logistic Regression, C=0.01, class_weight=balanced, LODO-CV",
+    "cohort": "TCGA-OV (n=233 matched samples)",
+    "score_definition": "LODO-CV predicted probability of platinum response"
+  },
+  "sample_stats": {
+    "n_tcga_ov_in_model": 235,
+    "n_tcga_ov_in_cibersort": 423,
+    "n_matched": 233,
+    "n_bottom_tertile": 78,
+    "n_top_tertile": 78,
+    "score_tertile_33": 0.4545,
+    "score_tertile_67": 0.5744,
+    "response_rate_bottom_tertile": 0.5513,
+    "response_rate_top_tertile": 0.8462
+  },
+  "cell_type_results": {
+    "B cells (naive)": {
+      "cibersort_column": "B.cells.naive",
+      "spearman_rho_vs_score": -0.0819,
+      "spearman_p_vs_score": 0.213,
+      "spearman_rho_vs_response": -0.0293,
+      "spearman_p_vs_response": 0.656,
+      "mean_fraction_bottom_tertile": 0.030603,
+      "mean_fraction_top_tertile": 0.02317,
+      "mean_fraction_overall": 0.025671,
+      "fold_change_top_vs_bottom": 0.757,
+      "mannwhitney_p_tertiles": 0.268,
+      "n_samples": 233
+    },
+    "B cells (memory)": {
+      "cibersort_column": "B.cells.memory",
+      "spearman_rho_vs_score": -0.0575,
+      "spearman_p_vs_score": 0.382,
+      "spearman_rho_vs_response": 0.064,
+      "spearman_p_vs_response": 0.331,
+      "mean_fraction_bottom_tertile": 0.036595,
+      "mean_fraction_top_tertile": 0.03015,
+      "mean_fraction_overall": 0.03282,
+      "fold_change_top_vs_bottom": 0.824,
+      "mannwhitney_p_tertiles": 0.359,
+      "n_samples": 233
+    },
+    "Plasma cells": {
+      "cibersort_column": "Plasma.cells",
+      "spearman_rho_vs_score": -0.0215,
+      "spearman_p_vs_score": 0.744,
+      "spearman_rho_vs_response": 0.0725,
+      "spearman_p_vs_response": 0.271,
+      "mean_fraction_bottom_tertile": 0.021638,
+      "mean_fraction_top_tertile": 0.015454,
+      "mean_fraction_overall": 0.021657,
+      "fold_change_top_vs_bottom": 0.714,
+      "mannwhitney_p_tertiles": 0.582,
+      "n_samples": 233
+    },
+    "CD8+ T cells": {
+      "cibersort_column": "T.cells.CD8",
+      "spearman_rho_vs_score": 0.0006,
+      "spearman_p_vs_score": 0.992,
+      "spearman_rho_vs_response": -0.0195,
+      "spearman_p_vs_response": 0.767,
+      "mean_fraction_bottom_tertile": 0.086301,
+      "mean_fraction_top_tertile": 0.087875,
+      "mean_fraction_overall": 0.088758,
+      "fold_change_top_vs_bottom": 1.018,
+      "mannwhitney_p_tertiles": 0.866,
+      "n_samples": 233
+    },
+    "CD4+ T cells (naive)": {
+      "cibersort_column": "T.cells.CD4.naive",
+      "spearman_rho_vs_score": -0.0233,
+      "spearman_p_vs_score": 0.724,
+      "spearman_rho_vs_response": 0.0432,
+      "spearman_p_vs_response": 0.512,
+      "mean_fraction_bottom_tertile": 0.0016,
+      "mean_fraction_top_tertile": 0.001689,
+      "mean_fraction_overall": 0.001166,
+      "fold_change_top_vs_bottom": 1.056,
+      "mannwhitney_p_tertiles": 0.726,
+      "n_samples": 233
+    },
+    "CD4+ T cells (memory resting)": {
+      "cibersort_column": "T.cells.CD4.memory.resting",
+      "spearman_rho_vs_score": -0.0093,
+      "spearman_p_vs_score": 0.888,
+      "spearman_rho_vs_response": 0.0511,
+      "spearman_p_vs_response": 0.438,
+      "mean_fraction_bottom_tertile": 0.112412,
+      "mean_fraction_top_tertile": 0.108744,
+      "mean_fraction_overall": 0.11328,
+      "fold_change_top_vs_bottom": 0.967,
+      "mannwhitney_p_tertiles": 0.77,
+      "n_samples": 233
+    },
+    "CD4+ T cells (memory activated)": {
+      "cibersort_column": "T.cells.CD4.memory.activated",
+      "spearman_rho_vs_score": -0.0283,
+      "spearman_p_vs_score": 0.668,
+      "spearman_rho_vs_response": 0.0738,
+      "spearman_p_vs_response": 0.262,
+      "mean_fraction_bottom_tertile": 0.000929,
+      "mean_fraction_top_tertile": 0.000304,
+      "mean_fraction_overall": 0.000726,
+      "fold_change_top_vs_bottom": 0.327,
+      "mannwhitney_p_tertiles": 0.41,
+      "n_samples": 233
+    },
+    "T follicular helper cells": {
+      "cibersort_column": "T.cells.follicular.helper",
+      "spearman_rho_vs_score": -0.0425,
+      "spearman_p_vs_score": 0.518,
+      "spearman_rho_vs_response": 0.008,
+      "spearman_p_vs_response": 0.903,
+      "mean_fraction_bottom_tertile": 0.072089,
+      "mean_fraction_top_tertile": 0.073316,
+      "mean_fraction_overall": 0.072427,
+      "fold_change_top_vs_bottom": 1.017,
+      "mannwhitney_p_tertiles": 0.904,
+      "n_samples": 233
+    },
+    "Regulatory T cells (Tregs)": {
+      "cibersort_column": "T.cells.regulatory..Tregs.",
+      "spearman_rho_vs_score": 0.1206,
+      "spearman_p_vs_score": 0.066,
+      "spearman_rho_vs_response": -0.0402,
+      "spearman_p_vs_response": 0.542,
+      "mean_fraction_bottom_tertile": 0.024176,
+      "mean_fraction_top_tertile": 0.031172,
+      "mean_fraction_overall": 0.027879,
+      "fold_change_top_vs_bottom": 1.289,
+      "mannwhitney_p_tertiles": 0.122,
+      "n_samples": 233
+    },
+    "Gamma delta T cells": {
+      "cibersort_column": "T.cells.gamma.delta",
+      "spearman_rho_vs_score": 0.0366,
+      "spearman_p_vs_score": 0.578,
+      "spearman_rho_vs_response": 0.0292,
+      "spearman_p_vs_response": 0.658,
+      "mean_fraction_bottom_tertile": 0.003105,
+      "mean_fraction_top_tertile": 0.002165,
+      "mean_fraction_overall": 0.002576,
+      "fold_change_top_vs_bottom": 0.697,
+      "mannwhitney_p_tertiles": 0.795,
+      "n_samples": 233
+    },
+    "NK cells (resting)": {
+      "cibersort_column": "NK.cells.resting",
+      "spearman_rho_vs_score": -0.0508,
+      "spearman_p_vs_score": 0.44,
+      "spearman_rho_vs_response": -0.009,
+      "spearman_p_vs_response": 0.892,
+      "mean_fraction_bottom_tertile": 0.003694,
+      "mean_fraction_top_tertile": 0.000951,
+      "mean_fraction_overall": 0.002475,
+      "fold_change_top_vs_bottom": 0.258,
+      "mannwhitney_p_tertiles": 0.143,
+      "n_samples": 233
+    },
+    "NK cells (activated)": {
+      "cibersort_column": "NK.cells.activated",
+      "spearman_rho_vs_score": 0.1545,
+      "spearman_p_vs_score": 0.0183,
+      "spearman_rho_vs_response": 0.0486,
+      "spearman_p_vs_response": 0.46,
+      "mean_fraction_bottom_tertile": 0.052034,
+      "mean_fraction_top_tertile": 0.065133,
+      "mean_fraction_overall": 0.059898,
+      "fold_change_top_vs_bottom": 1.252,
+      "mannwhitney_p_tertiles": 0.0318,
+      "n_samples": 233
+    },
+    "Monocytes": {
+      "cibersort_column": "Monocytes",
+      "spearman_rho_vs_score": 0.0066,
+      "spearman_p_vs_score": 0.92,
+      "spearman_rho_vs_response": -0.12,
+      "spearman_p_vs_response": 0.0675,
+      "mean_fraction_bottom_tertile": 0.047642,
+      "mean_fraction_top_tertile": 0.051677,
+      "mean_fraction_overall": 0.047104,
+      "fold_change_top_vs_bottom": 1.085,
+      "mannwhitney_p_tertiles": 0.936,
+      "n_samples": 233
+    },
+    "Macrophages M0": {
+      "cibersort_column": "Macrophages.M0",
+      "spearman_rho_vs_score": -0.1541,
+      "spearman_p_vs_score": 0.0186,
+      "spearman_rho_vs_response": 0.0132,
+      "spearman_p_vs_response": 0.842,
+      "mean_fraction_bottom_tertile": 0.100597,
+      "mean_fraction_top_tertile": 0.05409,
+      "mean_fraction_overall": 0.071352,
+      "fold_change_top_vs_bottom": 0.538,
+      "mannwhitney_p_tertiles": 0.034,
+      "n_samples": 233
+    },
+    "Macrophages M1": {
+      "cibersort_column": "Macrophages.M1",
+      "spearman_rho_vs_score": 0.2804,
+      "spearman_p_vs_score": 1.39e-05,
+      "spearman_rho_vs_response": 0.1774,
+      "spearman_p_vs_response": 0.00664,
+      "mean_fraction_bottom_tertile": 0.02943,
+      "mean_fraction_top_tertile": 0.058046,
+      "mean_fraction_overall": 0.045748,
+      "fold_change_top_vs_bottom": 1.972,
+      "mannwhitney_p_tertiles": 3.73e-05,
+      "n_samples": 233
+    },
+    "Macrophages M2": {
+      "cibersort_column": "Macrophages.M2",
+      "spearman_rho_vs_score": 0.0782,
+      "spearman_p_vs_score": 0.235,
+      "spearman_rho_vs_response": -0.0721,
+      "spearman_p_vs_response": 0.273,
+      "mean_fraction_bottom_tertile": 0.279423,
+      "mean_fraction_top_tertile": 0.294728,
+      "mean_fraction_overall": 0.290108,
+      "fold_change_top_vs_bottom": 1.055,
+      "mannwhitney_p_tertiles": 0.408,
+      "n_samples": 233
+    },
+    "Dendritic cells (resting)": {
+      "cibersort_column": "Dendritic.cells.resting",
+      "spearman_rho_vs_score": 0.0708,
+      "spearman_p_vs_score": 0.282,
+      "spearman_rho_vs_response": 0.0421,
+      "spearman_p_vs_response": 0.523,
+      "mean_fraction_bottom_tertile": 0.00172,
+      "mean_fraction_top_tertile": 0.002366,
+      "mean_fraction_overall": 0.002814,
+      "fold_change_top_vs_bottom": 1.375,
+      "mannwhitney_p_tertiles": 0.327,
+      "n_samples": 233
+    },
+    "Dendritic cells (activated)": {
+      "cibersort_column": "Dendritic.cells.activated",
+      "spearman_rho_vs_score": 0.1067,
+      "spearman_p_vs_score": 0.104,
+      "spearman_rho_vs_response": 0.0513,
+      "spearman_p_vs_response": 0.436,
+      "mean_fraction_bottom_tertile": 0.025074,
+      "mean_fraction_top_tertile": 0.039782,
+      "mean_fraction_overall": 0.029266,
+      "fold_change_top_vs_bottom": 1.587,
+      "mannwhitney_p_tertiles": 0.12,
+      "n_samples": 233
+    },
+    "Mast cells (resting)": {
+      "cibersort_column": "Mast.cells.resting",
+      "spearman_rho_vs_score": -0.088,
+      "spearman_p_vs_score": 0.181,
+      "spearman_rho_vs_response": 0.1406,
+      "spearman_p_vs_response": 0.032,
+      "mean_fraction_bottom_tertile": 0.031808,
+      "mean_fraction_top_tertile": 0.023305,
+      "mean_fraction_overall": 0.027668,
+      "fold_change_top_vs_bottom": 0.733,
+      "mannwhitney_p_tertiles": 0.317,
+      "n_samples": 233
+    },
+    "Mast cells (activated)": {
+      "cibersort_column": "Mast.cells.activated",
+      "spearman_rho_vs_score": 0.0323,
+      "spearman_p_vs_score": 0.624,
+      "spearman_rho_vs_response": -0.1148,
+      "spearman_p_vs_response": 0.0805,
+      "mean_fraction_bottom_tertile": 0.031506,
+      "mean_fraction_top_tertile": 0.030683,
+      "mean_fraction_overall": 0.030584,
+      "fold_change_top_vs_bottom": 0.974,
+      "mannwhitney_p_tertiles": 0.741,
+      "n_samples": 233
+    },
+    "Eosinophils": {
+      "cibersort_column": "Eosinophils",
+      "spearman_rho_vs_score": -0.1078,
+      "spearman_p_vs_score": 0.101,
+      "spearman_rho_vs_response": -0.1548,
+      "spearman_p_vs_response": 0.018,
+      "mean_fraction_bottom_tertile": 0.003752,
+      "mean_fraction_top_tertile": 0.00167,
+      "mean_fraction_overall": 0.002098,
+      "fold_change_top_vs_bottom": 0.445,
+      "mannwhitney_p_tertiles": 0.334,
+      "n_samples": 233
+    },
+    "Neutrophils": {
+      "cibersort_column": "Neutrophils",
+      "spearman_rho_vs_score": 0.0324,
+      "spearman_p_vs_score": 0.622,
+      "spearman_rho_vs_response": 0.0247,
+      "spearman_p_vs_response": 0.708,
+      "mean_fraction_bottom_tertile": 0.003872,
+      "mean_fraction_top_tertile": 0.003531,
+      "mean_fraction_overall": 0.003923,
+      "fold_change_top_vs_bottom": 0.912,
+      "mannwhitney_p_tertiles": 0.791,
+      "n_samples": 233
+    }
+  },
+  "aggregate_groups": {
+    "Total T cells": {
+      "spearman_rho_vs_score": 0.0227,
+      "spearman_p_vs_score": 0.731,
+      "spearman_rho_vs_response": -0.0092,
+      "spearman_p_vs_response": 0.889,
+      "mean_bottom_tertile": 0.300613,
+      "mean_top_tertile": 0.305265,
+      "fold_change_top_vs_bottom": 1.015,
+      "mannwhitney_p_tertiles": 0.732
+    },
+    "Cytotoxic lymphocytes (CD8+NK)": {
+      "spearman_rho_vs_score": 0.0712,
+      "spearman_p_vs_score": 0.279,
+      "spearman_rho_vs_response": -0.0198,
+      "spearman_p_vs_response": 0.764,
+      "mean_bottom_tertile": 0.142029,
+      "mean_top_tertile": 0.153959,
+      "fold_change_top_vs_bottom": 1.084,
+      "mannwhitney_p_tertiles": 0.369
+    },
+    "Total macrophages": {
+      "spearman_rho_vs_score": 0.0264,
+      "spearman_p_vs_score": 0.688,
+      "spearman_rho_vs_response": -0.0316,
+      "spearman_p_vs_response": 0.631,
+      "mean_bottom_tertile": 0.40945,
+      "mean_top_tertile": 0.406864,
+      "fold_change_top_vs_bottom": 0.994,
+      "mannwhitney_p_tertiles": 0.979
+    },
+    "M1/M2 ratio": {
+      "spearman_rho_vs_score": 0.2338,
+      "spearman_p_vs_score": 0.000319,
+      "spearman_rho_vs_response": 0.1608,
+      "spearman_p_vs_response": 0.014,
+      "mean_bottom_tertile": 0.118067,
+      "mean_top_tertile": 0.207338,
+      "fold_change_top_vs_bottom": 1.756,
+      "mannwhitney_p_tertiles": 0.000493
+    },
+    "Total NK cells": {
+      "spearman_rho_vs_score": 0.145,
+      "spearman_p_vs_score": 0.0269,
+      "spearman_rho_vs_response": 0.0249,
+      "spearman_p_vs_response": 0.705,
+      "mean_bottom_tertile": 0.055728,
+      "mean_top_tertile": 0.066084,
+      "fold_change_top_vs_bottom": 1.186,
+      "mannwhitney_p_tertiles": 0.0715
+    },
+    "Total dendritic cells": {
+      "spearman_rho_vs_score": 0.1318,
+      "spearman_p_vs_score": 0.0445,
+      "spearman_rho_vs_response": 0.0682,
+      "spearman_p_vs_response": 0.3,
+      "mean_bottom_tertile": 0.026794,
+      "mean_top_tertile": 0.042148,
+      "fold_change_top_vs_bottom": 1.573,
+      "mannwhitney_p_tertiles": 0.0869
+    },
+    "Total B lineage (B+plasma)": {
+      "spearman_rho_vs_score": -0.1406,
+      "spearman_p_vs_score": 0.0319,
+      "spearman_rho_vs_response": 0.0509,
+      "spearman_p_vs_response": 0.439,
+      "mean_bottom_tertile": 0.088836,
+      "mean_top_tertile": 0.068774,
+      "fold_change_top_vs_bottom": 0.774,
+      "mannwhitney_p_tertiles": 0.0605
+    }
+  },
+  "key_findings_summary": {
+    "CD8+ T cells": {
+      "rho": 0.0006,
+      "p": 0.992,
+      "fold_change": 1.018,
+      "direction": "HIGHER",
+      "mean_top_tertile_pct": 8.79,
+      "mean_bottom_tertile_pct": 8.63
+    },
+    "CD4+ T cells (memory activated)": {
+      "rho": -0.0283,
+      "p": 0.668,
+      "fold_change": 0.327,
+      "direction": "LOWER",
+      "mean_top_tertile_pct": 0.03,
+      "mean_bottom_tertile_pct": 0.09
+    },
+    "Macrophages M1": {
+      "rho": 0.2804,
+      "p": 1.39e-05,
+      "fold_change": 1.972,
+      "direction": "HIGHER",
+      "mean_top_tertile_pct": 5.8,
+      "mean_bottom_tertile_pct": 2.94
+    },
+    "Macrophages M2": {
+      "rho": 0.0782,
+      "p": 0.235,
+      "fold_change": 1.055,
+      "direction": "HIGHER",
+      "mean_top_tertile_pct": 29.47,
+      "mean_bottom_tertile_pct": 27.94
+    },
+    "Regulatory T cells (Tregs)": {
+      "rho": 0.1206,
+      "p": 0.066,
+      "fold_change": 1.289,
+      "direction": "HIGHER",
+      "mean_top_tertile_pct": 3.12,
+      "mean_bottom_tertile_pct": 2.42
+    },
+    "NK cells (activated)": {
+      "rho": 0.1545,
+      "p": 0.0183,
+      "fold_change": 1.252,
+      "direction": "HIGHER",
+      "mean_top_tertile_pct": 6.51,
+      "mean_bottom_tertile_pct": 5.2
+    },
+    "NK cells (resting)": {
+      "rho": -0.0508,
+      "p": 0.44,
+      "fold_change": 0.258,
+      "direction": "LOWER",
+      "mean_top_tertile_pct": 0.1,
+      "mean_bottom_tertile_pct": 0.37
+    },
+    "Dendritic cells (activated)": {
+      "rho": 0.1067,
+      "p": 0.104,
+      "fold_change": 1.587,
+      "direction": "HIGHER",
+      "mean_top_tertile_pct": 3.98,
+      "mean_bottom_tertile_pct": 2.51
+    },
+    "Dendritic cells (resting)": {
+      "rho": 0.0708,
+      "p": 0.282,
+      "fold_change": 1.375,
+      "direction": "HIGHER",
+      "mean_top_tertile_pct": 0.24,
+      "mean_bottom_tertile_pct": 0.17
+    },
+    "B cells (naive)": {
+      "rho": -0.0819,
+      "p": 0.213,
+      "fold_change": 0.757,
+      "direction": "LOWER",
+      "mean_top_tertile_pct": 2.32,
+      "mean_bottom_tertile_pct": 3.06
+    },
+    "B cells (memory)": {
+      "rho": -0.0575,
+      "p": 0.382,
+      "fold_change": 0.824,
+      "direction": "LOWER",
+      "mean_top_tertile_pct": 3.02,
+      "mean_bottom_tertile_pct": 3.66
+    },
+    "Plasma cells": {
+      "rho": -0.0215,
+      "p": 0.744,
+      "fold_change": 0.714,
+      "direction": "LOWER",
+      "mean_top_tertile_pct": 1.55,
+      "mean_bottom_tertile_pct": 2.16
+    }
+  },
+  "interpretation": {
+    "note": "Positive rho means higher cell fraction in tumors with higher predicted drug response score. Fold change is top tertile / bottom tertile of predicted score. All correlations are Spearman rank. Mann-Whitney tests compare top vs bottom tertiles."
+  }
+}

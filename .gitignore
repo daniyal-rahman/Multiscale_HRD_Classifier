@@ -5,6 +5,14 @@ __pycache__/
 *.pyc
 v2/data_acquisition/raw/
 v2/data_acquisition/processed/
+v2/data_acquisition/response_data/
+
+# Large experiment data files
+v2/experiments/exp8_response_prediction/pooled_rank_matrix.parquet
+v2/experiments/exp8_response_prediction/feature_weights.parquet
+v2/experiments/exp8_response_prediction/ispy2_predictions.parquet
+v2/experiments/exp8_response_prediction/validation_fixed/pooled_rank_matrix_fixed.parquet
+v2/experiments/exp8_response_prediction/immune_deconv/thorsson_data/
 
 # Ignore all files in the prelim_analysis/data directory
 prelim_analysis/data/*
