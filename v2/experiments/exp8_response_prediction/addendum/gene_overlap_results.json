@@ -1,0 +1,190 @@
+{
+  "response_model_total_genes": 11140,
+  "overlap_with_hrd_signatures": {
+    "Beinse2022": {
+      "signature_size": 73,
+      "overlap_top50": 0,
+      "overlap_top100": 1,
+      "overlap_top200": 2,
+      "overlap_top500": 4,
+      "overlap_all": 60,
+      "top100_overlapping_genes": [
+        "POSTN"
+      ]
+    },
+    "CIN70": {
+      "signature_size": 70,
+      "overlap_top50": 0,
+      "overlap_top100": 0,
+      "overlap_top200": 0,
+      "overlap_top500": 1,
+      "overlap_all": 56,
+      "top100_overlapping_genes": []
+    },
+    "Konst.BRCAness": {
+      "signature_size": 60,
+      "overlap_top50": 0,
+      "overlap_top100": 1,
+      "overlap_top200": 1,
+      "overlap_top500": 2,
+      "overlap_all": 50,
+      "top100_overlapping_genes": [
+        "POSTN"
+      ]
+    },
+    "Multiscale": {
+      "signature_size": 112,
+      "overlap_top50": 0,
+      "overlap_top100": 0,
+      "overlap_top200": 2,
+      "overlap_top500": 4,
+      "overlap_all": 89,
+      "top100_overlapping_genes": []
+    },
+    "PARPi7": {
+      "signature_size": 7,
+      "overlap_top50": 0,
+      "overlap_top100": 0,
+      "overlap_top200": 0,
+      "overlap_top500": 0,
+      "overlap_all": 5,
+      "top100_overlapping_genes": []
+    },
+    "POLQ": {
+      "signature_size": 1,
+      "overlap_top50": 0,
+      "overlap_top100": 0,
+      "overlap_top200": 0,
+      "overlap_top500": 0,
+      "overlap_all": 1,
+      "top100_overlapping_genes": []
+    },
+    "PanHRD200": {
+      "signature_size": 48,
+      "overlap_top50": 0,
+      "overlap_top100": 0,
+      "overlap_top200": 0,
+      "overlap_top500": 0,
+      "overlap_all": 39,
+      "top100_overlapping_genes": []
+    },
+    "Peng2014": {
+      "signature_size": 243,
+      "overlap_top50": 0,
+      "overlap_top100": 0,
+      "overlap_top200": 2,
+      "overlap_top500": 6,
+      "overlap_all": 155,
+      "top100_overlapping_genes": []
+    },
+    "ProHRDness": {
+      "signature_size": 16,
+      "overlap_top50": 0,
+      "overlap_top100": 0,
+      "overlap_top200": 0,
+      "overlap_top500": 0,
+      "overlap_all": 9,
+      "top100_overlapping_genes": []
+    },
+    "Severson": {
+      "signature_size": 77,
+      "overlap_top50": 1,
+      "overlap_top100": 1,
+      "overlap_top200": 2,
+      "overlap_top500": 3,
+      "overlap_all": 54,
+      "top100_overlapping_genes": [
+        "ADAMTS1"
+      ]
+    },
+    "expHRD": {
+      "signature_size": 71,
+      "overlap_top50": 0,
+      "overlap_top100": 0,
+      "overlap_top200": 0,
+      "overlap_top500": 1,
+      "overlap_all": 56,
+      "top100_overlapping_genes": []
+    },
+    "softHRD": {
+      "signature_size": 109,
+      "overlap_top50": 0,
+      "overlap_top100": 0,
+      "overlap_top200": 2,
+      "overlap_top500": 4,
+      "overlap_all": 90,
+      "top100_overlapping_genes": []
+    }
+  },
+  "overlap_with_immune_signatures": {
+    "TIS-18 (Ayers/Danaher 2018)": {
+      "signature_size": 18,
+      "overlap_top50": 0,
+      "overlap_top100": 2,
+      "overlap_top200": 2,
+      "overlap_top500": 2,
+      "overlap_all": 16,
+      "top100_overlapping_genes": [
+        "CXCL9",
+        "HLA-DQA1"
+      ]
+    },
+    "IFN-gamma 10 (Ayers 2017)": {
+      "signature_size": 10,
+      "overlap_top50": 0,
+      "overlap_top100": 1,
+      "overlap_top200": 1,
+      "overlap_top500": 1,
+      "overlap_all": 9,
+      "top100_overlapping_genes": [
+        "CXCL9"
+      ]
+    },
+    "Expanded Immune 28 (Ayers 2017)": {
+      "signature_size": 28,
+      "overlap_top50": 0,
+      "overlap_top100": 2,
+      "overlap_top200": 2,
+      "overlap_top500": 2,
+      "overlap_all": 25,
+      "top100_overlapping_genes": [
+        "CXCL9",
+        "HLA-DQA1"
+      ]
+    },
+    "Plat-Resist 9 (Lin 2025)": {
+      "signature_size": 9,
+      "overlap_top50": 0,
+      "overlap_top100": 0,
+      "overlap_top200": 0,
+      "overlap_top500": 0,
+      "overlap_all": 6,
+      "top100_overlapping_genes": []
+    },
+    "Chemoresponse 97 (Matondo 2017, partial)": {
+      "signature_size": 24,
+      "overlap_top50": 0,
+      "overlap_top100": 0,
+      "overlap_top200": 1,
+      "overlap_top500": 2,
+      "overlap_all": 19,
+      "top100_overlapping_genes": []
+    }
+  },
+  "immune_gene_enrichment": {
+    "top50": 5,
+    "top100": 9,
+    "top200": 14,
+    "top500": 15
+  },
+  "brca_comparison": {
+    "spearman_rho": 0.1076,
+    "spearman_p": 4.906121444671943e-30,
+    "top50_overlap": 2,
+    "top100_overlap": 10,
+    "shared_top50_genes": [
+      "ADAMTS1",
+      "C7"
+    ]
+  }
+}
