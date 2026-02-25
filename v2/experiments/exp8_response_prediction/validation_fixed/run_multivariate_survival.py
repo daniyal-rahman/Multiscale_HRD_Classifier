@@ -306,7 +306,7 @@ def fit_cox_model(data, time_col, event_col, covariates, model_name, penalizer=0
     n_events = int(cox_df['event'].sum())
 
     if n < 20 or n_events < 5:
-        return {'error': f'Too few samples (n={n}) or events (n_events={n_events})', 'n': n, 'n_events': n_events}
+        return {'error': f'Too few samples (n={n}) or events (n_events={n_events})', 'n': n, 'n_events': n_events}, None
 
     try:
         cph = CoxPHFitter(penalizer=penalizer)

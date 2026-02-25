@@ -1,0 +1,118 @@
+{
+  "cibersort_22_residualization": {
+    "n_samples": 233,
+    "n_sensitive": 163,
+    "n_resistant": 70,
+    "n_cell_types": 22,
+    "R2_score_from_immune": 0.2468,
+    "pct_variance_explained": 24.7,
+    "auc_original": 0.655,
+    "auc_residualized": 0.6119,
+    "auc_retention_pct": 93.4,
+    "mannwhitney_original_p": 8.87e-05,
+    "mannwhitney_residual_p": 0.0034,
+    "spearman_original": {
+      "rho": 0.2462,
+      "p": 0.000147
+    },
+    "spearman_residual": {
+      "rho": 0.1777,
+      "p": 0.00652
+    },
+    "mean_score_sensitive": 0.5307,
+    "mean_score_resistant": 0.4574,
+    "mean_residual_sensitive": 0.0146,
+    "mean_residual_resistant": -0.0339
+  },
+  "cibersort_regression_coefficients": {
+    "Eosinophils": -2.869279,
+    "Macrophages.M1": 1.474486,
+    "T.cells.gamma.delta": -0.964264,
+    "Monocytes": 0.862217,
+    "Dendritic.cells.activated": 0.692517,
+    "T.cells.regulatory..Tregs.": 0.657216,
+    "T.cells.CD4.memory.activated": -0.644029,
+    "NK.cells.resting": -0.597596,
+    "T.cells.CD4.naive": 0.532628,
+    "NK.cells.activated": 0.467035,
+    "Neutrophils": 0.407916,
+    "B.cells.naive": -0.322281,
+    "Dendritic.cells.resting": 0.30895,
+    "T.cells.follicular.helper": -0.191016,
+    "B.cells.memory": -0.153474,
+    "Macrophages.M2": 0.134665,
+    "Mast.cells.resting": 0.115522,
+    "Plasma.cells": 0.083697,
+    "T.cells.CD8": -0.080494,
+    "Macrophages.M0": 0.067289,
+    "Mast.cells.activated": 0.05285,
+    "T.cells.CD4.memory.resting": -0.034556
+  },
+  "cibersort_regression_intercept": 0.329074,
+  "logistic_regression_single_predictor": {
+    "auc_original_score": 0.655,
+    "auc_residualized_score": 0.6119
+  },
+  "purity_confound": {
+    "n_samples_3way": 233,
+    "leuk_frac_range": [
+      0.0105,
+      0.4209
+    ],
+    "leuk_frac_mean": 0.1113,
+    "spearman_score_vs_leukfrac": {
+      "rho": 0.1485,
+      "p": 0.0234
+    },
+    "spearman_response_vs_leukfrac": {
+      "rho": 0.0729,
+      "p": 0.268
+    },
+    "R2_score_from_immune_plus_purity": 0.2468,
+    "auc_original_3way": 0.655,
+    "auc_residualized_extended": 0.6114,
+    "auc_retention_pct": 93.3,
+    "mannwhitney_residual_extended_p": 0.00354
+  },
+  "partial_correlation": {
+    "method": "Residualize both score and response against 22 CIBERSORT fractions, then correlate",
+    "partial_spearman": {
+      "rho": 0.2071,
+      "p": 0.00148
+    },
+    "partial_pearson": {
+      "r": 0.1819,
+      "p": 0.00535
+    }
+  },
+  "permutation_test": {
+    "n_permutations": 1000,
+    "perm_p_original": 0.0,
+    "perm_p_residualized": 0.003,
+    "perm_null_auc_mean": 0.5018,
+    "perm_null_auc_std": 0.0419
+  },
+  "tertile_analysis_residualized": {
+    "threshold_33": -0.0586,
+    "threshold_67": 0.0645,
+    "n_bottom": 78,
+    "n_top": 78,
+    "response_rate_bottom": 0.6026,
+    "response_rate_top": 0.8205,
+    "fold_enrichment": 1.36,
+    "mannwhitney_p": 0.00138
+  },
+  "tertile_analysis_original": {
+    "response_rate_bottom": 0.5513,
+    "response_rate_top": 0.8462,
+    "fold_enrichment": 1.53
+  },
+  "conclusion": "POSITIVE: After removing immune composition signal, residualized scores still discriminate sensitive vs resistant (AUC=0.612, p=3.40e-03). The model captures biology beyond immune infiltrate.",
+  "analysis_metadata": {
+    "script": "addendum/residualize_cibersort.py",
+    "date": "2026-02-25",
+    "model": "L2 LogReg C=0.01, class_weight=balanced, LODO-CV",
+    "residualization_method": "OLS linear regression of predicted scores on 22 CIBERSORT LM22 relative fractions",
+    "dataset": "TCGA-OV"
+  }
+}

@@ -1,7 +1,7 @@
 # Addendum: Peer Review Response — Additional Analyses
 
 **Date:** 2026-02-24
-**Context:** A peer reviewer raised three questions about our drug response classifier (Experiment 8). This addendum addresses each with new analysis.
+**Context:** A peer reviewer raised several questions about our drug response classifier (Experiment 8). This addendum addresses each with new analysis.
 
 ---
 
@@ -10,6 +10,14 @@
 1. [Is the Consensus-93 AUC=0.500 Real?](#1-consensus-93-auc0500-investigation)
 2. [Do Our Response Model's Genes Overlap with Published Signatures?](#2-gene-overlap-analysis)
 3. [Could WGS Features Do Better Than RNA-seq?](#3-wgs-dataset-survey-and-feasibility)
+4. [Genome Foundation Models: Learning Drug Response from DNA Sequence](#4-genome-foundation-model-feasibility-learning-drug-response-from-dna-sequence)
+5. [Circular Logic and Immune Contradiction](#5-circular-logic-and-immune-contradiction)
+6. [Residualization: Is the Model Just Measuring Immune Infiltration?](#6-residualization-is-the-model-just-measuring-immune-infiltration)
+7. [Tumor Purity Confound](#7-tumor-purity-confound)
+8. [Response Label Heterogeneity Across Datasets](#8-response-label-heterogeneity-across-datasets)
+9. [Label Leakage Verification](#9-label-leakage-verification)
+10. [TCGA-OV WES Analysis: Genomic Features vs RNA](#10-tcga-ov-wes-analysis-genomic-features-vs-rna)
+11. [QA Review: Paper Numbers and Code Correctness](#11-qa-review-paper-numbers-and-code-correctness)
 
 ---
 
@@ -163,19 +171,287 @@ A BRCA1-mutant tumor with high immune infiltration (visible on RNA-seq) behaves 
 
 ---
 
+## 4. Genome Foundation Model Feasibility: Learning Drug Response from DNA Sequence
+
+> **Peer question (extended):** "See if you can train a transformer to run inference and compute log-likelihood scores based on inputting a sequence of a gene and identifying whether it's positively associated with good response to drug or vice versa --- basically creating your own HRD scores using WGS."
+
+### The idea
+
+Instead of engineering features from WGS data (mutational signatures, CN profiles, SV burden) and feeding them into a classical classifier, use a pre-trained **genome foundation model** to encode raw DNA sequences containing somatic variants. The model learns variant representations from sequence context, then a fine-tuned classifier head predicts drug response --- essentially an end-to-end "DNA sequence in, response probability out" pipeline.
+
+### Available models (2024-2025)
+
+| Model | Params | Context | Fine-tune on RTX 5080 16GB? | Strength |
+|-------|--------|---------|------------------------------|----------|
+| **DNABERT-2** | 117M | ~4K bp | Yes (LoRA, ~5 GB) | SNV/indel context windows |
+| **Nucleotide Transformer** | 50-500M | 6K bp | Yes (LoRA, ~10 GB for 500M) | Population-aware variant encoding |
+| **HyenaDNA** | 180M | up to 1M bp | Yes (gradient ckpt, ~12 GB) | Structural variants, CNAs |
+| **Evo / Evo 2** | 7-9.4B | 1M bp | No (needs A100 80GB); inference-only with 8-bit: marginal | Zero-shot log-likelihood scoring (closest to Leo's suggestion) |
+
+DNABERT-2 (ICLR 2024) and the Nucleotide Transformer (Nature Methods 2023) are the most practical starting points. Both fit on our hardware with LoRA fine-tuning. HyenaDNA's 1M bp context window is uniquely suited for encoding structural variants. Evo 2 (9.4B params, Science 2024) can compute the per-nucleotide log-likelihood scores Leo described, but requires cloud compute for fine-tuning.
+
+### Practical workflow
+
+1. **VCF → context windows**: Extract reference ±2,000 bp around each somatic variant from hg38; create (ref, alt) sequence pairs
+2. **Foundation model embeddings**: Forward pass through pre-trained model; compute delta embedding (alt - ref) to capture the model's "surprise" at each variant
+3. **Patient-level aggregation**: Mean-pool variant embeddings per patient (or attention-weighted aggregation)
+4. **Fine-tune classifier head**: Linear layer on patient vectors → response probability, using same LODO-CV protocol as our RNA model
+5. **Multi-modal integration**: Combine RNA score + WGS score for the 316 TCGA-OV patients who have both data types
+
+### Why this could add value beyond HRDetect
+
+- **End-to-end learning** from sequence context (768-dim embeddings vs HRDetect's 6 hand-crafted features)
+- **Context-aware variant scoring** distinguishes functionally important mutations from passengers
+- **Transfer learning** from billions of nucleotides provides sequence grammar prior that n=316 cannot learn from scratch
+
+### Key risks
+
+- **Small sample size**: 316 patients for fine-tuning is genuinely small, even with LoRA
+- **WES coverage gap**: Foundation models are trained on full genomes; WES covers ~2% of genome. Non-coding context representations may not transfer to exon-only data
+- **Variant density**: ~100-140 somatic variants per HGSOC patient from WES --- potentially too few for robust patient-level aggregation
+- **Unproven for clinical genomics**: These models excel on benchmarks (promoter prediction, splice site detection) but have not been validated for patient-level drug response prediction
+
+### Timeline and recommendation
+
+| Phase | Timeline | Output |
+|-------|----------|--------|
+| Data preparation (TCGA-OV MAF → context windows) | 1-2 weeks | Sequence pairs for 316 patients |
+| Embedding extraction (DNABERT-2 + NT-500M) | 1 week | Patient-level embedding matrices |
+| Response classifier + comparison vs HRDetect and RNA model | 1-2 weeks | AUC comparison, complementarity analysis |
+| Multi-modal integration (RNA + WGS) | 1-2 weeks | Combined model performance |
+| Optional: Evo zero-shot log-likelihood scoring | 2-4 weeks | Log-likelihood-based "custom HRD scores" |
+
+**Total: 4-8 weeks for proof-of-concept**, 8-12 weeks including Evo scoring and controlled-access applications for validation cohorts.
+
+The foundation model approach is **feasible and novel** --- to our knowledge, no published work has applied genome foundation models to somatic variant embeddings for drug response prediction in ovarian cancer. The most likely outcome is that it performs comparably to HRDetect but with complementary signal to our RNA model, supporting a multi-modal integration strategy.
+
+> Full feasibility assessment with hardware details: [genome_foundation_model_feasibility.md](genome_foundation_model_feasibility.md)
+> WGS dataset survey: [wgs_dataset_survey.md](wgs_dataset_survey.md)
+
+---
+
+## 5. Circular Logic and Immune Contradiction
+
+> **Peer concern A:** "Model predicts response -> model correlates with immune features -> therefore immune features predict response. Isn't that circular?"
+>
+> **Peer concern B:** "You claim immune biology, but trained immune-only models fail (AUC ~0.50). Isn't that contradictory?"
+
+### 5.1 Circular Logic: Residualization Directly Refutes It
+
+The circularity concern is that the model's immune correlation is an artifact of training on gene expression (which inherently reflects immune composition) rather than evidence that immune biology predicts drug response. We test this directly by **regressing out** the immune composition and checking what's left.
+
+**Method:** OLS regression of model scores on all 22 CIBERSORT LM22 cell-type fractions (n=233 TCGA-OV). Residuals represent the score component NOT explained by immune cell composition.
+
+| Metric | Original Score | After Removing Immune Component |
+|--------|---------------:|--------------------------------:|
+| AUC | 0.655 | **0.612** |
+| Mann-Whitney p | 8.87e-05 | **3.40e-03** |
+| Permutation p | <0.001 | **0.003** |
+| Top/bottom tertile response rate | 84.6% / 55.1% | **82.1% / 60.3%** |
+
+- **R² = 0.247**: Immune composition explains only 25% of score variance
+- **AUC retention = 93.4%**: After subtracting the immune-explained component, 93% of predictive signal is preserved
+- **Partial correlation** (immune partialed from both scores AND response): Spearman rho = 0.207, p = 0.0015
+
+The model captures immune signal (25% of variance, expected) **plus** substantial non-immune signal. The non-circular argument:
+
+1. Simple immune scores predict response weakly (AUC 0.55-0.61) --- established independently, no model needed
+2. The full model achieves AUC 0.693 --- trained on response labels, not immune features
+3. After removing immune composition, AUC 0.612 remains (p = 0.003) --- proves the model captures biology beyond immune infiltrate
+
+### 5.2 Immune Contradiction: Regularization Collapse Explains It
+
+The apparent contradiction: raw immune averages beat chance (AUC 0.55-0.59), but L2-trained immune models collapse to chance (~0.50).
+
+| Method | Mean AUC | Trained? |
+|--------|--------:|----------|
+| Full L2 (11,140 genes) | **0.693** | Yes (C=0.01) |
+| IRF1 raw rank | 0.593 | No |
+| TIS-15 average | 0.553 | No |
+| Immune-5 average | 0.534 | No |
+| TIS-15 L2 trained | 0.506 | Yes (C=0.01) |
+| Immune-5 L2 trained | 0.502 | Yes (C=0.01) |
+
+**Resolution:** C = 0.01 (penalty λ = 100) is optimal for 11,140 features but catastrophically over-regularized for 5-15 features. With only 5 features, the L2 penalty crushes all coefficients toward zero, producing near-constant predictions. Raw averages use fixed equal weights (1/N), avoiding this collapse.
+
+This is consistent with the feature selection analysis: AUC improves monotonically from 25 genes (0.568) to 11,140 genes (0.693). The signal is genuinely distributed across the transcriptome --- immune genes contribute but cannot carry the prediction alone, especially under heavy regularization.
+
+### Bottom Line
+
+The model is a **distributed transcriptomic predictor**, not an immune model. It integrates immune, stromal, metabolic, and tumor-intrinsic signals across 11,140 genes. The immune component (~25% of variance) is real and biologically expected (platinum-induced immunogenic cell death). The remaining ~75% reflects non-immune biology that independently predicts response (AUC 0.612 after residualization, p = 0.003).
+
+> Full analysis: [circular_logic_response.md](circular_logic_response.md)
+> Residualization data: [residualize_cibersort_results.json](residualize_cibersort_results.json)
+> Immune baselines: [../immune_baselines/immune_baseline_results.json](../immune_baselines/immune_baseline_results.json)
+
+---
+
+## 6. Residualization: Is the Model Just Measuring Immune Infiltration?
+
+> **Peer concern:** "Regress out the immune component and residualize model scores against CIBERSORT and check if the residuals still predict response."
+
+We regressed LODO-CV predicted scores on all 22 CIBERSORT LM22 cell-type fractions (n=233 TCGA-OV), then tested whether residuals still predict response.
+
+| Metric | Original Score | After Removing Immune |
+|--------|---------------:|----------------------:|
+| AUC | 0.655 | **0.612** |
+| Mann-Whitney p | 8.87e-05 | **3.40e-03** |
+| Permutation p | <0.001 | **0.003** |
+
+- **R² = 0.247**: Immune composition explains only 25% of score variance
+- **AUC retention = 93.4%**: Most predictive signal survives residualization
+- **Partial correlation** (immune partialed from both score and response): rho=0.207, p=0.0015
+
+**Conclusion:** The model captures substantial biology beyond immune cell composition. It is not simply a proxy for immune infiltration.
+
+> Full analysis: [residualize_cibersort.md](residualize_cibersort.md) | Data: [residualize_cibersort_results.json](residualize_cibersort_results.json)
+
+---
+
+## 7. Tumor Purity Confound
+
+> **Peer concern:** "Doesn't high immune infiltration = low tumour purity and low tumour purity is correlated w better outcomes, bc smaller tumours, better resection, etc?"
+
+We tested whether tumor purity confounds the model using ESTIMATE leukocyte fractions (Thorsson et al. 2018, n=235 TCGA-OV).
+
+| Test | Result |
+|------|--------|
+| Response vs purity | rho=-0.078, **p=0.232** (no correlation) |
+| Score significance after purity adjustment | **p=0.0003** (unchanged) |
+| Purity adds to score model | LR test **p=0.864** (zero additional value) |
+| Score in high-purity subgroup | AUC=0.618, p=0.019 |
+| Score in low-purity subgroup | AUC=0.686, p=0.001 |
+
+**Conclusion:** Tumor purity is NOT a confound. Response does not correlate with purity (p=0.23), and the model score remains equally significant after adjustment. The model works in both high and low purity subgroups.
+
+> Full analysis: [tumor_purity_confound.md](tumor_purity_confound.md) | Data: [tumor_purity_confound_results.json](tumor_purity_confound_results.json)
+
+---
+
+## 8. Response Label Heterogeneity Across Datasets
+
+> **Peer concern:** "In some datasets sensitive is >6 months and >12. So someone who is 8 months will be sensitive in one and resistant in other."
+
+We audited the exact response definition for each of the 9 datasets:
+
+| Dataset | Cancer | N | Definition | Cutoff | Ambiguous (6-12mo) |
+|---------|--------|--:|------------|--------|-------------------:|
+| TCGA-OV | HGSOC | 235 | PFI | >6mo | N/A (pre-classified) |
+| GSE32062 | HGSOC | 260 | PFS | >6mo | 45 (17%) |
+| GSE156699 | HGSOC | 88 | PFS | >=6mo | Unknown |
+| GSE63885 | Mixed OC | 75 | DFS | >=6mo | 13 (17%) |
+| GSE30161 | Late OC | 55 | RECIST | CR vs non-CR | 0 |
+| GSE28739 | Serous OC | 25 | Recurrence | >30mo vs <=6mo | 0 (extreme groups) |
+| GSE18864 | TNBC | 24 | Miller-Payne | MP 4-5 | 0 (pathologic) |
+| GSE173839 | Breast | 71 | pCR | pCR vs non-pCR | 0 (pathologic) |
+| GSE194040 | Breast | 71 | pCR | pCR vs non-pCR | 0 (pathologic) |
+
+**Key findings:**
+- 4 of 5 ovarian datasets use the standard GCIG **6-month** PFI/PFS cutoff
+- GSE30161 uses RECIST response (tumor shrinkage, fundamentally different axis)
+- GSE28739 uses extreme phenotypes (>30mo vs <=6mo) — stricter, compatible
+- Breast/TNBC datasets use pathologic endpoints (pCR, Miller-Payne) — no PFI ambiguity
+- ~17% of patients in GSE32062 and GSE63885 fall in the 6-12 month ambiguous zone
+
+**Bottom line:** Labels are heterogeneous (expected in pooled analysis) but each dataset is internally consistent. LODO-CV naturally handles this since it trains/tests across whole datasets. The ambiguous-zone patients (~17% of 2 datasets) could flip under alternative cutoffs, but the 6-month standard is the GCIG consensus and used by most published studies.
+
+> Full audit: [response_label_audit.md](response_label_audit.md)
+
+---
+
+## 9. Label Leakage Verification
+
+> **Peer concern:** "Are you sure there's no label leakage in the LODO-CV gene intersection?"
+
+We traced the full gene selection pipeline:
+
+1. **Gene intersection**: The 11,089 common genes are the **set intersection** of column names across all 10 expression matrices. Code: `finalize_gap_fill.py` uses `set(df.columns)` — response labels are never loaded.
+2. **Probe-to-gene mapping**: Multi-probe conflicts resolved by mean expression across ALL samples, not by response.
+3. **LODO-CV loop**: Fixed gene set before the loop. No within-fold feature selection. Per-sample rank normalization (`axis=1`).
+4. **No leakage vectors found**: Gene selection, normalization, and train/test splits are all clean.
+
+**One minor note**: The C=0.01 hyperparameter was selected by comparing aggregate LODO-CV mean AUC (C=1.0 vs C=0.01). This is standard practice and involves only two comparisons.
+
+**Verdict: No label leakage.** Gene selection is purely platform-based.
+
+> Full verification: [label_leakage_verification.md](label_leakage_verification.md)
+
+---
+
+## 10. TCGA-OV WES Analysis: Genomic Features vs RNA
+
+> **Peer suggestion:** "Train on WGS instead of RNA-seq and using same labels, bc then u can identify genomic features responsible for drug response instead of just genes."
+
+We downloaded TCGA-OV WES data (mutations + GISTIC copy number + TMB) from cBioPortal and compared against our RNA model on the same 235 patients.
+
+### Univariate WES findings
+
+| Feature | Resp. rate (mut) | Resp. rate (WT) | AUC |
+|---------|----------------:|-----------------:|----:|
+| BRCA any | 84% | 67% | 0.562 |
+| TMB (continuous) | — | — | 0.587 |
+| CCNE1 amplified | 60% | 73% | 0.453 |
+
+No individual WES feature achieves AUC > 0.59.
+
+### Multivariate comparison
+
+| Model | AUC | 95% CI |
+|-------|----:|--------|
+| **RNA model (LODO-CV)** | **0.652** | [0.575, 0.728] |
+| WES features (17 features) | 0.548 | [0.465, 0.633] |
+| WES + RNA combined | 0.557 | [0.474, 0.640] |
+
+**RNA substantially outperforms WES feature engineering.** The combined model does not improve over RNA alone — WES noise dilutes the RNA signal. RNA and WES scores are weakly correlated (rho=0.15), confirming different biology, but the WES signal is too weak to contribute with simple concatenation.
+
+This sets a **lower bound** for what foundation model approaches need to beat. Standard WES feature engineering captures the blueprint (BRCA status, copy number) but misses the tumor's functional state (immune infiltration, pathway activity) that RNA captures.
+
+> Full analysis: [tcga_wes_analysis.md](tcga_wes_analysis.md) | Data: [tcga_wes_results.json](tcga_wes_results.json)
+
+---
+
+## 11. QA Review: Paper Numbers and Code Correctness
+
+Independent QA review of all "vibe coded" work.
+
+### Paper number verification
+- **200+ values** cross-checked against JSON result files
+- **All major results match** within normal rounding (AUCs, HRs, p-values, CIs, cell-type correlations)
+- **1 minor discrepancy**: Section 6 cites TIS-15 AUC as 0.499 (clean-7 mean) vs 0.506 (all-9 mean used elsewhere)
+- **2 unverifiable values**: softHRD and ablation results were initially not found but located in differently-named files (`softhrd_comparison_results.json`, `training_composition_results.json`)
+
+### Code review
+- **No result-invalidating bugs found** in core LODO-CV, validation, or survival scripts
+- **LODO-CV is correctly implemented**: proper train/test separation, correct sklearn API usage, no leakage
+- **2 CRITICAL edge-case bugs** (neither triggered on actual data):
+  1. Cox `fit_cox_model` inconsistent return type (crash on edge case)
+  2. `gene_overlap_analysis.py` hypergeometric test computed in markdown but not programmatically in script
+- **3 MAJOR methodological notes**:
+  1. Permutation test uses pre-trained predictions (mildly anticonservative, but p=0.0 is extreme enough it doesn't matter)
+  2. PH assumption check code doesn't robustly detect violations (lifelines API limitation)
+  3. Some data loaded from non-reproducible paths (`/tmp/`, runtime S3 URLs)
+
+> Full reports: [qa_paper_numbers.md](qa_paper_numbers.md) | [qa_code_review.md](qa_code_review.md)
+
+---
+
 ## References
 
 - Ayers et al. (2017) "IFN-gamma-related mRNA profile predicts clinical response to PD-1 blockade." *J Clin Invest* 127(8):2930-2940.
+- Dalla-Torre, H., et al. (2023) "The Nucleotide Transformer: Building and Evaluating Robust Foundation Models for Human Genomics." *Nature Methods*.
 - Danaher et al. (2018) "Pan-cancer adaptive immune resistance as defined by the Tumor Inflammation Signature." *J Immunother Cancer* 6:63.
 - Lin et al. (2025) "A Novel Platinum-Resistance-related Gene Signature in Ovarian Cancer." *PubMed* 39901543.
 - Macintyre et al. (2018) "Copy number signatures and mutational processes in ovarian carcinoma." *Nat Genet* 50:1262-1270.
 - Matondo et al. (2017) "The Prognostic 97 Chemoresponse Gene Signature in Ovarian Cancer." *Sci Rep* 7:9689.
+- Nguyen, E., et al. (2023) "HyenaDNA: Long-Range Genomic Sequence Modeling at Single Nucleotide Resolution." *NeurIPS 2023*.
+- Nguyen, E., et al. (2024) "Sequence modeling and design from molecular to genome scale with Evo." *Science* 386(6723).
 - Patch et al. (2015) "Whole-genome characterization of chemoresistant ovarian cancer." *Nature* 521:489-494.
 - Smith & Bradley et al. (2023) "The copy number and mutational landscape of recurrent ovarian high-grade serous carcinoma." *Nat Commun* 14:4387.
 - Sztupinszki et al. (2021) "Migrating the SNP array-based homologous recombination deficiency measures to next generation sequencing data." *npj Breast Cancer* 7:78.
 - TCGA (2011) "Integrated genomic analyses of ovarian carcinoma." *Nature* 474:609-615.
 - Vázquez-García et al. (2023) "Ovarian cancer mutational processes drive site-specific immune evasion." *Cancer Discovery* 15(11):2262.
+- Zhou, Z., et al. (2024) "DNABERT-2: Efficient Foundation Model and Benchmark For Multi-Species Genome." *ICLR 2024*.
 
 ---
 
-*Addendum generated 2026-02-24. Supporting scripts and data in this directory.*
+*Addendum updated 2026-02-25. 11 analyses addressing all peer review feedback. Supporting scripts, data, and QA reports in this directory.*

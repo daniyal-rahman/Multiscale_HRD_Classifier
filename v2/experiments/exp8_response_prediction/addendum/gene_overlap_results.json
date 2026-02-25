@@ -3,6 +3,7 @@
   "overlap_with_hrd_signatures": {
     "Beinse2022": {
       "signature_size": 73,
+      "sig_genes_in_universe": 60,
       "overlap_top50": 0,
       "overlap_top100": 1,
       "overlap_top200": 2,
@@ -10,19 +11,29 @@
       "overlap_all": 60,
       "top100_overlapping_genes": [
         "POSTN"
-      ]
+      ],
+      "hypergeom_p_top50": 1.0,
+      "hypergeom_p_top100": 0.41869283614491715,
+      "hypergeom_p_top200": 0.29292087559839386,
+      "hypergeom_p_top500": 0.28253641386499806
     },
     "CIN70": {
       "signature_size": 70,
+      "sig_genes_in_universe": 56,
       "overlap_top50": 0,
       "overlap_top100": 0,
       "overlap_top200": 0,
       "overlap_top500": 1,
       "overlap_all": 56,
-      "top100_overlapping_genes": []
+      "top100_overlapping_genes": [],
+      "hypergeom_p_top50": 1.0,
+      "hypergeom_p_top100": 1.0,
+      "hypergeom_p_top200": 1.0,
+      "hypergeom_p_top500": 0.9240846570906771
     },
     "Konst.BRCAness": {
       "signature_size": 60,
+      "sig_genes_in_universe": 50,
       "overlap_top50": 0,
       "overlap_top100": 1,
       "overlap_top200": 1,
@@ -30,64 +41,99 @@
       "overlap_all": 50,
       "top100_overlapping_genes": [
         "POSTN"
-      ]
+      ],
+      "hypergeom_p_top50": 1.0,
+      "hypergeom_p_top100": 0.36355591217034233,
+      "hypergeom_p_top200": 0.5966046649539655,
+      "hypergeom_p_top500": 0.6635085445927305
     },
     "Multiscale": {
       "signature_size": 112,
+      "sig_genes_in_universe": 89,
       "overlap_top50": 0,
       "overlap_top100": 0,
       "overlap_top200": 2,
       "overlap_top500": 4,
       "overlap_all": 89,
-      "top100_overlapping_genes": []
+      "top100_overlapping_genes": [],
+      "hypergeom_p_top50": 1.0,
+      "hypergeom_p_top100": 1.0,
+      "hypergeom_p_top200": 0.47688297069817126,
+      "hypergeom_p_top500": 0.5707160192792531
     },
     "PARPi7": {
       "signature_size": 7,
+      "sig_genes_in_universe": 5,
       "overlap_top50": 0,
       "overlap_top100": 0,
       "overlap_top200": 0,
       "overlap_top500": 0,
       "overlap_all": 5,
-      "top100_overlapping_genes": []
+      "top100_overlapping_genes": [],
+      "hypergeom_p_top50": 1.0,
+      "hypergeom_p_top100": 1.0,
+      "hypergeom_p_top200": 1.0,
+      "hypergeom_p_top500": 1.0
     },
     "POLQ": {
       "signature_size": 1,
+      "sig_genes_in_universe": 1,
       "overlap_top50": 0,
       "overlap_top100": 0,
       "overlap_top200": 0,
       "overlap_top500": 0,
       "overlap_all": 1,
-      "top100_overlapping_genes": []
+      "top100_overlapping_genes": [],
+      "hypergeom_p_top50": 1.0,
+      "hypergeom_p_top100": 1.0,
+      "hypergeom_p_top200": 1.0,
+      "hypergeom_p_top500": 1.0
     },
     "PanHRD200": {
       "signature_size": 48,
+      "sig_genes_in_universe": 39,
       "overlap_top50": 0,
       "overlap_top100": 0,
       "overlap_top200": 0,
       "overlap_top500": 0,
       "overlap_all": 39,
-      "top100_overlapping_genes": []
+      "top100_overlapping_genes": [],
+      "hypergeom_p_top50": 1.0,
+      "hypergeom_p_top100": 1.0,
+      "hypergeom_p_top200": 1.0,
+      "hypergeom_p_top500": 1.0
     },
     "Peng2014": {
       "signature_size": 243,
+      "sig_genes_in_universe": 155,
       "overlap_top50": 0,
       "overlap_top100": 0,
       "overlap_top200": 2,
       "overlap_top500": 6,
       "overlap_all": 155,
-      "top100_overlapping_genes": []
+      "top100_overlapping_genes": [],
+      "hypergeom_p_top50": 1.0,
+      "hypergeom_p_top100": 1.0,
+      "hypergeom_p_top200": 0.7708792979154475,
+      "hypergeom_p_top500": 0.7013327607198109
     },
     "ProHRDness": {
       "signature_size": 16,
+      "sig_genes_in_universe": 9,
       "overlap_top50": 0,
       "overlap_top100": 0,
       "overlap_top200": 0,
       "overlap_top500": 0,
       "overlap_all": 9,
-      "top100_overlapping_genes": []
+      "top100_overlapping_genes": [],
+      "hypergeom_p_top50": 1.0,
+      "hypergeom_p_top100": 1.0,
+      "hypergeom_p_top200": 1.0,
+      "hypergeom_p_top500": 1.0
     },
     "Severson": {
       "signature_size": 77,
+      "sig_genes_in_universe": 54,
       "overlap_top50": 1,
       "overlap_top100": 1,
       "overlap_top200": 2,
@@ -95,30 +141,45 @@
       "overlap_all": 54,
       "top100_overlapping_genes": [
         "ADAMTS1"
-      ]
+      ],
+      "hypergeom_p_top50": 0.21611770749744233,
+      "hypergeom_p_top100": 0.386205908989828,
+      "hypergeom_p_top200": 0.25285800720189,
+      "hypergeom_p_top500": 0.4392352095362963
     },
     "expHRD": {
       "signature_size": 71,
+      "sig_genes_in_universe": 56,
       "overlap_top50": 0,
       "overlap_top100": 0,
       "overlap_top200": 0,
       "overlap_top500": 1,
       "overlap_all": 56,
-      "top100_overlapping_genes": []
+      "top100_overlapping_genes": [],
+      "hypergeom_p_top50": 1.0,
+      "hypergeom_p_top100": 1.0,
+      "hypergeom_p_top200": 1.0,
+      "hypergeom_p_top500": 0.9240846570906771
     },
     "softHRD": {
       "signature_size": 109,
+      "sig_genes_in_universe": 90,
       "overlap_top50": 0,
       "overlap_top100": 0,
       "overlap_top200": 2,
       "overlap_top500": 4,
       "overlap_all": 90,
-      "top100_overlapping_genes": []
+      "top100_overlapping_genes": [],
+      "hypergeom_p_top50": 1.0,
+      "hypergeom_p_top100": 1.0,
+      "hypergeom_p_top200": 0.4827351202418106,
+      "hypergeom_p_top500": 0.5796321659482395
     }
   },
   "overlap_with_immune_signatures": {
     "TIS-18 (Ayers/Danaher 2018)": {
       "signature_size": 18,
+      "sig_genes_in_universe": 16,
       "overlap_top50": 0,
       "overlap_top100": 2,
       "overlap_top200": 2,
@@ -127,10 +188,15 @@
       "top100_overlapping_genes": [
         "CXCL9",
         "HLA-DQA1"
-      ]
+      ],
+      "hypergeom_p_top50": 1.0,
+      "hypergeom_p_top100": 0.008820080832838017,
+      "hypergeom_p_top200": 0.03262356416844341,
+      "hypergeom_p_top500": 0.1596691903658142
     },
     "IFN-gamma 10 (Ayers 2017)": {
       "signature_size": 10,
+      "sig_genes_in_universe": 9,
       "overlap_top50": 0,
       "overlap_top100": 1,
       "overlap_top200": 1,
@@ -138,10 +204,15 @@
       "overlap_all": 9,
       "top100_overlapping_genes": [
         "CXCL9"
-      ]
+      ],
+      "hypergeom_p_top50": 1.0,
+      "hypergeom_p_top100": 0.07797600381867639,
+      "hypergeom_p_top200": 0.15049975244962457,
+      "hypergeom_p_top500": 0.3386338738888157
     },
     "Expanded Immune 28 (Ayers 2017)": {
       "signature_size": 28,
+      "sig_genes_in_universe": 25,
       "overlap_top50": 0,
       "overlap_top100": 2,
       "overlap_top200": 2,
@@ -150,25 +221,39 @@
       "top100_overlapping_genes": [
         "CXCL9",
         "HLA-DQA1"
-      ]
+      ],
+      "hypergeom_p_top50": 1.0,
+      "hypergeom_p_top100": 0.020926658638712948,
+      "hypergeom_p_top200": 0.07346985651046135,
+      "hypergeom_p_top500": 0.3100584893576078
     },
     "Plat-Resist 9 (Lin 2025)": {
       "signature_size": 9,
+      "sig_genes_in_universe": 6,
       "overlap_top50": 0,
       "overlap_top100": 0,
       "overlap_top200": 0,
       "overlap_top500": 0,
       "overlap_all": 6,
-      "top100_overlapping_genes": []
+      "top100_overlapping_genes": [],
+      "hypergeom_p_top50": 1.0,
+      "hypergeom_p_top100": 1.0,
+      "hypergeom_p_top200": 1.0,
+      "hypergeom_p_top500": 1.0
     },
     "Chemoresponse 97 (Matondo 2017, partial)": {
       "signature_size": 24,
+      "sig_genes_in_universe": 19,
       "overlap_top50": 0,
       "overlap_top100": 0,
       "overlap_top200": 1,
       "overlap_top500": 2,
       "overlap_all": 19,
-      "top100_overlapping_genes": []
+      "top100_overlapping_genes": [],
+      "hypergeom_p_top50": 1.0,
+      "hypergeom_p_top100": 1.0,
+      "hypergeom_p_top200": 0.2914206647290625,
+      "hypergeom_p_top500": 0.20891431840414162
     }
   },
   "immune_gene_enrichment": {

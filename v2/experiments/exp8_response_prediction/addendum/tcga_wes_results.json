@@ -1,0 +1,232 @@
+{
+  "n_patients": 235,
+  "n_sensitive": 165,
+  "n_resistant": 70,
+  "rna_model_auc": 0.6556,
+  "univariate_associations": {
+    "brca1_mut": {
+      "n_positive": 4,
+      "n_negative": 231,
+      "response_rate_positive": 1.0,
+      "response_rate_negative": 0.697,
+      "odds_ratio": Infinity,
+      "fisher_p": 0.3207,
+      "auc": 0.5121
+    },
+    "brca2_mut": {
+      "n_positive": 10,
+      "n_negative": 225,
+      "response_rate_positive": 1.0,
+      "response_rate_negative": 0.689,
+      "odds_ratio": Infinity,
+      "fisher_p": 0.0355,
+      "auc": 0.5303
+    },
+    "brca_any": {
+      "n_positive": 14,
+      "n_negative": 221,
+      "response_rate_positive": 1.0,
+      "response_rate_negative": 0.683,
+      "odds_ratio": Infinity,
+      "fisher_p": 0.0122,
+      "auc": 0.5424
+    },
+    "hrr_mutated": {
+      "n_positive": 37,
+      "n_negative": 198,
+      "response_rate_positive": 0.811,
+      "response_rate_negative": 0.682,
+      "odds_ratio": 2.0,
+      "fisher_p": 0.1693,
+      "auc": 0.5409
+    },
+    "tp53_mut": {
+      "n_positive": 145,
+      "n_negative": 90,
+      "response_rate_positive": 0.731,
+      "response_rate_negative": 0.656,
+      "odds_ratio": 1.428,
+      "fisher_p": 0.242,
+      "auc": 0.5426
+    },
+    "nf1_mut": {
+      "n_positive": 13,
+      "n_negative": 222,
+      "response_rate_positive": 0.692,
+      "response_rate_negative": 0.703,
+      "odds_ratio": 0.952,
+      "fisher_p": 1.0,
+      "auc": 0.4987
+    },
+    "rb1_mut": {
+      "n_positive": 7,
+      "n_negative": 228,
+      "response_rate_positive": 0.857,
+      "response_rate_negative": 0.697,
+      "odds_ratio": 2.604,
+      "fisher_p": 0.6774,
+      "auc": 0.511
+    },
+    "cdk12_mut": {
+      "n_positive": 9,
+      "n_negative": 226,
+      "response_rate_positive": 0.667,
+      "response_rate_negative": 0.704,
+      "odds_ratio": 0.843,
+      "fisher_p": 0.7281,
+      "auc": 0.4968
+    },
+    "pik3ca_mut": {
+      "n_positive": 4,
+      "n_negative": 231,
+      "response_rate_positive": 0.75,
+      "response_rate_negative": 0.701,
+      "odds_ratio": 1.278,
+      "fisher_p": 1.0,
+      "auc": 0.5019
+    },
+    "brca_damaging": {
+      "n_positive": 10,
+      "n_negative": 225,
+      "response_rate_positive": 1.0,
+      "response_rate_negative": 0.689,
+      "odds_ratio": Infinity,
+      "fisher_p": 0.0355,
+      "auc": 0.5303
+    },
+    "ccne1_amp": {
+      "n_positive": 45,
+      "n_negative": 190,
+      "response_rate_positive": 0.6,
+      "response_rate_negative": 0.726,
+      "odds_ratio": 0.565,
+      "fisher_p": 0.1051,
+      "auc": 0.4532
+    },
+    "myc_amp": {
+      "n_positive": 80,
+      "n_negative": 155,
+      "response_rate_positive": 0.725,
+      "response_rate_negative": 0.69,
+      "odds_ratio": 1.183,
+      "fisher_p": 0.6526,
+      "auc": 0.5186
+    },
+    "brca1_del": {
+      "n_positive": 180,
+      "n_negative": 55,
+      "response_rate_positive": 0.694,
+      "response_rate_negative": 0.727,
+      "odds_ratio": 0.852,
+      "fisher_p": 0.7371,
+      "auc": 0.4859
+    },
+    "rb1_del": {
+      "n_positive": 158,
+      "n_negative": 77,
+      "response_rate_positive": 0.715,
+      "response_rate_negative": 0.675,
+      "odds_ratio": 1.207,
+      "fisher_p": 0.5461,
+      "auc": 0.521
+    },
+    "pten_del": {
+      "n_positive": 103,
+      "n_negative": 132,
+      "response_rate_positive": 0.767,
+      "response_rate_negative": 0.652,
+      "odds_ratio": 1.761,
+      "fisher_p": 0.0623,
+      "auc": 0.568
+    },
+    "brca_existing": {
+      "n_positive": 44,
+      "n_negative": 191,
+      "response_rate_positive": 0.841,
+      "response_rate_negative": 0.67,
+      "odds_ratio": 2.602,
+      "fisher_p": 0.0282,
+      "auc": 0.5621
+    },
+    "tmb": {
+      "n_available": 220,
+      "spearman_rho": 0.138,
+      "spearman_p": 0.0408,
+      "auc": 0.5866,
+      "median": 1.8
+    }
+  },
+  "multivariate_models": {
+    "rna_lodo_raw": {
+      "auc": 0.6521,
+      "ci_low": 0.5752,
+      "ci_high": 0.7277,
+      "note": "LODO-CV predicted score (trained on 8 other datasets)"
+    },
+    "rna_5fold_cv": {
+      "auc": 0.6471,
+      "ci_low": 0.5637,
+      "ci_high": 0.722,
+      "note": "RNA score passed through logistic regression (5-fold CV within TCGA-OV)"
+    },
+    "wes_5fold_cv": {
+      "auc": 0.5483,
+      "ci_low": 0.4651,
+      "ci_high": 0.6334,
+      "n_features": 17,
+      "features": [
+        "brca1_mut",
+        "brca2_mut",
+        "brca_any",
+        "hrr_mutated",
+        "tp53_mut",
+        "nf1_mut",
+        "rb1_mut",
+        "cdk12_mut",
+        "pik3ca_mut",
+        "brca_damaging",
+        "ccne1_amp",
+        "myc_amp",
+        "brca1_del",
+        "rb1_del",
+        "pten_del",
+        "brca_existing",
+        "tmb"
+      ],
+      "note": "L2 logistic regression on WES features (5-fold CV within TCGA-OV)"
+    },
+    "combined_5fold_cv": {
+      "auc": 0.5568,
+      "ci_low": 0.4745,
+      "ci_high": 0.6395,
+      "note": "WES features + RNA score combined (5-fold CV)"
+    },
+    "brca_raw": {
+      "auc": 0.5449,
+      "ci_low": 0.5238,
+      "ci_high": 0.5682,
+      "note": "Raw BRCA-any mutation as single predictor"
+    }
+  },
+  "complementarity": {
+    "rna_vs_wes_score": {
+      "spearman_rho": 0.1516,
+      "p": 0.0245
+    },
+    "rna_vs_brca": {
+      "spearman_rho": 0.1053,
+      "p": 0.1195,
+      "mean_rna_brca_mut": 0.565,
+      "mean_rna_brca_wt": 0.5081,
+      "mannwhitney_p": 0.1198
+    }
+  },
+  "analysis_metadata": {
+    "script": "addendum/tcga_wes_analysis.py",
+    "date": "2026-02-25",
+    "data_source": "cBioPortal API (ov_tcga_pan_can_atlas_2018)",
+    "rna_model": "L2 LogReg C=0.01, LODO-CV on fixed 11089-gene matrix",
+    "wes_model": "L2 LogReg C=0.1, 5-fold stratified CV within TCGA-OV",
+    "bootstrap_n": 2000
+  }
+}

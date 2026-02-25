@@ -14,6 +14,7 @@ import csv
 import json
 import sys
 from collections import defaultdict
+from scipy.stats import hypergeom
 
 # --- Load our response model genes ---
 response_genes = []
@@ -96,9 +97,24 @@ with open("/home/dani/repos2/Multiscale_HRD_Classifier/v2/experiments/exp8_respo
     brca_data = json.load(f)
 
 # --- Compute overlaps ---
+# Background universe: all genes in the model
+N_UNIVERSE = len(all_genes)  # 11,089
+
 def compute_overlap(gene_set, signature_set):
     overlap = gene_set & signature_set
     return overlap, len(overlap), len(signature_set)
+
+def hypergeom_pvalue(k, K, n, N):
+    """
+    Hypergeometric test for overlap enrichment.
+    k = overlap count, K = signature size (successes in population),
+    n = query set size (draws), N = universe size (population).
+    Returns p-value = P(X >= k).
+    """
+    if k == 0:
+        return 1.0
+    # sf(k-1) = P(X >= k)
+    return float(hypergeom.sf(k - 1, N, K, n))
 
 print("\n" + "="*80)
 print("OVERLAP ANALYSIS: Response Model Top Genes vs Published Signatures")
@@ -108,17 +124,25 @@ print("="*80)
 results = []
 
 # 1. HRD signatures
-print("\n--- vs HRD Signatures (from our collection) ---")
+print(f"\n--- vs HRD Signatures (from our collection) --- [universe N={N_UNIVERSE}]")
 for sig_name, sig_genes in sorted(hrd_signatures.items()):
+    sig_in_univ = len(sig_genes & all_genes)  # K: signature genes present in universe
     ol50, n50, nsig = compute_overlap(top50, sig_genes)
     ol100, n100, _ = compute_overlap(top100, sig_genes)
     ol200, n200, _ = compute_overlap(top200, sig_genes)
     ol500, n500, _ = compute_overlap(top500, sig_genes)
     ol_all, n_all, _ = compute_overlap(all_genes, sig_genes)
 
+    # Hypergeometric p-values (K = sig genes in universe, not total sig size)
+    p50 = hypergeom_pvalue(n50, sig_in_univ, 50, N_UNIVERSE)
+    p100 = hypergeom_pvalue(n100, sig_in_univ, 100, N_UNIVERSE)
+    p200 = hypergeom_pvalue(n200, sig_in_univ, 200, N_UNIVERSE)
+    p500 = hypergeom_pvalue(n500, sig_in_univ, 500, N_UNIVERSE)
+
     results.append({
         "signature": sig_name,
         "sig_size": nsig,
+        "sig_in_universe": sig_in_univ,
         "top50": n50,
         "top100": n100,
         "top200": n200,
@@ -127,24 +151,36 @@ for sig_name, sig_genes in sorted(hrd_signatures.items()):
         "top50_genes": sorted(ol50),
         "top100_genes": sorted(ol100),
         "top200_genes": sorted(ol200),
+        "p_top50": p50,
+        "p_top100": p100,
+        "p_top200": p200,
+        "p_top500": p500,
         "category": "HRD"
     })
-    print(f"  {sig_name} ({nsig} genes): top50={n50}, top100={n100}, top200={n200}, top500={n500}")
+    sig_marker = " ***" if p100 < 0.001 else " **" if p100 < 0.01 else " *" if p100 < 0.05 else ""
+    print(f"  {sig_name} ({nsig} genes, {sig_in_univ} in univ): top100={n100} (p={p100:.2e}){sig_marker}, top500={n500} (p={p500:.2e})")
     if ol100:
         print(f"    Top-100 overlapping: {sorted(ol100)}")
 
 # 2. External signatures
-print("\n--- vs Published Immune/Response Signatures ---")
+print(f"\n--- vs Published Immune/Response Signatures --- [universe N={N_UNIVERSE}]")
 for sig_name, sig_genes in external_signatures.items():
+    sig_in_univ = len(sig_genes & all_genes)
     ol50, n50, nsig = compute_overlap(top50, sig_genes)
     ol100, n100, _ = compute_overlap(top100, sig_genes)
     ol200, n200, _ = compute_overlap(top200, sig_genes)
     ol500, n500, _ = compute_overlap(top500, sig_genes)
     ol_all, n_all, _ = compute_overlap(all_genes, sig_genes)
 
+    p50 = hypergeom_pvalue(n50, sig_in_univ, 50, N_UNIVERSE)
+    p100 = hypergeom_pvalue(n100, sig_in_univ, 100, N_UNIVERSE)
+    p200 = hypergeom_pvalue(n200, sig_in_univ, 200, N_UNIVERSE)
+    p500 = hypergeom_pvalue(n500, sig_in_univ, 500, N_UNIVERSE)
+
     results.append({
         "signature": sig_name,
         "sig_size": nsig,
+        "sig_in_universe": sig_in_univ,
         "top50": n50,
         "top100": n100,
         "top200": n200,
@@ -153,9 +189,14 @@ for sig_name, sig_genes in external_signatures.items():
         "top50_genes": sorted(ol50),
         "top100_genes": sorted(ol100),
         "top200_genes": sorted(ol200),
+        "p_top50": p50,
+        "p_top100": p100,
+        "p_top200": p200,
+        "p_top500": p500,
         "category": "Immune/Response"
     })
-    print(f"  {sig_name} ({nsig} genes): top50={n50}, top100={n100}, top200={n200}, top500={n500}")
+    sig_marker = " ***" if p100 < 0.001 else " **" if p100 < 0.01 else " *" if p100 < 0.05 else ""
+    print(f"  {sig_name} ({nsig} genes, {sig_in_univ} in univ): top100={n100} (p={p100:.2e}){sig_marker}, top500={n500} (p={p500:.2e})")
     if ol200:
         print(f"    Top-200 overlapping: {sorted(ol200)}")
 
@@ -243,12 +284,17 @@ for r in results:
     target = summary["overlap_with_hrd_signatures"] if r["category"] == "HRD" else summary["overlap_with_immune_signatures"]
     target[r["signature"]] = {
         "signature_size": r["sig_size"],
+        "sig_genes_in_universe": r.get("sig_in_universe", r["sig_size"]),
         "overlap_top50": r["top50"],
         "overlap_top100": r["top100"],
         "overlap_top200": r["top200"],
         "overlap_top500": r["top500"],
         "overlap_all": r["all"],
         "top100_overlapping_genes": r["top100_genes"],
+        "hypergeom_p_top50": r["p_top50"],
+        "hypergeom_p_top100": r["p_top100"],
+        "hypergeom_p_top200": r["p_top200"],
+        "hypergeom_p_top500": r["p_top500"],
     }
 
 with open("/home/dani/repos2/Multiscale_HRD_Classifier/v2/experiments/exp8_response_prediction/addendum/gene_overlap_results.json", "w") as f:

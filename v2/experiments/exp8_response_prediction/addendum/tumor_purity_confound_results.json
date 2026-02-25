@@ -1,0 +1,154 @@
+{
+  "basic_correlations": {
+    "score_vs_leukfrac": {
+      "spearman_rho": 0.1475,
+      "spearman_p": 0.0237,
+      "pearson_r": 0.1298,
+      "pearson_p": 0.0469
+    },
+    "score_vs_purity": {
+      "spearman_rho": -0.1475,
+      "spearman_p": 0.0237
+    },
+    "response_vs_leukfrac": {
+      "spearman_rho": 0.0782,
+      "spearman_p": 0.232
+    },
+    "response_vs_purity": {
+      "spearman_rho": -0.0782,
+      "spearman_p": 0.232
+    },
+    "leukfrac_sensitive_mean": 0.1135,
+    "leukfrac_resistant_mean": 0.1073,
+    "mannwhitney_leukfrac_by_response_p": 0.2321
+  },
+  "logistic_regression_models": {
+    "model1_score_only": {
+      "AIC": 275.9,
+      "score_coef": 4.0732,
+      "score_pval": 0.0003
+    },
+    "model2_score_plus_purity": {
+      "AIC": 277.9,
+      "score_coef": 4.0517,
+      "score_pval": 0.0003,
+      "purity_coef": -0.3729,
+      "purity_pval": 0.8643
+    },
+    "model3_purity_only": {
+      "AIC": 289.9,
+      "purity_coef": -1.3454,
+      "purity_pval": 0.5316
+    },
+    "lr_test_score_adds_to_purity": {
+      "chi2": 13.9337,
+      "p": 0.0002
+    },
+    "lr_test_purity_adds_to_score": {
+      "chi2": 0.0294,
+      "p": 0.864
+    }
+  },
+  "stratified_by_purity": {
+    "median_purity": 0.9025,
+    "high_purity": {
+      "n": 118,
+      "n_sensitive": 79,
+      "n_resistant": 39,
+      "auc": 0.6177,
+      "purity_range": [
+        0.9025,
+        0.9895
+      ]
+    },
+    "low_purity": {
+      "n": 117,
+      "n_sensitive": 86,
+      "n_resistant": 31,
+      "auc": 0.6857,
+      "purity_range": [
+        0.5791,
+        0.9022
+      ]
+    }
+  },
+  "gene_purity_analysis": {
+    "top_50_genes_sig_purity_corr": 26,
+    "top_50_mean_abs_rho_purity": 0.1641,
+    "weight_vs_purity_corr_top50": {
+      "rho": 0.0183,
+      "p": 0.8996
+    },
+    "weight_vs_purity_corr_all": {
+      "spearman": {
+        "rho": -0.0346,
+        "p": 0.00027
+      },
+      "pearson": {
+        "r": -0.0531,
+        "p": 2.24e-08
+      }
+    },
+    "top_10_genes": {
+      "CP": {
+        "model_weight": 0.046366,
+        "spearman_rho_vs_purity": -0.1409,
+        "spearman_p_vs_purity": 0.0308
+      },
+      "GPRC5A": {
+        "model_weight": -0.045161,
+        "spearman_rho_vs_purity": -0.1557,
+        "spearman_p_vs_purity": 0.0169
+      },
+      "WNT10A": {
+        "model_weight": -0.04396,
+        "spearman_rho_vs_purity": 0.0546,
+        "spearman_p_vs_purity": 0.405
+      },
+      "CXCL9": {
+        "model_weight": 0.043958,
+        "spearman_rho_vs_purity": -0.6057,
+        "spearman_p_vs_purity": 6.37e-25
+      },
+      "POSTN": {
+        "model_weight": -0.043774,
+        "spearman_rho_vs_purity": -0.4356,
+        "spearman_p_vs_purity": 2.67e-12
+      },
+      "REG1A": {
+        "model_weight": 0.043342,
+        "spearman_rho_vs_purity": 0.1272,
+        "spearman_p_vs_purity": 0.0514
+      },
+      "CLDN6": {
+        "model_weight": -0.042115,
+        "spearman_rho_vs_purity": 0.0189,
+        "spearman_p_vs_purity": 0.773
+      },
+      "PIGR": {
+        "model_weight": 0.041636,
+        "spearman_rho_vs_purity": -0.2179,
+        "spearman_p_vs_purity": 0.000769
+      },
+      "CDH3": {
+        "model_weight": 0.041279,
+        "spearman_rho_vs_purity": 0.1402,
+        "spearman_p_vs_purity": 0.0317
+      },
+      "FOLR1": {
+        "model_weight": 0.041092,
+        "spearman_rho_vs_purity": 0.0732,
+        "spearman_p_vs_purity": 0.264
+      }
+    }
+  },
+  "conclusion": "Score remains significant after adjusting for purity, while purity itself is not a significant predictor. Tumor purity is NOT a meaningful confound.",
+  "analysis_metadata": {
+    "script": "addendum/tumor_purity_confound.py",
+    "date": "2026-02-25",
+    "purity_source": "ESTIMATE leukocyte fraction from Thorsson et al. 2018",
+    "purity_proxy": "tumor_purity = 1 - leukocyte_fraction",
+    "dataset": "TCGA-OV",
+    "n_samples": 235
+  }
+}
