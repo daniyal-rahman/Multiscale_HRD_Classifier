@@ -28,21 +28,52 @@ The current generation of HRD tests works at the DNA level:
 - **Foundation Medicine** uses genome-wide LOH as a proxy for HRD.
 - **BRCA1/2 sequencing** identifies germline and somatic mutations directly.
 
-More recently, RNA-based approaches have emerged. **Tempus HRD-RNA** trains on BRCA-biallelic status (whether both alleles of BRCA1/2 are inactivated) and uses gene expression as input. Other signatures like **softHRD** use 109-gene expression panels trained to predict genomic scar scores.
+More recently, RNA-based approaches have emerged. **Tempus HRD-RNA** trains on BRCA-biallelic status (whether both alleles of BRCA1/2 are inactivated) and uses gene expression as input. Other signatures like **softHRD** use 109-gene expression panels trained to predict genomic scar scores. At least 11 published RNA-based HRD signatures now exist (Multiscale, softHRD, PanHRD200, Severson, Beinse2022, expHRD, Konstantinopoulos BRCAness, Peng2014, CIN70, ProHRDness, PARPi7), all targeting the same question from slightly different angles.
 
-### The Gap
+### The Problem: Published HRD Signatures Don't Agree With Each Other
 
-All of these approaches share a fundamental design choice: they predict a *genotype* (BRCA status, HRD score, genomic scars), not a *phenotype* (drug response). The implicit assumption is that genotype is a reliable proxy for drug response.
+Here is the uncomfortable reality about these RNA-based HRD signatures: **they share almost no genes with each other**, and the genes they do use look nothing like what a data-driven approach would select.
 
-But this assumption has well-documented limitations. Not all BRCA-mutated tumors respond to platinum. Many BRCA-wildtype tumors *do* respond. The correlation between genomic HRD scores and clinical outcomes is real but imperfect. Something beyond DNA repair deficiency contributes to platinum sensitivity, and genotype-trained models are blind to it.
+In our prior work (Experiments 1-3 in this repository), we systematically compared published HRD signatures against data-driven gene sets selected by differential expression between HRD and HR-proficient tumors in TCGA-BRCA (n = 588). The findings were striking:
+
+**Near-zero gene overlap.** We constructed a "Consensus-93" set by taking genes that appeared in at least 3 of the 11 published signatures. When we compared this consensus set to the top 100 data-driven genes (ranked by t-test between HRD and HRP in TCGA-BRCA), the overlap was exactly **zero genes** (Jaccard similarity = 0.00). Even expanding to the top 500 data-driven genes, only 22 of the 93 consensus genes appeared (Jaccard = 0.04).
+
+![Signature gene overlap: Jaccard similarity and overlap counts between consensus, all-signature, and data-driven gene sets](figures/fig0a_signature_overlap.png)
+
+**They all predict the same proxy well.** Despite using completely different genes, all 11 published signatures achieve >0.93 AUC for classifying HRD status in TCGA-BRCA cross-validation. softHRD reaches 0.978, PanHRD200 reaches 0.975, even the 7-gene PARPi7 signature reaches 0.939. A consensus of all signatures (All-signature-410, 397 unique genes) achieves 0.985. A purely data-driven set of 100 genes achieves 0.986 --- matching or exceeding every published signature.
+
+![Individual signature performance: all >0.93 AUC on TCGA-BRCA HRD classification](figures/fig0b_signature_performance.png)
+
+So all these signatures can predict HRD genotype. But they use completely different genes to get there. This raises a question: **are they learning the biology of HRD, or are they learning correlated proxies?**
+
+**Published signatures are dominated by DNA repair and cell cycle genes.** The Consensus-93 set contains 17 HR repair genes, 7 Fanconi anemia genes, 19 cell cycle genes, and 6 replication stress genes. The top 100 data-driven genes contain essentially none of these --- 97 of 100 fall into no canonical HRD pathway. The data-driven genes are capturing *something different* about HRD tumors that happens to be just as predictive of the genotype label.
+
+![Pathway composition: published signatures vs data-driven gene sets](figures/fig0d_pathway_composition.png)
+
+### The Critical Failure: Genotype Signatures Don't Predict Drug Response
+
+This is where it gets clinically important. We trained each gene set on TCGA-BRCA HRD labels and tested whether those models could predict *actual drug response* --- specifically, pathological complete response (pCR) to platinum + PARPi in the I-SPY2 clinical trial (n = 100 TNBC patients).
+
+| Gene Set | TCGA-BRCA CV AUC (HRD classification) | I-SPY2 AUC (pCR prediction) |
+|----------|---------------------------------------|----------------------------|
+| Consensus-93 | 0.964 | **0.500** (random) |
+| All-signature-410 | 0.985 | 0.751 |
+| Data-driven-100 | 0.986 | 0.684 |
+| Data-driven-500 | 0.983 | **0.776** |
+
+The Consensus-93 --- the genes that published HRD signatures agree on most --- achieves an AUC of exactly **0.500** on I-SPY2. Literally random. A model that perfectly classifies HRD genotype using the "best" published genes completely fails to predict whether patients actually respond to treatment.
+
+![I-SPY2 validation: Consensus-93 fails (AUC=0.500), data-driven-500 succeeds (AUC=0.776)](figures/fig0c_ispy2_genotype_failure.png)
+
+The data-driven gene sets fare better (DD-500: 0.776), but they were still trained on genotype labels and are still predicting a proxy. This result crystallized our hypothesis.
 
 ### Our Hypothesis
 
-What if you train directly on what you care about? Instead of using BRCA status or HRD score as a training label, use *actual clinical drug response* --- whether the patient responded to platinum-based chemotherapy --- as the target variable.
+What if you skip the genotype proxy entirely? Instead of using BRCA status or HRD score as a training label, use *actual clinical drug response* --- whether the patient responded to platinum-based chemotherapy --- as the target variable.
 
-The trade-off is clear: clinical response labels are noisier than genotype labels (response definitions vary across studies, platinum is always given in combination, some patients get suboptimal dosing). But they capture the *entire biology* of drug sensitivity, not just the DNA repair component.
+The trade-off is clear: clinical response labels are noisier than genotype labels (response definitions vary across studies, platinum is always given in combination, some patients get suboptimal dosing). But they capture the *entire biology* of drug sensitivity, not just the DNA repair component. And as we just showed, the DNA repair component --- as captured by published signatures --- may not be the part that matters for clinical response.
 
-This concept is not new --- several prior studies have trained gene expression models on platinum response in ovarian cancer (Helleman et al. 2006, Dressman et al. 2007, Konstantinopoulos et al. 2010). Our contribution is (1) a systematic cross-dataset evaluation using LODO-CV, (2) a direct head-to-head comparison with genotype-trained models on equal footing, and (3) a biological characterization suggesting the model captures immune microenvironment rather than DNA repair.
+This concept is not new --- several prior studies have trained gene expression models on platinum response in ovarian cancer (Helleman et al. 2006, Dressman et al. 2007, Konstantinopoulos et al. 2010). Our contribution is (1) showing that published HRD signatures fail at clinical response prediction despite excellent genotype classification, (2) a systematic cross-dataset evaluation using LODO-CV across 9 independent cohorts, (3) a direct head-to-head comparison with genotype-trained models on equal footing, and (4) a biological characterization suggesting the model captures immune microenvironment rather than DNA repair.
 
 ---
 
